@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import CaseStudiesHero from "@/components/caseStudies/CaseStudiesHero";
 import LogoTicker from "@/components/LogoTicker";
 import CaseStudiesGrid from "@/components/caseStudies/CaseStudiesGrid";

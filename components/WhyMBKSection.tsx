@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -480,21 +481,23 @@ export default function WhyMBKSection() {
                 <div className="w-[48%] flex items-center justify-center relative h-full">
                     {/* Central MBK logo (actual PNG) */}
                     <div className="flex flex-col items-center z-10 relative">
-                        <img
+                        <Image
                             src="/logos/logo-main.png"
                             alt="MBK Global"
-                            className="w-[220px] object-contain mb-3"
+                            width={220}
+                            height={220}
+                            className="object-contain mb-3"
                         />
                         <span className="font-black text-[2rem] tracking-widest text-[#1a1a1a]">MBK <span className="font-light">GLOBAL</span></span>
                     </div>
 
                     {/* Orbiting partner logos — evenly spaced 72° apart, same speed */}
                     {[
-                        { logo: "/logos/logo-1.png", size: 64, delay: "0s"    },
+                        { logo: "/logos/logo-1.png", size: 64, delay: "0s" },
                         { logo: "/logos/logo-2.png", size: 64, delay: "-3.2s" },
                         { logo: "/logos/logo-3.png", size: 64, delay: "-6.4s" },
                         { logo: "/logos/logo-4.png", size: 64, delay: "-9.6s" },
-                        { logo: "/logos/logo-5.png", size: 64, delay: "-12.8s"},
+                        { logo: "/logos/logo-5.png", size: 64, delay: "-12.8s" },
                     ].map((orb, idx) => (
                         <div
                             key={idx}
@@ -509,7 +512,7 @@ export default function WhyMBKSection() {
                                 animation: `orbit 16s linear ${orb.delay} infinite`,
                             }}
                         >
-                            <img src={orb.logo} alt="partner" className="w-full h-full object-contain" />
+                            <Image src={orb.logo} alt="partner" fill className="object-contain" />
                         </div>
                     ))}
                 </div>
@@ -541,12 +544,12 @@ export default function WhyMBKSection() {
                             {/* Arrow - appears on hover */}
                             <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                                    <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                                 </svg>
                             </div>
                             {/* Watermark logo - rises on hover */}
                             <div className="absolute bottom-[-10%] right-[-2%] w-[45%] opacity-[0.18] group-hover:opacity-[0.28] group-hover:translate-y-[-12%] pointer-events-none select-none transition-all duration-500">
-                                <img src="/logos/logo-main.png" alt="" className="w-full object-contain" />
+                                <Image src="/logos/logo-main.png" alt="" fill className="object-contain" />
                             </div>
                             <h3 className="text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-3 transition-colors duration-300">Customers</h3>
                             <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.92rem] leading-snug font-medium transition-colors duration-300">Unlock the full potential of digitalisation.</p>
@@ -555,12 +558,12 @@ export default function WhyMBKSection() {
                             {/* Arrow - appears on hover */}
                             <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                                    <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                                 </svg>
                             </div>
                             {/* Watermark logo - rises on hover */}
                             <div className="absolute bottom-[-10%] right-[-2%] w-[45%] opacity-[0.18] group-hover:opacity-[0.28] group-hover:translate-y-[-12%] pointer-events-none select-none transition-all duration-500">
-                                <img src="/logos/logo-main.png" alt="" className="w-full object-contain" />
+                                <Image src="/logos/logo-main.png" alt="" fill className="object-contain" />
                             </div>
                             <h3 className="text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-3 transition-colors duration-300">Partners</h3>
                             <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.92rem] leading-snug font-medium transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
@@ -570,52 +573,53 @@ export default function WhyMBKSection() {
 
                 {/* Bottom: draggable image strip */}
                 <div ref={phase5BottomRef}>
-                <div
-                    ref={dragScrollRef}
-                    className="w-full overflow-x-auto pb-6 px-6 select-none"
-                    style={{ cursor: 'grab', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    onMouseDown={handleDragStart}
-                    onMouseMove={handleDragMove}
-                    onMouseUp={handleDragEnd}
-                    onMouseLeave={handleDragEnd}
-                >
-                    <div className="flex gap-5" style={{ width: 'max-content' }}>
-                        {[
-                            { src: "/images/subsurface&drilling/0c8e090b98c8c49cb9692105363fdaefdc980b6a.png", label: "Enhanced Reservoir Monitoring" },
-                            { src: "/images/Midstream&Transport/5edae69127d285ba10ec779628c678137107df22.png", label: "Terminal Operations Control" },
-                            { src: "/images/Processing&refining/4fc0d498149934f2bb7f26013886c25602f91370.png", label: "Process Yield Optimization" },
-                            { src: "/images/trade&commercial/0481f44a99695c08e64be2fb47b2da7f31e3ad7f.png", label: "Trade Analytics Platform" },
-                            { src: "/images/digitalNervousSystem/0ca4ea1d74c587a7f241e0a9d18d36360f68f63c.png", label: "Digital Nervous System" },
-                            { src: "/images/subsurface&drilling/22eed7cc54230b494110a5283f8d61eb24b33cbd.png", label: "Autonomous Seismic Processing" },
-                            { src: "/images/Midstream&Transport/e049a16bacb76dc0e8c514229ad3a0b8c3786796.png", label: "Network Optimization" },
-                            { src: "/images/Processing&refining/5c36104456dbd212f3d210fe7017f1efff27f8a6.png", label: "AI-Driven Plant Monitoring" },
-                        ].map((item, i) => (
-                            <div key={i} className="group flex-shrink-0 w-[280px] flex flex-col">
-                                {/* Image card */}
-                                <div className="relative w-full h-[170px] rounded-2xl overflow-hidden bg-gray-100">
-                                    <img
-                                        src={item.src}
-                                        alt={item.label}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                        draggable={false}
-                                    />
-                                    {/* Grey/silver overlay on hover */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-[rgba(180,185,195,0.35)]" />
-                                    {/* Arrow on hover — plain, pink-purple */}
-                                    <div className="absolute top-3 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C026D3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-                                        </svg>
+                    <div
+                        ref={dragScrollRef}
+                        className="w-full overflow-x-auto pb-6 px-6 select-none"
+                        style={{ cursor: 'grab', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        onMouseDown={handleDragStart}
+                        onMouseMove={handleDragMove}
+                        onMouseUp={handleDragEnd}
+                        onMouseLeave={handleDragEnd}
+                    >
+                        <div className="flex gap-5" style={{ width: 'max-content' }}>
+                            {[
+                                { src: "/images/subsurface&drilling/0c8e090b98c8c49cb9692105363fdaefdc980b6a.png", label: "Enhanced Reservoir Monitoring" },
+                                { src: "/images/Midstream&Transport/5edae69127d285ba10ec779628c678137107df22.png", label: "Terminal Operations Control" },
+                                { src: "/images/Processing&refining/4fc0d498149934f2bb7f26013886c25602f91370.png", label: "Process Yield Optimization" },
+                                { src: "/images/trade&commercial/0481f44a99695c08e64be2fb47b2da7f31e3ad7f.png", label: "Trade Analytics Platform" },
+                                { src: "/images/digitalNervousSystem/0ca4ea1d74c587a7f241e0a9d18d36360f68f63c.png", label: "Digital Nervous System" },
+                                { src: "/images/subsurface&drilling/22eed7cc54230b494110a5283f8d61eb24b33cbd.png", label: "Autonomous Seismic Processing" },
+                                { src: "/images/Midstream&Transport/e049a16bacb76dc0e8c514229ad3a0b8c3786796.png", label: "Network Optimization" },
+                                { src: "/images/Processing&refining/5c36104456dbd212f3d210fe7017f1efff27f8a6.png", label: "AI-Driven Plant Monitoring" },
+                            ].map((item, i) => (
+                                <div key={i} className="group flex-shrink-0 w-[280px] flex flex-col">
+                                    {/* Image card */}
+                                    <div className="relative w-full h-[170px] rounded-2xl overflow-hidden bg-gray-100">
+                                        <Image
+                                            src={item.src}
+                                            alt={item.label}
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            draggable={false}
+                                        />
+                                        {/* Grey/silver overlay on hover */}
+                                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-[rgba(180,185,195,0.35)]" />
+                                        {/* Arrow on hover — plain, pink-purple */}
+                                        <div className="absolute top-3 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C026D3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+                                            </svg>
+                                        </div>
                                     </div>
+                                    {/* Label */}
+                                    <p className="mt-2.5 text-[0.88rem] font-bold text-gray-800 group-hover:text-[#5B21B6] leading-snug transition-colors duration-300 px-0.5">
+                                        {item.label}
+                                    </p>
                                 </div>
-                                {/* Label */}
-                                <p className="mt-2.5 text-[0.88rem] font-bold text-gray-800 group-hover:text-[#5B21B6] leading-snug transition-colors duration-300 px-0.5">
-                                    {item.label}
-                                </p>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
                 </div>{/* end phase5BottomRef */}
             </div>
 
@@ -635,26 +639,26 @@ export default function WhyMBKSection() {
                     </p>
                     <div className="flex gap-3 flex-1">
                         <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group">
-                            <img src="/images/subsurface&drilling/0c8e090b98c8c49cb9692105363fdaefdc980b6a.png" alt="Operator Prospectus" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <Image src="/images/subsurface&drilling/0c8e090b98c8c49cb9692105363fdaefdc980b6a.png" alt="Operator Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
                             {/* Download icon anchored bottom-left, slides in from top */}
                             <div className="absolute bottom-12 left-4 z-10 opacity-0 group-hover:opacity-100 transform -translate-y-[500%] group-hover:translate-y-0 transition-all duration-500 ease-out">
                                 <div className="bg-[#7C3AED] rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M12 4v12m0 0l-4-4m4 4l4-4"/><line x1="4" y1="20" x2="20" y2="20"/>
+                                        <path d="M12 4v12m0 0l-4-4m4 4l4-4" /><line x1="4" y1="20" x2="20" y2="20" />
                                     </svg>
                                 </div>
                             </div>
                             <span className="absolute bottom-3 left-3 text-white font-bold text-[0.85rem] z-10">Operator Prospectus</span>
                         </div>
                         <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group">
-                            <img src="/images/Midstream&Transport/5edae69127d285ba10ec779628c678137107df22.png" alt="Partner Prospectus" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <Image src="/images/Midstream&Transport/5edae69127d285ba10ec779628c678137107df22.png" alt="Partner Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
                             {/* Download icon anchored bottom-left, slides in from top */}
                             <div className="absolute bottom-12 left-4 z-10 opacity-0 group-hover:opacity-100 transform -translate-y-[500%] group-hover:translate-y-0 transition-all duration-500 ease-out">
                                 <div className="bg-[#7C3AED] rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M12 4v12m0 0l-4-4m4 4l4-4"/><line x1="4" y1="20" x2="20" y2="20"/>
+                                        <path d="M12 4v12m0 0l-4-4m4 4l4-4" /><line x1="4" y1="20" x2="20" y2="20" />
                                     </svg>
                                 </div>
                             </div>
@@ -724,11 +728,14 @@ export default function WhyMBKSection() {
                         <div className="flex w-1/2 items-center justify-around px-8">
                             {logos.map((logo, index) => (
                                 <div key={`logo-1-${index}`} className="flex items-center justify-center min-w-[150px]">
-                                    <img
-                                        src={logo}
-                                        alt={`Partner logo ${index + 1}`}
-                                        className="max-h-[35px] max-w-[110px] object-contain opacity-80 transition-opacity hover:opacity-100"
-                                    />
+                                    <div className="relative w-full h-full min-h-[35px] max-w-[110px]">
+                                        <Image
+                                            src={logo}
+                                            alt={`Partner logo ${index + 1}`}
+                                            fill
+                                            className="object-contain opacity-80 transition-opacity hover:opacity-100"
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -736,11 +743,14 @@ export default function WhyMBKSection() {
                         <div className="flex w-1/2 items-center justify-around px-8">
                             {logos.map((logo, index) => (
                                 <div key={`logo-2-${index}`} className="flex items-center justify-center min-w-[150px]">
-                                    <img
-                                        src={logo}
-                                        alt={`Partner logo ${index + 1}`}
-                                        className="max-h-[35px] max-w-[110px] object-contain opacity-80 transition-opacity hover:opacity-100"
-                                    />
+                                    <div className="relative w-full h-full min-h-[35px] max-w-[110px]">
+                                        <Image
+                                            src={logo}
+                                            alt={`Partner logo ${index + 1}`}
+                                            fill
+                                            className="object-contain opacity-80 transition-opacity hover:opacity-100"
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </div>

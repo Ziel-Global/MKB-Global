@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Image from "next/image";
 
@@ -55,7 +54,7 @@ export default function ServicesHero() {
                     </p>
 
                     <h1 className="text-[1.5rem] md:text-[2.25rem] lg:text-[2.75rem] font-extrabold text-[#3b177d] leading-[1.1] tracking-tight">
-                        Services That Build What's Next
+                        Services That Build What&apos;s Next
                     </h1>
 
                     <div className="flex flex-col gap-2 max-w-2xl mt-1">
@@ -64,7 +63,7 @@ export default function ServicesHero() {
                         </p>
 
                         <p className="text-[#333333] text-xs md:text-sm leading-relaxed">
-                            Whether you're starting with a bold idea, scaling a high-impact venture, or transforming complex operations—we bring the tools, talent, and structure to get it done. Every service we offer is built to drive outcomes, not just outputs.
+                            Whether you&apos;re starting with a bold idea, scaling a high-impact venture, or transforming complex operations—we bring the tools, talent, and structure to get it done. Every service we offer is built to drive outcomes, not just outputs.
                         </p>
                     </div>
 

@@ -7,63 +7,7 @@ import ContactForm from "@/components/aboutUs/ContactForm";
 import Image from "next/image";
 import Link from "next/link";
 
-const divisions = [
-  {
-    title: "Subsurface & Drilling",
-    description:
-      "AI-driven reservoir intelligence and autonomous drilling solutions that optimise recovery and reduce well costs.",
-    icon: "/images/subsurface&drilling/icon.png",
-  },
-  {
-    title: "Processing & Refining",
-    description:
-      "Digital twin and advanced process control capabilities that maximise plant yield and operational reliability.",
-    icon: "/images/Processing&refining/icon.png",
-  },
-  {
-    title: "Midstream & Transport",
-    description:
-      "Integrated pipeline and logistics orchestration platforms that eliminate bottlenecks across the value chain.",
-    icon: "/images/Midstream&Transport/icon.png",
-  },
-  {
-    title: "Trade & Commercial",
-    description:
-      "Real-time market analytics and automated trading execution tools tuned for energy commodity markets.",
-    icon: "/images/trade&commercial/icon.png",
-  },
-  {
-    title: "Supply Chain & Industrial Services",
-    description:
-      "Predictive procurement and vendor ecosystem management designed for complex energy supply networks.",
-    icon: "/images/supplychain&Indistrialservice/icon.png",
-  },
-  {
-    title: "Digital Nervous System",
-    description:
-      "The connective intelligence layer — data fabric, AI orchestration, and integration infrastructure — that unifies every division.",
-    icon: "/images/digitalNervousSystem/icon.png",
-  },
-];
-
-const pillars = [
-  {
-    label: "Investment",
-    description:
-      "We deploy capital with conviction into technologies and companies that are ready to scale within energy ecosystems.",
-  },
-  {
-    label: "Operations",
-    description:
-      "We embed operational expertise directly into delivery, ensuring technology translates into measurable field outcomes.",
-  },
-  {
-    label: "Innovation",
-    description:
-      "We co-develop next-generation solutions with our partners, turning frontier research into production-ready capabilities.",
-  },
-];
-
+// Removed unused divisions and pillars variables
 export default function AboutPage() {
   return (
     <div className="flex min-h-[100dvh] flex-col w-full bg-white relative">
