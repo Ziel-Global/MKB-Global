@@ -13,10 +13,10 @@ export default function Header() {
 
             {/* Center Logo */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2">
-                <div className="flex items-center">
+                <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
                     <Image src="/logos/logo-main.png" alt="MBK Logo" width={32} height={24} className="h-6 w-auto object-contain" priority />
                     <span className="font-bold text-xl ml-2 tracking-wide text-black">MBK GLOBAL</span>
-                </div>
+                </Link>
             </div>
 
             {/* Right Buttons */}

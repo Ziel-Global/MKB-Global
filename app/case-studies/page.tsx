@@ -6,7 +6,7 @@ import ServicesCTA from "@/components/services/ServicesCTA";
 
 export default function CaseStudiesPage() {
     return (
-        <div className="min-h-screen flex flex-col pt-24 bg-white font-sans text-gray-900 selection:bg-[#8B3DFF] selection:text-white">
+        <div className="min-h-screen flex flex-col pt-0 bg-white font-sans text-gray-900 selection:bg-[#8B3DFF] selection:text-white">
             <Header />
 
             <main className="w-full flex-1">
