@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Header() {
     return (
-        <header className="fixed top-0 z-50 w-full bg-[#f6f6f8] px-6 py-2 flex items-center justify-between rounded-full mt-2 mx-4 max-w-[calc(100%-2rem)] shadow-sm">
+        <header className="fixed top-0 z-50 w-full bg-[#EBE9FFE5] px-6 py-2 flex items-center justify-between rounded-full mt-2 mx-4 max-w-[calc(100%-2rem)] shadow-sm">
             {/* Left Navigation */}
             <nav className="flex items-center gap-6 text-sm font-medium text-gray-700">
                 <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
