@@ -25,29 +25,32 @@ export default function Hero() {
                 }
             });
 
-            // Fade out and translate up the headline and logo ticker
+            // Step 1: Fade out the headline and logo ticker slowly first
             tl.to(contentToHideRef.current, {
                 opacity: 0,
-                y: -50,
-                ease: "power1.inOut"
+                y: -40,
+                duration: 0.4,
+                ease: "power2.inOut"
             }, 0);
 
-            // Scale up the video container to fill the screen
+            // Step 2: Scale up the video as headline is disappearing
             tl.to(videoContainerRef.current, {
-                scale: 1.15,
-                y: -50, // Move up slightly
-                ease: "power1.inOut"
-            }, 0);
+                scale: 1.6,
+                y: -80,
+                duration: 0.5,
+                ease: "power2.inOut"
+            }, 0.3);
 
-            // Fade in and slide up the overlay text box
+            // Step 3: Fade in and slide up the overlay card last
             tl.fromTo(overlayRef.current, {
                 opacity: 0,
-                y: 50,
+                y: 40,
             }, {
                 opacity: 1,
                 y: 0,
-                ease: "power1.out"
-            }, 0.2); // Start slightly after the other animations
+                duration: 0.4,
+                ease: "power2.out"
+            }, 0.6);
 
         }, sectionRef);
 
@@ -88,11 +91,11 @@ export default function Hero() {
                     {/* Overlay Card that appears on scroll */}
                     <div
                         ref={overlayRef}
-                        className="absolute bottom-[-5%] md:bottom-[-10%] left-1/2 -translate-x-1/2 w-[85%] md:w-[70%] max-w-[650px] bg-[#2E0E68] text-white rounded-[1.5rem] p-6 md:p-8 text-center shadow-2xl z-20"
+                        className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] md:w-auto max-w-[95%] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
                     >
-                        <h2 className="text-2xl md:text-3xl font-medium mb-3">Built for Qatar’s Oil & Gas Leaders</h2>
-                        <p className="text-xs md:text-sm text-gray-200 uppercase tracking-wider font-light">
-                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains — safely, reliably, and at speed.
+                        <h2 className="text-sm md:text-base font-semibold mb-1">Built for Qatar’s Oil & Gas Leaders</h2>
+                        <p className="text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
+                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous,integrated value chains — safely, reliably, and at speed.
                         </p>
                     </div>
                 </div>

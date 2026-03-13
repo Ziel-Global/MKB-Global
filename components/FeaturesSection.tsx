@@ -200,18 +200,21 @@ export default function FeaturesSection() {
             <div ref={contentRef} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6 md:px-12 pb-8 z-10 flex flex-col items-start max-w-[1280px]">
 
                 {/* Headers */}
-                <div className="mb-4 max-w-3xl">
-                    <h2 className="text-3xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-3">
+                <div className="relative mb-4 max-w-3xl z-10">
+                    {/* Gloss / Frosty background effect */}
+                    <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
+
+                    <h2 className="text-3xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-3 relative z-10">
                         Every Asset Connected. Every Risk Anticipated.
                     </h2>
-                    <p className="text-[#374151] text-sm md:text-base font-normal leading-relaxed max-w-2xl">
+                    <p className="text-[#374151] text-sm md:text-base font-medium leading-relaxed max-w-2xl relative z-10">
                         Real-time subsurface intelligence synchronises teams, reduces interventions, and stabilises production.<br />
                         Models learn continuously, guiding drilling with precision and confidence.
                     </p>
                 </div>
 
                 {/* Tabs Row */}
-                <div className="w-full flex gap-2 mb-5 pointer-events-auto">
+                <div className="w-full flex gap-2 mb-5 pointer-events-auto relative z-20">
                     {tabs.map((tab) => (
                         <button
                             key={tab}
