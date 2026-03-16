@@ -120,176 +120,200 @@ export default function WhyMBKSection() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Time for achievements + Time for transition to "Why Partners" + Time to stay on screen + Phase 3 logic + Phase 4 + Phase 5
-            const totalDuration = achievements.length * 1.4 + 1.0 + 3.0 + partnerAchievements.length * 1.4 + 2.0 + 2.0 + 5.0 + 6.0 + 8.0;
+            // Tighter durations for snappier transitions
+            const totalDuration = achievements.length * 1.2 + 1.0 + 2.5 + partnerAchievements.length * 1.2 + 1.5 + 1.5 + 3.0 + 3.5 + 4.5;
+
+            // Collect snap points (normalized 0–1) for each phase boundary
+            const snapPoints: number[] = [];
 
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: `+=${totalDuration * 100}%`,
+                    end: `+=${totalDuration * 55}%`,
                     pin: true,
-                    scrub: 1,
+                    scrub: 0.6,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
+                    snap: {
+                        snapTo: (progress: number) => {
+                            // Find the nearest snap point
+                            let closest = 0;
+                            let minDist = Infinity;
+                            for (const sp of snapPoints) {
+                                const dist = Math.abs(progress - sp);
+                                if (dist < minDist) {
+                                    minDist = dist;
+                                    closest = sp;
+                                }
+                            }
+                            return closest;
+                        },
+                        duration: { min: 0.2, max: 0.6 },
+                        ease: "power1.inOut",
+                    },
                 },
             });
 
             achievements.forEach((_, i) => {
-                const t = i * 1.4;
+                const t = i * 1.2;
 
-                // Expand wrapper from height 0 → full (card takes no DOM space initially)
                 tl.fromTo(
                     wrapperRefs.current[i],
                     { maxHeight: 0, marginBottom: 0, opacity: 0 },
-                    { maxHeight: CARD_FULL_HEIGHT, marginBottom: 2, opacity: 1, ease: "power2.out", duration: 0.9 },
+                    { maxHeight: CARD_FULL_HEIGHT, marginBottom: 2, opacity: 1, ease: "power2.out", duration: 0.8 },
                     t
                 );
 
-                // Collapse previous card's description (accordion effect)
                 if (i > 0) {
                     tl.to(
                         descRefs.current[i - 1],
-                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.6 },
+                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.5 },
                         t
                     );
                 }
             });
 
             // Footer appears after all cards
-            const footerStart = achievements.length * 1.4;
+            const footerStart = achievements.length * 1.2;
             tl.fromTo(
                 footerRef.current,
                 { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, ease: "power2.out", duration: 0.8 },
+                { opacity: 1, y: 0, ease: "power2.out", duration: 0.6 },
                 footerStart
             );
 
             // --- Transition to "Why Partners" Section ---
-            const transitionStart = footerStart + 1.5;
+            const transitionStart = footerStart + 1.0;
+            snapPoints.push(transitionStart / totalDuration);
 
-            // 1. Fade out the left content panel
-            tl.to(leftPanelRef.current, { opacity: 0, duration: 1.0, ease: "power2.inOut" }, transitionStart);
+            tl.to(leftPanelRef.current, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, transitionStart);
 
-            // 2. Move video container from right to left AND zoom it in more
             tl.to(
                 videoContainerRef.current,
-                { left: 0, right: "auto", x: "-35%", scale: 1.6, duration: 1.5, ease: "power2.inOut" },
+                { left: 0, right: "auto", x: "-35%", scale: 1.6, duration: 1.2, ease: "power2.inOut" },
                 transitionStart
             );
 
-            // 3. Fade in the new right panel containing the partners section
             tl.fromTo(
                 rightPanelRef.current,
                 { opacity: 0, x: 50 },
-                { opacity: 1, x: 0, duration: 1.2, ease: "power2.out" },
-                transitionStart + 1.0
+                { opacity: 1, x: 0, duration: 1.0, ease: "power2.out" },
+                transitionStart + 0.8
             );
 
             // --- Phase 3: "We amplify partners by" ---
-            const phase3Start = transitionStart + 3.5;
+            const phase3Start = transitionStart + 2.5;
+            snapPoints.push(phase3Start / totalDuration);
 
-            // 1. Fade out the phase 2 panels
-            tl.to(rightPanelRef.current, { opacity: 0, y: -20, duration: 1.0, ease: "power2.inOut" }, phase3Start);
-            tl.to(marqueeRef.current, { opacity: 0, y: 20, duration: 1.0, ease: "power2.inOut" }, phase3Start);
+            tl.to(rightPanelRef.current, { opacity: 0, y: -20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
+            tl.to(marqueeRef.current, { opacity: 0, y: 20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
 
-            // 2. Zoom out and position video on the left half
             tl.to(
                 videoContainerRef.current,
-                { x: "-8%", scale: 0.9, duration: 1.5, ease: "power2.inOut" },
+                { x: "-8%", scale: 0.9, duration: 1.2, ease: "power2.inOut" },
                 phase3Start
             );
 
-            // 3. Fade in phase 3 right-side panel
             tl.fromTo(
                 phase3Ref.current,
                 { opacity: 0, y: 50 },
-                { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
-                phase3Start + 0.8
+                { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" },
+                phase3Start + 0.6
             );
 
-            // 4. Phase 3 Accordion sequence
+            // Phase 3 Accordion sequence
             partnerAchievements.forEach((_, i) => {
-                const t = phase3Start + 2.0 + (i * 1.4);
+                const t = phase3Start + 1.5 + (i * 1.2);
 
                 tl.fromTo(
                     partnerWrapperRefs.current[i],
                     { maxHeight: 0, opacity: 0 },
-                    { maxHeight: CARD_FULL_HEIGHT, opacity: 1, ease: "power2.out", duration: 0.9 },
+                    { maxHeight: CARD_FULL_HEIGHT, opacity: 1, ease: "power2.out", duration: 0.8 },
                     t
                 );
 
                 if (i > 0) {
                     tl.to(
                         partnerDescRefs.current[i - 1],
-                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.6 },
+                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.5 },
                         t
                     );
                 }
             });
 
-            // 5. Phase 3 footer - appears after all partner cards
-            const phase3FooterStart = phase3Start + 2.0 + partnerAchievements.length * 1.4;
+            // Phase 3 footer
+            const phase3FooterStart = phase3Start + 1.5 + partnerAchievements.length * 1.2;
             tl.fromTo(
                 phase3FooterRef.current,
                 { opacity: 0, y: 24, maxHeight: 0 },
-                { opacity: 1, y: 0, maxHeight: 200, ease: "power2.out", duration: 1.0 },
+                { opacity: 1, y: 0, maxHeight: 200, ease: "power2.out", duration: 0.8 },
                 phase3FooterStart
             );
 
             // --- Phase 4: "The MBK Advantage" ---
-            const phase4Start = phase3FooterStart + 1.8;
+            const phase4Start = phase3FooterStart + 1.2;
+            snapPoints.push(phase4Start / totalDuration);
 
-            // Exit: video slides LEFT, phase3 panel slides RIGHT simultaneously
+            // Exit: video LEFT, phase3 RIGHT
             tl.to(
                 videoContainerRef.current,
-                { x: "-130%", opacity: 0, duration: 1.2, ease: "power2.inOut" },
+                { x: "-130%", opacity: 0, duration: 0.8, ease: "power2.inOut" },
                 phase4Start
             );
             tl.to(
                 phase3Ref.current,
-                { x: "130%", opacity: 0, duration: 1.2, ease: "power2.inOut" },
+                { x: "130%", opacity: 0, duration: 0.8, ease: "power2.inOut" },
                 phase4Start
             );
 
-            // Entrance: Phase 4 rises from below after brief blank
+            // Entrance: Phase 4 rises
             tl.fromTo(
                 phase4Ref.current,
                 { y: "100%", opacity: 0 },
-                { y: "0%", opacity: 1, ease: "power2.out", duration: 1.6 },
-                phase4Start + 1.8
+                { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
+                phase4Start + 1.0
             );
 
-            // --- Phase 5: "Go Further. Go Faster. Go Together." ---
-            const phase5Start = phase4Start + 1.8 + 4.0;
+            // Snap point when Phase 4 is fully visible
+            const phase4VisibleAt = (phase4Start + 2.0) / totalDuration;
+            snapPoints.push(phase4VisibleAt);
 
-            // Exit Phase 4: slides UP and disappears
+            // --- Phase 5: "Go Further. Go Faster. Go Together." ---
+            const phase5Start = phase4Start + 3.0;
+            snapPoints.push(phase5Start / totalDuration);
+
+            // Exit Phase 4
             tl.to(
                 phase4Ref.current,
-                { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 1.4 },
+                { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
                 phase5Start
             );
 
-            // Entrance Phase 5: rises from bottom smoothly
+            // Entrance Phase 5
             tl.fromTo(
                 phase5Ref.current,
                 { y: "100%", opacity: 0 },
-                { y: "0%", opacity: 1, ease: "power2.out", duration: 1.8 },
-                phase5Start + 1.2
+                { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
+                phase5Start + 0.8
             );
 
-            // --- Phase 6: "Let's Build the Future" contact form ---
-            const phase5ExitStart = phase5Start + 4.0;
+            // Snap point when Phase 5 is fully visible
+            const phase5VisibleAt = (phase5Start + 1.8) / totalDuration;
+            snapPoints.push(phase5VisibleAt);
 
-            // Split exit: top section slides UP, bottom slides DOWN
+            // --- Phase 6: "Let's Build the Future" ---
+            const phase5ExitStart = phase5Start + 3.5;
+            snapPoints.push(phase5ExitStart / totalDuration);
+
             tl.to(
                 phase5TopRef.current,
-                { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 1.2 },
+                { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
                 phase5ExitStart
             );
             tl.to(
                 phase5BottomRef.current,
-                { y: "100%", opacity: 0, ease: "power2.inOut", duration: 1.2 },
+                { y: "100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
                 phase5ExitStart
             );
 
@@ -297,9 +321,12 @@ export default function WhyMBKSection() {
             tl.fromTo(
                 phase6Ref.current,
                 { x: "100%", opacity: 0 },
-                { x: "0%", opacity: 1, ease: "power2.out", duration: 1.8 },
-                phase5ExitStart + 1.4
+                { x: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
+                phase5ExitStart + 0.8
             );
+
+            // Final snap point (end)
+            snapPoints.push(1);
 
         }, sectionRef);
 
