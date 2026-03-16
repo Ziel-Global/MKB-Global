@@ -4,12 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { caseStudiesData } from "@/data/caseStudiesData";
 
-export default function CaseStudiesGrid() {
+interface CaseStudiesGridProps {
+    partnerFilter?: string;
+}
+
+export default function CaseStudiesGrid({ partnerFilter }: CaseStudiesGridProps) {
+    const filteredStudies = partnerFilter
+        ? caseStudiesData.filter((study) => study.partnerLogo === partnerFilter)
+        : caseStudiesData;
+
     return (
         <section className="w-full py-16 md:py-24 bg-white">
             <div className="max-w-[1240px] mx-auto px-4 md:px-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-                    {caseStudiesData.map((study) => (
+                {filteredStudies.length === 0 ? (
+                    <p className="text-center text-gray-600 text-base md:text-lg">
+                        No case studies found for this partner yet.
+                    </p>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                        {filteredStudies.map((study) => (
                         <Link
                             key={study.id}
                             href={`/case-studies/${study.id}`}
@@ -37,8 +50,9 @@ export default function CaseStudiesGrid() {
                                 {study.title}
                             </h3>
                         </Link>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

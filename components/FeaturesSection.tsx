@@ -141,10 +141,94 @@ export default function FeaturesSection() {
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const sectionRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
+    const curtainRef = useRef<HTMLDivElement>(null);   // outer clip
+    const innerRef = useRef<HTMLDivElement>(null);     // inner slide
+    const isTransitioningRef = useRef(false);
+    const requireSecondBackScrollRef = useRef(false);
+    const backScrollCooldownUntilRef = useRef(0);
+    const blockedBackAttemptsRef = useRef(0);
+    const requiredBackAttempts = 2;
+    const recenterFrameRef = useRef<number | null>(null);
 
     const currentCards = tabData[activeTab] || [];
 
+    const smoothRecenterToFeatures = () => {
+        const sectionTop = sectionRef.current?.offsetTop ?? window.scrollY;
+        const start = window.scrollY;
+        const target = sectionTop + 2;
+        const distance = target - start;
+
+        if (Math.abs(distance) < 2) {
+            window.scrollTo({ top: target, behavior: "auto" });
+            return;
+        }
+
+        if (recenterFrameRef.current) {
+            cancelAnimationFrame(recenterFrameRef.current);
+            recenterFrameRef.current = null;
+        }
+
+        const duration = 260;
+        const startedAt = performance.now();
+        const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+        const animate = (now: number) => {
+            const progress = Math.min((now - startedAt) / duration, 1);
+            const eased = easeOut(progress);
+            window.scrollTo({ top: start + distance * eased, behavior: "auto" });
+
+            if (progress < 1) {
+                recenterFrameRef.current = requestAnimationFrame(animate);
+            } else {
+                recenterFrameRef.current = null;
+            }
+        };
+
+        recenterFrameRef.current = requestAnimationFrame(animate);
+    };
+
     useEffect(() => {
+        // Inner div starts fully translated down (hidden inside clip, no DOM gap)
+        gsap.set(innerRef.current, { yPercent: 100 });
+
+        const handleHeroExit = () => {
+            if (isTransitioningRef.current) return;
+            isTransitioningRef.current = true;
+
+            // Lock scroll so user can't linger between sections
+            document.body.style.overflow = "hidden";
+
+            // Snap into view immediately
+            const el = curtainRef.current;
+            if (el) {
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: "instant" });
+                }, 20);
+            }
+
+            // Curtain inner slides up — cinematic reveal
+            gsap.to(innerRef.current, {
+                yPercent: 0,
+                duration: 1.0,
+                ease: "power3.out",
+                delay: 0.04,
+                onComplete: () => {
+                    // Unlock scroll once fully revealed
+                    isTransitioningRef.current = false;
+                    document.body.style.overflow = "";
+                    ScrollTrigger.refresh();
+                },
+            });
+
+            // Content rises inside as section appears
+            gsap.fromTo(contentRef.current,
+                { y: 100, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.9, ease: "power2.out", delay: 0.35 }
+            );
+        };
+
+        window.addEventListener("hero-exit", handleHeroExit);
+
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
                 scrollTrigger: {
@@ -153,33 +237,75 @@ export default function FeaturesSection() {
                     end: "+=180%",
                     pin: true,
                     scrub: 1,
+                    onEnterBack: () => {
+                        // Coming back from WhyMBK: first upward overscroll should stop here.
+                        requireSecondBackScrollRef.current = true;
+                        backScrollCooldownUntilRef.current = 0;
+                        blockedBackAttemptsRef.current = 0;
+                    },
+                    onLeaveBack: () => {
+                        const now = performance.now();
+
+                        if (now < backScrollCooldownUntilRef.current) {
+                            smoothRecenterToFeatures();
+                            return;
+                        }
+
+                        if (requireSecondBackScrollRef.current) {
+                            requireSecondBackScrollRef.current = false;
+                            backScrollCooldownUntilRef.current = now + 550;
+                            blockedBackAttemptsRef.current = 1;
+                            smoothRecenterToFeatures();
+                            return;
+                        }
+
+                        if (blockedBackAttemptsRef.current < requiredBackAttempts) {
+                            blockedBackAttemptsRef.current += 1;
+                            backScrollCooldownUntilRef.current = now + 500;
+                            smoothRecenterToFeatures();
+                            return;
+                        }
+
+                        if (isTransitioningRef.current) return;
+                        isTransitioningRef.current = true;
+
+                        // User scrolled back up — jump straight to Hero with no in-between gap
+                        document.body.style.overflow = "hidden";
+
+                        requestAnimationFrame(() => {
+                            window.dispatchEvent(new CustomEvent("features-exit-back"));
+                            gsap.set(contentRef.current, { y: 100, opacity: 0 });
+                            gsap.set(innerRef.current, { yPercent: 100 });
+                            blockedBackAttemptsRef.current = 0;
+                            backScrollCooldownUntilRef.current = 0;
+                            isTransitioningRef.current = false;
+                        });
+                    },
                 }
             });
 
-            tl.fromTo(contentRef.current, {
-                opacity: 0,
-                y: 100,
-            }, {
-                opacity: 1,
-                y: 0,
-                ease: "power1.out",
-                duration: 1
-            });
-
-            // Exit phase: fade out and slide down content before next section
-            tl.to(contentRef.current, {
-                opacity: 0,
-                y: -60,
-                ease: "power1.in",
-                duration: 0.8
-            }, 1.2);
-
         }, sectionRef);
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+            isTransitioningRef.current = false;
+            requireSecondBackScrollRef.current = false;
+            backScrollCooldownUntilRef.current = 0;
+            blockedBackAttemptsRef.current = 0;
+            if (recenterFrameRef.current) {
+                cancelAnimationFrame(recenterFrameRef.current);
+                recenterFrameRef.current = null;
+            }
+            document.body.style.overflow = "";
+            window.removeEventListener("hero-exit", handleHeroExit);
+        };
     }, []);
 
     return (
+        /* Outer div: clips overflow so inner slide doesn't create a DOM gap */
+        <div ref={curtainRef} className="w-full overflow-hidden" style={{ height: "100vh" }}>
+        {/* Inner div: slides up from below the clip boundary */}
+        <div ref={innerRef} className="w-full h-full">
         <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white">
             {/* Video Background */}
             <div className="absolute inset-0 w-full h-full">
@@ -196,46 +322,77 @@ export default function FeaturesSection() {
             {/* Soft Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />
 
+            <style>
+                {`
+                    .full-bleed-scroll {
+                        width: 100%;
+                        padding-left: 1rem;
+                        padding-right: 1rem;
+                        -ms-overflow-style: none;  /* IE and Edge */
+                        scrollbar-width: none;  /* Firefox */
+                    }
+                    .full-bleed-scroll::-webkit-scrollbar {
+                        display: none; /* Chrome, Safari and Opera */
+                    }
+                    @media (min-width: 768px) {
+                        .full-bleed-scroll {
+                            padding-left: 3rem;
+                            padding-right: 3rem;
+                        }
+                    }
+                    @media (min-width: 1280px) {
+                        .full-bleed-scroll {
+                            padding-left: calc(3rem + (100vw - 1280px) / 2);
+                            padding-right: calc(3rem + (100vw - 1280px) / 2);
+                        }
+                    }
+                `}
+            </style>
+
             {/* Content Container */}
-            <div ref={contentRef} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6 md:px-12 pb-8 z-10 flex flex-col items-start max-w-[1280px]">
+            <div ref={contentRef} className="absolute bottom-0 w-full pb-6 md:pb-8 z-10 flex flex-col items-start">
 
                 {/* Headers */}
-                <div className="relative mb-4 max-w-3xl z-10">
-                    {/* Gloss / Frosty background effect */}
-                    <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
+                <div className="relative mb-3 md:mb-4 w-full max-w-[1280px] mx-auto px-4 md:px-12 flex flex-col z-10">
+                    <div className="relative max-w-3xl z-10">
+                        {/* Gloss / Frosty background effect */}
+                        <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
 
-                    <h2 className="text-3xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-3 relative z-10">
-                        Every Asset Connected. Every Risk Anticipated.
-                    </h2>
-                    <p className="text-[#374151] text-sm md:text-base font-medium leading-relaxed max-w-2xl relative z-10">
-                        Real-time subsurface intelligence synchronises teams, reduces interventions, and stabilises production.<br />
-                        Models learn continuously, guiding drilling with precision and confidence.
-                    </p>
+                        <h2 className="text-2xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-2 md:mb-3 relative z-10">
+                            Every Asset Connected. Every Risk Anticipated.
+                        </h2>
+                        <p className="text-[#374151] text-xs md:text-base font-medium leading-relaxed max-w-2xl relative z-10">
+                            Real-time subsurface intelligence synchronises teams, reduces interventions, and stabilises production.<br />
+                            Models learn continuously, guiding drilling with precision and confidence.
+                        </p>
+                    </div>
                 </div>
 
-                {/* Tabs Row */}
-                <div className="w-full flex gap-2 mb-5 pointer-events-auto relative z-20">
-                    {tabs.map((tab) => (
-                        <button
-                            key={tab}
-                            onClick={() => setActiveTab(tab)}
-                            className={`flex-1 text-center px-3 py-3 rounded-xl text-xs font-semibold transition-all duration-300 shadow-sm leading-tight
-                                ${activeTab === tab
-                                    ? "bg-[#2E0E68] text-white shadow-[#2E0E68]/20"
-                                    : "bg-[#F3F4FB] hover:bg-white text-[#481E8D] hover:shadow-md"
-                                }`}
-                        >
-                            {tab}
-                        </button>
-                    ))}
+                {/* Tabs Row — horizontally scrollable on mobile & desktop */}
+                <div className="w-full overflow-x-auto scrollbar-none mb-4 md:mb-5 pointer-events-auto relative z-20 full-bleed-scroll flex">
+                    <div className="flex gap-2" style={{ minWidth: "max-content" }}>
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`text-center px-3 py-2.5 md:py-3 rounded-xl text-[10px] md:text-xs font-semibold transition-all duration-300 shadow-sm leading-tight whitespace-nowrap
+                                    ${activeTab === tab
+                                        ? "bg-[#2E0E68] text-white shadow-[#2E0E68]/20"
+                                        : "bg-[#F3F4FB] hover:bg-white text-[#481E8D] hover:shadow-md"
+                                    }`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Cards Row */}
-                <div className="w-full flex overflow-x-auto gap-4 scrollbar-none pb-2 pointer-events-auto items-stretch">
+                <div className="relative z-20 w-full flex overflow-x-auto gap-3 md:gap-4 scrollbar-none pb-2 pointer-events-auto items-stretch full-bleed-scroll">
                     {currentCards.map((card, idx) => (
                         <div
                             key={`${activeTab}-${idx}`}
-                            className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] w-[280px] h-[110px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
+                            className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] md:min-w-[340px] w-[280px] md:w-[340px] h-[86px] md:h-[96px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
                         >
                             {/* Left side Image */}
                             <div className="w-[35%] relative bg-[#1A0B3F] overflow-hidden">
@@ -248,11 +405,11 @@ export default function FeaturesSection() {
                             </div>
 
                             {/* Right side Text */}
-                            <div className="w-[65%] p-4 flex flex-col justify-center text-white">
-                                <h3 className="font-semibold text-sm mb-1 leading-tight">
+                            <div className="w-[65%] p-2.5 md:p-3 flex flex-col justify-center text-white">
+                                <h3 className="font-semibold text-[0.70rem] md:text-xs mb-1 leading-tight">
                                     {card.title}
                                 </h3>
-                                <div className="text-[0.7rem] text-purple-200/90 font-light space-y-0.5">
+                                <div className="text-[0.60rem] md:text-[0.65rem] text-purple-200/90 font-light space-y-0.5">
                                     {card.subtitles.map((sub, i) => (
                                         <p key={i}>{sub}</p>
                                     ))}
@@ -264,5 +421,7 @@ export default function FeaturesSection() {
 
             </div>
         </section>
+        </div>
+        </div>
     );
 }

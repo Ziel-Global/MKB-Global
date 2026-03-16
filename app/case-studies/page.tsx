@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import CaseStudiesHero from "@/components/caseStudies/CaseStudiesHero";
-import LogoTicker from "@/components/LogoTicker";
-import CaseStudiesGrid from "@/components/caseStudies/CaseStudiesGrid";
+import CaseStudiesContent from "@/components/caseStudies/CaseStudiesContent";
 import ServicesCTA from "@/components/services/ServicesCTA";
 
 export default function CaseStudiesPage() {
@@ -13,13 +12,8 @@ export default function CaseStudiesPage() {
                 {/* ── Case Studies Hero ── */}
                 <CaseStudiesHero />
 
-                {/* ── Logo Ticker ── */}
-                <div className="py-12 border-b border-gray-100">
-                    <LogoTicker />
-                </div>
-
-                {/* ── Case Studies Grid ── */}
-                <CaseStudiesGrid />
+                {/* ── Static clickable logos + filtered grid ── */}
+                <CaseStudiesContent />
 
                 {/* ── Case Studies CTA ── */}
                 <ServicesCTA />

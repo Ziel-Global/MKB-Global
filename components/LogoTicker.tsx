@@ -10,32 +10,32 @@ const logos = [
 
 export default function LogoTicker() {
     return (
-        <div className="w-full overflow-hidden bg-white py-4 mt-4 relative">
+        <div className="w-full overflow-hidden bg-white py-3 md:py-4 mt-2 md:mt-4 relative">
             <div className="flex w-[200%] animate-marquee">
                 {/* First set of logos */}
-                <div className="flex w-1/2 items-center justify-around px-8">
+                <div className="flex w-1/2 items-center justify-around px-4 md:px-8">
                     {logos.map((logo, index) => (
-                        <div key={`logo-1-${index}`} className="flex items-center justify-center min-w-[150px]">
+                        <div key={`logo-1-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
                             <Image
                                 src={logo}
                                 alt={`Partner logo ${index + 1}`}
                                 width={120}
                                 height={40}
-                                className="object-contain max-h-[40px]"
+                                className="object-contain max-h-[28px] md:max-h-[40px] w-auto"
                             />
                         </div>
                     ))}
                 </div>
                 {/* Second set of logos for seamless loop */}
-                <div className="flex w-1/2 items-center justify-around px-8">
+                <div className="flex w-1/2 items-center justify-around px-4 md:px-8">
                     {logos.map((logo, index) => (
-                        <div key={`logo-2-${index}`} className="flex items-center justify-center min-w-[150px]">
+                        <div key={`logo-2-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
                             <Image
                                 src={logo}
                                 alt={`Partner logo ${index + 1}`}
                                 width={120}
                                 height={40}
-                                className="object-contain max-h-[40px]"
+                                className="object-contain max-h-[28px] md:max-h-[40px] w-auto"
                             />
                         </div>
                     ))}
@@ -43,8 +43,8 @@ export default function LogoTicker() {
             </div>
 
             {/* Optional Gradient fades on edges */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+            <div className="absolute inset-y-0 left-0 w-12 md:w-32 bg-gradient-to-r from-white to-transparent pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-12 md:w-32 bg-gradient-to-l from-white to-transparent pointer-events-none" />
         </div>
     );
 }

@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#eeeaf8] mt-auto overflow-hidden" style={{ borderRadius: '3rem 3rem 0 0' }}>
       {/* Links grid */}
-      <div className="w-full max-w-[1400px] mx-auto px-10 md:px-16 lg:px-24 pt-14 pb-0">
+      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 pt-10 md:pt-14 pb-0">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Quick Links */}
           <div className="flex flex-col gap-4">
@@ -48,20 +48,20 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex items-center justify-between border-t border-[#d4cff0] py-6">
+        <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between border-t border-[#d4cff0] py-4 md:py-6 gap-3 md:gap-0">
           <span className="text-xs text-[#6b6b80]">
             © 2025 MBK Global Holding. All rights reserved.
           </span>
           <div className="flex items-center gap-4">
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#1e1e24] hover:text-[#2E0E68] transition-colors">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
-                <circle cx="4" cy="4" r="2"/>
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-[#1e1e24] hover:text-[#2E0E68] transition-colors">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
               </svg>
             </a>
           </div>
@@ -69,14 +69,14 @@ export default function Footer() {
       </div>
 
       {/* Large logo banner */}
-      <div className="w-full flex items-center px-10 md:px-16 lg:px-24 pt-6 pb-0 gap-6 md:gap-10">
+      <div className="w-full flex items-center px-6 md:px-16 lg:px-24 pt-4 md:pt-6 pb-0 gap-4 md:gap-10">
         <div className="flex-shrink-0">
           <Image
             src="/logos/logo-main.png"
             alt="MBK Global logo mark"
             width={203}
             height={104}
-            className="w-[120px] md:w-[180px] lg:w-[180px] h-auto"
+            className="w-[80px] md:w-[180px] lg:w-[180px] h-auto"
             priority
           />
         </div>
