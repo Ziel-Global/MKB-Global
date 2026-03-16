@@ -356,7 +356,7 @@ export default function FeaturesSection() {
                 <div className="relative mb-3 md:mb-4 w-full max-w-[1280px] mx-auto px-4 md:px-12 flex flex-col z-10">
                     <div className="relative max-w-3xl z-10">
                         {/* Gloss / Frosty background effect */}
-                        <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
+                        <div className="absolute top-0 left-[-20%] w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
 
                         <h2 className="text-2xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-2 md:mb-3 relative z-10">
                             Every Asset Connected. Every Risk Anticipated.

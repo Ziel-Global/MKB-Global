@@ -744,9 +744,10 @@ export default function WhyMBKSection() {
             </div>
 
             {/* Marquee layer - positioned at the very bottom spanning the entire width */}
-            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 bg-white pt-4 md:pt-6 pb-2">
-                <p className="text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
-                <div className="w-full overflow-hidden relative">
+            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-4 md:pt-6 pb-2 overflow-hidden">
+                <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
+                <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
+                <div className="relative z-10 w-full overflow-hidden">
                     <div className="flex w-[200%] animate-marquee">
                         {/* First set of logos */}
                         <div className="flex w-1/2 items-center justify-around px-4 md:px-8">
@@ -757,7 +758,7 @@ export default function WhyMBKSection() {
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
                                             fill
-                                            className="object-contain opacity-80 transition-opacity hover:opacity-100"
+                                            className="object-contain mix-blend-multiply opacity-90 transition-opacity hover:opacity-100"
                                         />
                                     </div>
                                 </div>
@@ -772,7 +773,7 @@ export default function WhyMBKSection() {
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
                                             fill
-                                            className="object-contain opacity-80 transition-opacity hover:opacity-100"
+                                            className="object-contain mix-blend-multiply opacity-90 transition-opacity hover:opacity-100"
                                         />
                                     </div>
                                 </div>

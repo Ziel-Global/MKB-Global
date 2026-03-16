@@ -37,8 +37,9 @@ export default function VisionMissionValues() {
 
       const vh = window.innerHeight;
 
-      // Cards start fully below the viewport
-      gsap.set(cardRefs.current, { y: vh, opacity: 1 });
+      // Keep first card visible immediately; only reveal cards 2 and 3 on scroll
+      gsap.set(cardRefs.current[0], { y: 0, opacity: 1 });
+      gsap.set(cardRefs.current.slice(1), { y: vh, opacity: 1 });
 
       // Scrubbed timeline — scroll physically slides each card up from the bottom
       const tl = gsap.timeline({
@@ -51,7 +52,7 @@ export default function VisionMissionValues() {
         },
       });
 
-      cardRefs.current.forEach((card) => {
+      cardRefs.current.slice(1).forEach((card) => {
         tl.to(card, {
           y: 0,
           duration: 1,
@@ -64,8 +65,8 @@ export default function VisionMissionValues() {
   }, []);
 
   return (
-    // Tall wrapper = scroll distance (300vh gives each card ~100vh of scroll)
-    <div ref={wrapperRef} className="relative w-full" style={{ height: "300vh" }}>
+    // Wrapper height controls reveal distance while pinned
+    <div ref={wrapperRef} className="relative w-full" style={{ height: "220vh" }}>
       {/* Sticky grid — stays on screen while wrapper scrolls */}
       <div
         ref={stickyRef}
