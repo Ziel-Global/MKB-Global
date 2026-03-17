@@ -1,11 +1,12 @@
 import Image from "next/image";
 
 const logos = [
+    "/slider-images/innowise-logo.png",
     "/slider-images/29e3441716eeb4aef5a80b7ca6949718e11d2ef9.png",
     "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png",
-    "/slider-images/8817ba20c7d2317cceefdb6164db9a9550a5dcce.png",
-    "/slider-images/b5f0af026953b945a92a3bb0a8a23fc641e85d52.png",
-    "/slider-images/fbf484095b4d10ed6abf6c611faf3f91a01f1ddb.png",
+    "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png",
+    "/slider-images/Frame 10.png",
+    "/slider-images/applied-computing-new.png"
 ];
 
 export default function LogoTicker() {

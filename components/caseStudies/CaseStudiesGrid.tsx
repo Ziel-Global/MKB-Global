@@ -25,7 +25,7 @@ export default function CaseStudiesGrid({ partnerFilter }: CaseStudiesGridProps)
                         {filteredStudies.map((study) => (
                         <Link
                             key={study.id}
-                            href={`/case-studies/${study.id}`}
+                            href={`/our-partners/${study.id}`}
                             className="group flex flex-col gap-4 cursor-pointer"
                         >
                             <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-gray-100 shadow-sm border border-gray-100">

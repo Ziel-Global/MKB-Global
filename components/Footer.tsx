@@ -42,7 +42,14 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 text-sm text-[#3d3d50]">
               <li><a href="tel:+97444679005" className="hover:text-[#2E0E68] transition-colors">+974 4467 9005</a></li>
               <li><a href="mailto:hello@mbk.global" className="hover:text-[#2E0E68] transition-colors">hello@mbk.global</a></li>
-              <li className="leading-relaxed">AAB Tower, 8th Floor, Doha – Qatar</li>
+              <li className="leading-relaxed mt-2 pt-2 border-t border-[#d4cff0]/60">
+                <span className="font-semibold text-[#1e1e24] block mb-1">Visiting address:</span>
+                MBK Hub, Manarat Tower, Lusail Marina, Floor 12, Units 1203 & 1204
+              </li>
+              <li className="leading-relaxed mt-1">
+                <span className="font-semibold text-[#1e1e24] block mb-1">Registered address:</span>
+                Office 1204, Floor 12, Manarat Lusail Tower, Lusail Marina, Doha, Qatar
+              </li>
             </ul>
           </div>
         </div>
@@ -53,15 +60,10 @@ export default function Footer() {
             © 2025 MBK Global Holding. All rights reserved.
           </span>
           <div className="flex items-center gap-4">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#1e1e24] hover:text-[#2E0E68] transition-colors">
+            <a href="https://www.linkedin.com/company/mbk-global/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#1e1e24] hover:text-[#2E0E68] transition-colors">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
                 <circle cx="4" cy="4" r="2" />
-              </svg>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-[#1e1e24] hover:text-[#2E0E68] transition-colors">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
               </svg>
             </a>
           </div>
