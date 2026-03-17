@@ -3,9 +3,34 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    const scrollToContact = (role: "Operator" | "Partner") => {
+        setMenuOpen(false);
+        
+        // Dispatch the role change event immediately so components can update stat
+        window.dispatchEvent(new CustomEvent("set-contact-role", { detail: { role } }));
+
+        // Only use native scrollIntoView if we are not on the home page. 
+        // On home page, WhyMBKSection handles the scrolling via GSAP so it doesn't get stuck in the pinning section.
+        if (pathname !== "/") {
+            setTimeout(() => {
+                const element = document.getElementById("contact-form");
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 50);
+        } else {
+            // Give GSAP time to process the event and set scroll
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent("scroll-to-contact"));
+            }, 50);
+        }
+    };
 
     return (
         <>
@@ -33,12 +58,18 @@ export default function Header() {
 
                 {/* Right Buttons — hidden on mobile (below 849px) */}
                 <div className="hidden min-[849px]:flex items-center gap-3">
-                    <span className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors cursor-default">
+                    <button
+                        onClick={() => scrollToContact("Operator")}
+                        className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors"
+                    >
                         Work With Us
-                    </span>
-                    <span className="bg-[#1e1e24] hover:bg-black text-white text-sm font-medium px-5 py-2 rounded-full transition-colors cursor-default">
+                    </button>
+                    <button
+                        onClick={() => scrollToContact("Partner")}
+                        className="bg-[#1e1e24] hover:bg-black text-white text-sm font-medium px-5 py-2 rounded-full transition-colors"
+                    >
                         Partner With Us
-                    </span>
+                    </button>
                 </div>
 
                 {/* Hamburger Button — visible only on mobile/tablet (below 849px) */}
@@ -60,12 +91,18 @@ export default function Header() {
                     {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
                     <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Our Partners</Link>
                     <div className="flex flex-col gap-3 mt-4 w-[70%]">
-                        <span className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center cursor-default">
+                        <button
+                            onClick={() => scrollToContact("Operator")}
+                            className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
+                        >
                             Work With Us
-                        </span>
-                        <span className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center cursor-default">
+                        </button>
+                        <button
+                            onClick={() => scrollToContact("Partner")}
+                            className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
+                        >
                             Partner With Us
-                        </span>
+                        </button>
                     </div>
                 </div>
             )}

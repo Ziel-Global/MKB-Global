@@ -169,10 +169,10 @@ export default function Hero() {
             <div ref={contentToHideRef} className="w-full flex flex-col items-center">
                 {/* Main Headlines */}
                 <div className="text-center w-full max-w-5xl px-4 flex flex-col items-center gap-1 mb-2">
-                    <h1 className="text-[1.4rem] sm:text-[1.8rem] md:text-[2.5rem] leading-tight font-extrabold text-[#481E8D]">
+                    <h1 className="text-[1.1rem] sm:text-[1.5rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
                         The Integrated Energy Value Chain.
                     </h1>
-                    <h1 className="text-[1.4rem] sm:text-[1.8rem] md:text-[2.5rem] leading-tight font-extrabold text-[#481E8D]">
+                    <h1 className="text-[1.1rem] sm:text-[1.5rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
                         Reimagined for the Fourth Industrial Revolution.
                     </h1>
                 </div>

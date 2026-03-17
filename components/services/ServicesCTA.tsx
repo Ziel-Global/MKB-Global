@@ -12,6 +12,13 @@ export default function ServicesCTA() {
     const [role, setRole] = useState<"Operator" | "Partner">("Operator");
 
     useEffect(() => {
+        const handleSetRole = (e: any) => {
+            if (e.detail?.role) {
+                setRole(e.detail.role);
+            }
+        };
+        window.addEventListener("set-contact-role", handleSetRole as EventListener);
+
         const ctx = gsap.context(() => {
             gsap.fromTo(".fade-up-element",
                 { opacity: 0, y: 30 },
@@ -29,24 +36,27 @@ export default function ServicesCTA() {
             );
         }, containerRef);
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+            window.removeEventListener("set-contact-role", handleSetRole as EventListener);
+        };
     }, []);
 
     return (
-        <section ref={containerRef} className="w-full py-20 bg-white">
-            <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16 lg:gap-12 justify-between">
+        <section ref={containerRef} className="w-full py-12 md:py-16 bg-white">
+            <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-10 lg:gap-8 justify-between">
 
                 {/* Left Side - Information & Cards */}
                 <div className="w-full lg:w-[45%] flex flex-col justify-center">
-                    <h2 className="fade-up-element text-4xl md:text-5xl font-medium text-[#3b177d] leading-tight mb-6">
-                        Head-quartered in Qatar,<br />
+                    <h2 className="fade-up-element text-3xl md:text-4xl font-medium text-[#3b177d] leading-tight mb-4">
+                        Head-quarter in Qatar,<br />
                         Connected to the World
                     </h2>
-                    <p className="fade-up-element text-[#333333] text-base md:text-lg mb-12">
+                    <p className="fade-up-element text-[#333333] text-sm md:text-base mb-8">
                         MBK Global is a venture builder based in Qatar, built by people who believe execution is a craft and building with others is a privilege.
                     </p>
 
-                    <div className="w-full flex flex-row gap-4 h-[300px] md:h-[400px]">
+                    <div className="w-full flex flex-row gap-4 h-[250px] md:h-[320px]">
                         {/* Operator Prospectus Card */}
                         <div className="fade-up-element relative w-1/2 h-full rounded-2xl overflow-hidden group cursor-pointer">
                             <Image
@@ -80,12 +90,12 @@ export default function ServicesCTA() {
                 </div>
 
                 {/* Right Side - Form */}
-                <div className="fade-up-element w-full lg:w-[45%] bg-[#F3F0F8] rounded-[2rem] p-8 md:p-12">
-                    <h2 className="text-3xl md:text-4xl font-medium text-[#3b177d] mb-10">
+                <div id="contact-form" className="fade-up-element w-full lg:w-[45%] bg-[#F3F0F8] rounded-[2rem] p-6 md:p-8">
+                    <h2 className="text-2xl md:text-3xl font-medium text-[#3b177d] mb-6">
                         Work With Us
                     </h2>
 
-                    <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
+                    <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
 
                         {/* Name Field */}
                         <div className="flex flex-col gap-2">
@@ -93,18 +103,18 @@ export default function ServicesCTA() {
                             <input
                                 type="text"
                                 placeholder="Enter your name"
-                                className="w-full px-4 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
+                                className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                             />
                         </div>
 
                         {/* Company & Role Row */}
-                        <div className="flex flex-col md:flex-row gap-6">
+                        <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex flex-col gap-2 flex-1">
                                 <label className="text-xs font-semibold text-[#3b177d]">Company</label>
                                 <input
                                     type="text"
                                     placeholder="Enter your company name"
-                                    className="w-full px-4 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
+                                    className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
                             <div className="flex flex-col gap-2 flex-1">
@@ -112,19 +122,19 @@ export default function ServicesCTA() {
                                 <input
                                     type="text"
                                     placeholder="What's your role?"
-                                    className="w-full px-4 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
+                                    className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
                         </div>
 
                         {/* Email & Phone Row */}
-                        <div className="flex flex-col md:flex-row gap-6">
+                        <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex flex-col gap-2 flex-1">
                                 <label className="text-xs font-semibold text-[#3b177d]">Email</label>
                                 <input
                                     type="email"
                                     placeholder="Enter your email"
-                                    className="w-full px-4 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
+                                    className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
                             <div className="flex flex-col gap-2 flex-1">
@@ -132,18 +142,18 @@ export default function ServicesCTA() {
                                 <input
                                     type="tel"
                                     placeholder="Enter your phone"
-                                    className="w-full px-4 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
+                                    className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
                         </div>
 
                         {/* Role Segmented Control */}
-                        <div className="flex flex-col gap-2 mt-2">
+                        <div className="flex flex-col gap-2 mt-1">
                             <div className="w-full p-1 bg-white rounded-xl flex">
                                 <button
                                     type="button"
                                     onClick={() => setRole("Operator")}
-                                    className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all duration-300 ${role === "Operator" ? 'bg-[#8B3DFF] text-white shadow-sm' : 'text-[#3b177d] hover:bg-gray-50'
+                                    className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${role === "Operator" ? 'bg-[#8B3DFF] text-white shadow-sm' : 'text-[#3b177d] hover:bg-gray-50'
                                         }`}
                                 >
                                     Operator
@@ -151,7 +161,7 @@ export default function ServicesCTA() {
                                 <button
                                     type="button"
                                     onClick={() => setRole("Partner")}
-                                    className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all duration-300 ${role === "Partner" ? 'bg-[#8B3DFF] text-white shadow-sm' : 'text-[#3b177d] hover:bg-gray-50'
+                                    className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${role === "Partner" ? 'bg-[#8B3DFF] text-white shadow-sm' : 'text-[#3b177d] hover:bg-gray-50'
                                         }`}
                                 >
                                     Partner
@@ -160,19 +170,19 @@ export default function ServicesCTA() {
                         </div>
 
                         {/* Challenge Textarea */}
-                        <div className="flex flex-col gap-2 mt-2">
+                        <div className="flex flex-col gap-2 mt-1">
                             <label className="text-xs font-semibold text-[#3b177d]">What challenge are you facing?</label>
                             <textarea
                                 placeholder="Type here..."
-                                rows={4}
-                                className="w-full px-4 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400 resize-none"
+                                rows={3}
+                                className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400 resize-none"
                             />
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="mt-4 self-start bg-[#8B3DFF] hover:bg-[#7220e8] text-white font-semibold py-3 px-8 rounded-full transition-colors text-sm shadow-md"
+                            className="mt-2 self-start bg-[#8B3DFF] hover:bg-[#7220e8] text-white font-semibold py-2.5 px-8 rounded-full transition-colors text-sm shadow-md"
                         >
                             Submit
                         </button>

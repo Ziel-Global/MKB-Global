@@ -50,7 +50,7 @@ export default function CaseStudiesLogoSelector({
                                     width={220}
                                     height={60}
                                     className={`w-auto object-contain transition-all duration-200 ${isActive ? "grayscale-0" : "grayscale"
-                                        } ${isInnowise ? "h-5 md:h-6" : isKongsberg ? "h-12 md:h-14" : isAppliedComputing ? "h-10 md:h-12" : isOptvance ? "h-6 md:h-8" : "h-8 md:h-10"}`}
+                                        } ${isInnowise ? "h-5 md:h-6" : isKongsberg ? "h-12 md:h-14" : isAppliedComputing ? "h-7 md:h-9" : isOptvance ? "h-6 md:h-8" : "h-8 md:h-10"}`}
                                 />
                             </button>
                         );

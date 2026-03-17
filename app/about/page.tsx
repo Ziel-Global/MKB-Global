@@ -18,7 +18,7 @@ export default function AboutPage() {
 
       <main className="w-full flex-1">
         {/* ── Hero ── */}
-        <section className="w-full min-h-screen bg-[#f0eef8] flex items-center pt-24 pb-16 px-6 md:px-16 lg:px-24 overflow-hidden">
+        <section className="w-full min-h-screen bg-white flex items-center pt-24 pb-16 px-6 md:px-16 lg:px-24 overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left content */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">
@@ -33,14 +33,14 @@ export default function AboutPage() {
                 investment, operations, and innovation to create sustainable
                 digital transformation at scale.
               </p>
-              <div>
+              {/* <div>
                 <Link
                   href="#divisions"
                   className="inline-block bg-[#6D28D9] hover:bg-purple-800 text-white font-semibold px-7 py-3 rounded-full transition-colors text-sm"
                 >
                   Discover Our Divisions
                 </Link>
-              </div>
+              </div> */}
             </div>
 
             {/* Right image */}

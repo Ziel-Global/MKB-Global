@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Image from "next/image";
+import emailjs from "@emailjs/browser";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const achievements = [
     {
@@ -58,6 +60,18 @@ const CARD_FULL_HEIGHT = 140;
 const DESC_MAX_HEIGHT = 80;
 
 export default function WhyMBKSection() {
+    const [role, setRole] = useState<"Operator" | "Partner">("Operator");
+    const [formData, setFormData] = useState({
+        name: "",
+        company: "",
+        jobRole: "",
+        email: "",
+        phone: "",
+        challenge: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState("");
+    const stRef = useRef<any>(null);
     const sectionRef = useRef<HTMLElement>(null);
     // Left panel refs
     const leftPanelRef = useRef<HTMLDivElement>(null);
@@ -110,6 +124,70 @@ export default function WhyMBKSection() {
         if (dragScrollRef.current) dragScrollRef.current.style.cursor = 'grab';
     };
 
+    const handleFieldChange = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = event.target;
+        setFormData((previous) => ({ ...previous, [name]: value }));
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (!formData.name || !formData.email || !formData.challenge) {
+            setSubmitMessage("Please fill Name, Email, and Challenge before submitting.");
+            return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitMessage("");
+
+        try {
+            const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+            const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+            const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+            if (!serviceId || !templateId || !publicKey) {
+                setSubmitMessage("Email service is not configured yet.");
+                return;
+            }
+
+            await emailjs.send(
+                serviceId,
+                templateId,
+                {
+                    to_email: "hello@mbk.global",
+                    name: formData.name,
+                    company: formData.company || "-",
+                    role: formData.jobRole || "-",
+                    email: formData.email,
+                    phone: formData.phone || "-",
+                    user_type: role,
+                    time: new Date().toLocaleString(),
+                    challenge: formData.challenge,
+                    reply_to: formData.email,
+                },
+                {
+                    publicKey,
+                }
+            );
+
+            setSubmitMessage("Thanks! Your message has been sent.");
+            setFormData({
+                name: "",
+                company: "",
+                jobRole: "",
+                email: "",
+                phone: "",
+                challenge: "",
+            });
+        } catch (error: any) {
+            setSubmitMessage(error?.text || "Unable to send right now. Please check EmailJS settings and try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     const logos = [
         "/slider-images/innowise-logo.png",
         "/slider-images/29e3441716eeb4aef5a80b7ca6949718e11d2ef9.png",
@@ -120,6 +198,28 @@ export default function WhyMBKSection() {
     ];
 
     useEffect(() => {
+        const handleSetRole = (e: any) => {
+            if (e.detail?.role) {
+                setRole(e.detail.role);
+            }
+        };
+
+        const handleScrollToContact = () => {
+             // Jump directly to the end of the GSAP animation where the form is visible
+             if (stRef.current) {
+                 const targetScroll = stRef.current.end;
+                 gsap.to(window, { duration: 2, scrollTo: { y: targetScroll, autoKill: false }, ease: "power2.inOut" });
+             } else {
+                 const element = document.getElementById("contact-form");
+                 if (element) {
+                     gsap.to(window, { duration: 2, scrollTo: { y: "#contact-form", offsetY: 50, autoKill: false }, ease: "power2.inOut" });
+                 }
+             }
+        };
+
+        window.addEventListener("set-contact-role", handleSetRole as EventListener);
+        window.addEventListener("scroll-to-contact", handleScrollToContact as EventListener);
+
         const ctx = gsap.context(() => {
             // Tighter durations for snappier transitions
             const totalDuration = achievements.length * 1.2 + 1.0 + 2.5 + partnerAchievements.length * 1.2 + 1.5 + 1.5 + 3.0 + 3.5 + 4.5;
@@ -138,6 +238,11 @@ export default function WhyMBKSection() {
                     invalidateOnRefresh: true,
                 },
             });
+
+            // Store the ScrollTrigger instance to allow scrolling directly to the end of the timeline
+            if (tl.scrollTrigger) {
+                stRef.current = tl.scrollTrigger;
+            }
 
             achievements.forEach((_, i) => {
                 const t = i * 1.2;
@@ -320,6 +425,8 @@ export default function WhyMBKSection() {
         return () => {
             clearTimeout(refreshTimer);
             ctx.revert();
+            window.removeEventListener("set-contact-role", handleSetRole as EventListener);
+            window.removeEventListener("scroll-to-contact", handleScrollToContact as EventListener);
         };
     }, []);
 
@@ -676,24 +783,49 @@ export default function WhyMBKSection() {
                 </div>
 
                 {/* Right: form card */}
-                <div className="flex-1 max-w-full md:max-w-[620px] bg-[#EEE9F9] rounded-3xl p-5 md:p-7 flex flex-col gap-3 md:self-stretch justify-between">
+                <form
+                    id="contact-form"
+                    onSubmit={handleSubmit}
+                    className="flex-1 max-w-full md:max-w-[620px] bg-[#EEE9F9] rounded-3xl p-5 md:p-7 flex flex-col gap-3 md:self-stretch justify-between"
+                >
                     <h3 className="text-[1.3rem] md:text-[1.6rem] font-bold text-[#2D1469] mb-1">Work With Us</h3>
 
                     {/* Name */}
                     <div className="flex flex-col gap-1">
                         <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Name</label>
-                        <input type="text" placeholder="Enter your name" className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400" />
+                        <input
+                            name="name"
+                            type="text"
+                            placeholder="Enter your name"
+                            value={formData.name}
+                            onChange={handleFieldChange}
+                            className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                        />
                     </div>
 
                     {/* Company + Role */}
                     <div className="flex flex-col md:flex-row gap-3">
                         <div className="flex flex-col gap-1 flex-1">
                             <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Company</label>
-                            <input type="text" placeholder="Enter your company name" className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400" />
+                            <input
+                                name="company"
+                                type="text"
+                                placeholder="Enter your company name"
+                                value={formData.company}
+                                onChange={handleFieldChange}
+                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                            />
                         </div>
                         <div className="flex flex-col gap-1 flex-1">
                             <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Role</label>
-                            <input type="text" placeholder="What's your role?" className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400" />
+                            <input
+                                name="jobRole"
+                                type="text"
+                                placeholder="What's your role?"
+                                value={formData.jobRole}
+                                onChange={handleFieldChange}
+                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                            />
                         </div>
                     </div>
 
@@ -701,30 +833,68 @@ export default function WhyMBKSection() {
                     <div className="flex flex-col md:flex-row gap-3">
                         <div className="flex flex-col gap-1 flex-1">
                             <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Email</label>
-                            <input type="email" placeholder="Enter your email" className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400" />
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="Enter your email"
+                                value={formData.email}
+                                onChange={handleFieldChange}
+                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                            />
                         </div>
                         <div className="flex flex-col gap-1 flex-1">
                             <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Phone</label>
-                            <input type="tel" placeholder="Enter your phone" className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400" />
+                            <input
+                                name="phone"
+                                type="tel"
+                                placeholder="Enter your phone"
+                                value={formData.phone}
+                                onChange={handleFieldChange}
+                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                            />
                         </div>
                     </div>
 
                     {/* Operator / Partner toggle */}
                     <div className="flex gap-3">
-                        <button className="flex-1 py-2.5 rounded-xl bg-[#7C3AED] text-white font-semibold text-[0.85rem] transition-colors hover:bg-[#6D28D9]">Operator</button>
-                        <button className="flex-1 py-2.5 rounded-xl bg-white text-gray-700 font-semibold text-[0.85rem] border border-gray-200 hover:border-[#7C3AED] hover:text-[#7C3AED] transition-colors">Partner</button>
+                        <button
+                            type="button"
+                            onClick={() => setRole("Operator")}
+                            className={`flex-1 py-2.5 rounded-xl font-semibold text-[0.85rem] transition-all duration-300 ${role === "Operator" ? 'bg-[#7C3AED] text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-[#7C3AED]'}`}
+                        >
+                            Operator
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setRole("Partner")}
+                            className={`flex-1 py-2.5 rounded-xl font-semibold text-[0.85rem] transition-all duration-300 ${role === "Partner" ? 'bg-[#7C3AED] text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-[#7C3AED]'}`}
+                        >
+                            Partner
+                        </button>
                     </div>
 
                     {/* Challenge textarea */}
                     <div className="flex flex-col gap-1">
                         <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">What challenge are you facing?</label>
-                        <textarea rows={3} placeholder="Type here..." className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none placeholder:text-gray-400" />
+                        <textarea
+                            name="challenge"
+                            rows={3}
+                            placeholder="Type here..."
+                            value={formData.challenge}
+                            onChange={handleFieldChange}
+                            className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none placeholder:text-gray-400"
+                        />
                     </div>
 
-                    <button className="self-start bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold text-[0.9rem] px-7 py-2.5 rounded-full transition-colors">
-                        Submit
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="self-start bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-70 text-white font-semibold text-[0.9rem] px-7 py-2.5 rounded-full transition-colors"
+                    >
+                        {isSubmitting ? "Sending..." : "Submit"}
                     </button>
-                </div>
+                    {submitMessage && <p className="text-[0.78rem] text-[#2D1469]">{submitMessage}</p>}
+                </form>
             </div>
 
             {/* Marquee layer - positioned at the very bottom spanning the entire width */}
@@ -734,10 +904,10 @@ export default function WhyMBKSection() {
                 <div className="relative z-10 w-full overflow-hidden">
                     <div className="flex w-[200%] animate-marquee">
                         {/* First set of logos */}
-                        <div className="flex w-1/2 items-center justify-around px-4 md:px-8">
+                        <div className="flex w-1/2 items-center justify-around">
                             {logos.map((logo, index) => (
                                 <div key={`logo-1-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
-                                    <div className="relative w-full h-full min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]">
+                                    <div className={`relative w-full h-full ${logo.includes('applied-computing') ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]' : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'}`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
@@ -749,10 +919,10 @@ export default function WhyMBKSection() {
                             ))}
                         </div>
                         {/* Second set of logos for seamless loop */}
-                        <div className="flex w-1/2 items-center justify-around px-4 md:px-8">
+                        <div className="flex w-1/2 items-center justify-around">
                             {logos.map((logo, index) => (
                                 <div key={`logo-2-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
-                                    <div className="relative w-full h-full min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]">
+                                    <div className={`relative w-full h-full ${logo.includes('applied-computing') ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]' : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'}`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}

@@ -1,13 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function ContactForm() {
   const [role, setRole] = useState<"operator" | "partner">("operator");
 
+  useEffect(() => {
+    const handleSetRole = (e: any) => {
+      if (e.detail?.role) {
+        setRole(e.detail.role.toLowerCase());
+      }
+    };
+    window.addEventListener("set-contact-role", handleSetRole as EventListener);
+    return () => window.removeEventListener("set-contact-role", handleSetRole as EventListener);
+  }, []);
+
   return (
-    <section className="w-full py-20 px-6 md:px-16 lg:px-24 bg-white">
+    <section id="contact-form" className="w-full py-20 px-6 md:px-16 lg:px-24 bg-white">
       <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
         {/* ── Left ── */}
@@ -113,21 +123,19 @@ export default function ContactForm() {
           <div className="grid grid-cols-2 rounded-xl overflow-hidden border border-[#d4cff0]">
             <button
               onClick={() => setRole("operator")}
-              className={`py-3 text-sm font-semibold transition-colors ${
-                role === "operator"
-                  ? "bg-[#6D28D9] text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-50"
-              }`}
+              className={`py-3 text-sm font-semibold transition-colors ${role === "operator"
+                ? "bg-[#6D28D9] text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50"
+                }`}
             >
               Operator
             </button>
             <button
               onClick={() => setRole("partner")}
-              className={`py-3 text-sm font-semibold transition-colors ${
-                role === "partner"
-                  ? "bg-[#6D28D9] text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-50"
-              }`}
+              className={`py-3 text-sm font-semibold transition-colors ${role === "partner"
+                ? "bg-[#6D28D9] text-white"
+                : "bg-white text-gray-700 hover:bg-gray-50"
+                }`}
             >
               Partner
             </button>
