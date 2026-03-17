@@ -135,23 +135,6 @@ export default function WhyMBKSection() {
                     scrub: 0.6,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
-                    snap: {
-                        snapTo: (progress: number) => {
-                            // Find the nearest snap point
-                            let closest = 0;
-                            let minDist = Infinity;
-                            for (const sp of snapPoints) {
-                                const dist = Math.abs(progress - sp);
-                                if (dist < minDist) {
-                                    minDist = dist;
-                                    closest = sp;
-                                }
-                            }
-                            return closest;
-                        },
-                        duration: { min: 0.2, max: 0.6 },
-                        ease: "power1.inOut",
-                    },
                 },
             });
 

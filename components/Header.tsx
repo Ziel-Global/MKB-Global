@@ -18,21 +18,27 @@ export default function Header() {
                 </nav>
 
                 {/* Center Logo */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2">
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-                        <Image src="/logos/logo-main.png" alt="MBK Logo" width={32} height={24} className="h-6 w-auto object-contain" priority />
-                        <span className="font-bold text-xl ml-2 tracking-wide text-black">MBK GLOBAL</span>
+                        <Image
+                            src="/svg-logos/Horizontal%20Logo.svg"
+                            alt="MBK Global horizontal logo"
+                            width={240}
+                            height={56}
+                            className="h-8 md:h-10 w-auto object-contain"
+                            priority
+                        />
                     </Link>
                 </div>
 
                 {/* Right Buttons — hidden on mobile (below 849px) */}
                 <div className="hidden min-[849px]:flex items-center gap-3">
-                    <Link href="/work" className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors">
+                    <span className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors cursor-default">
                         Work With Us
-                    </Link>
-                    <Link href="/partner" className="bg-[#1e1e24] hover:bg-black text-white text-sm font-medium px-5 py-2 rounded-full transition-colors">
+                    </span>
+                    <span className="bg-[#1e1e24] hover:bg-black text-white text-sm font-medium px-5 py-2 rounded-full transition-colors cursor-default">
                         Partner With Us
-                    </Link>
+                    </span>
                 </div>
 
                 {/* Hamburger Button — visible only on mobile/tablet (below 849px) */}
@@ -54,12 +60,12 @@ export default function Header() {
                     <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link>
                     <Link href="/case-studies" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Case Studies</Link>
                     <div className="flex flex-col gap-3 mt-4 w-[70%]">
-                        <Link href="/work" onClick={() => setMenuOpen(false)} className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center">
+                        <span className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center cursor-default">
                             Work With Us
-                        </Link>
-                        <Link href="/partner" onClick={() => setMenuOpen(false)} className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center">
+                        </span>
+                        <span className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center cursor-default">
                             Partner With Us
-                        </Link>
+                        </span>
                     </div>
                 </div>
             )}

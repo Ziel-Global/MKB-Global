@@ -69,21 +69,15 @@ export default function Footer() {
       </div>
 
       {/* Large logo banner */}
-      <div className="w-full flex items-center px-6 md:px-16 lg:px-24 pt-4 md:pt-6 pb-0 gap-4 md:gap-10">
-        <div className="flex-shrink-0">
-          <Image
-            src="/logos/logo-main.png"
-            alt="MBK Global logo mark"
-            width={203}
-            height={104}
-            className="w-[80px] md:w-[180px] lg:w-[180px] h-auto"
-            priority
-          />
-        </div>
-        <div className="flex items-baseline gap-0 leading-none">
-          <span className="font-black text-[#1e1e24] text-[clamp(2.5rem,10vw,9rem)] tracking-tight leading-none">MBK</span>
-          <span className="font-light text-[#1e1e24] text-[clamp(2.5rem,10vw,9rem)] tracking-tight leading-none">&nbsp;GLOBAL</span>
-        </div>
+      <div className="w-full flex justify-center px-6 md:px-16 lg:px-24 pt-4 md:pt-6 pb-0">
+        <Image
+          src="/svg-logos/Horizontal%20Logo.svg"
+          alt="MBK Global horizontal logo"
+          width={1200}
+          height={280}
+          className="w-full max-w-[440px] sm:max-w-[680px] md:max-w-[920px] lg:max-w-[1240px] h-auto"
+          priority
+        />
       </div>
     </footer>
   );
