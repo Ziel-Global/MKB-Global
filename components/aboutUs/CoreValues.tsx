@@ -98,7 +98,7 @@ export default function CoreValues() {
             At MBK Global, our values are the foundation of our identity. They
             shape our culture, drive our decisions, and define how we engage
             with partners, clients, and communities. Integrity, innovation, and
-            impact aren&apos;t just words — they&apos;re our commitment to excellence.
+            impact aren&apos;t just words they&apos;re our commitment to excellence.
           </p>
         </div>
 

@@ -24,7 +24,7 @@ const services = [
     {
         title: "VC as a Service (VCaaS)",
         subtitle: "Extend Your Reach. De-Risk Your Investments.",
-        description: "MBK acts as your venture capital execution arm — sourcing, screening, and supporting high-potential startups aligned with your strategic goals.",
+        description: "MBK acts as your venture capital execution arm sourcing, screening, and supporting high-potential startups aligned with your strategic goals.",
         points: [
             "Mandate-based startup sourcing",
             "Due diligence and growth support",
@@ -48,7 +48,7 @@ const services = [
     {
         title: "Strategy Planning & Execution",
         subtitle: "Frameworks That Move You Forward",
-        description: "We help organizations craft strategies they can actually deliver — aligning vision, capability, and pace into clear, actionable roadmaps.",
+        description: "We help organizations craft strategies they can actually deliver aligning vision, capability, and pace into clear, actionable roadmaps.",
         points: [
             "Co-developed business & digital strategies",
             "Implementation planning with milestones",

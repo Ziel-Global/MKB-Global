@@ -18,7 +18,7 @@ export default function ContactForm() {
             </h2>
             <p className="text-gray-600 text-base leading-relaxed max-w-md">
               Whether you&apos;re exploring digitalisation, scaling solutions,
-              or seeking impact — MBK Global helps you move forward safely,
+              or seeking impact MBK Global helps you move forward safely,
               confidently, and fully.
             </p>
           </div>

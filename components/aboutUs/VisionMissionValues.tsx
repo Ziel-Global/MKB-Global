@@ -11,12 +11,12 @@ const cards = [
   {
     title: "Our Vision",
     description:
-      "We identify, invest in, and nurture digital solutions that solve critical challenges across sectors and regions — creating sustainable value for our partners and positive impact for societies worldwide.",
+      "We identify, invest in, and nurture digital solutions that solve critical challenges across sectors and regions creating sustainable value for our partners and positive impact for societies worldwide.",
   },
   {
     title: "Our Mission",
     description:
-      "We identify, invest in, and nurture digital solutions that solve critical challenges across sectors and regions — creating sustainable value for our partners and positive impact for societies worldwide.",
+      "We identify, invest in, and nurture digital solutions that solve critical challenges across sectors and regions creating sustainable value for our partners and positive impact for societies worldwide.",
   },
   {
     title: "Our Values",

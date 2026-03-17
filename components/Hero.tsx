@@ -202,7 +202,7 @@ export default function Hero() {
                     >
                         <h2 className="text-xs sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
                         <p className="text-[8px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
-                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous,integrated value chains — safely, reliably, and at speed.
+                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous,integrated value chains safely, reliably, and at speed.
                         </p>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ export default function Header() {
                 {/* Left Navigation — hidden on mobile (below 849px) */}
                 <nav className="hidden min-[849px]:flex items-center gap-6 text-sm font-medium text-gray-700">
                     <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
-                    <Link href="/services" className="hover:text-black transition-colors">Services</Link>
+                    {/* <Link href="/services" className="hover:text-black transition-colors">Services</Link> */}
                     <Link href="/case-studies" className="hover:text-black transition-colors">Case Studies</Link>
                 </nav>
 
@@ -57,7 +57,7 @@ export default function Header() {
             {menuOpen && (
                 <div className="min-[849px]:hidden fixed inset-0 top-[52px] z-50 bg-white/95 backdrop-blur-md flex flex-col items-center pt-12 gap-6 animate-fadeIn">
                     <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">About Us</Link>
-                    <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link>
+                    {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
                     <Link href="/case-studies" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Case Studies</Link>
                     <div className="flex flex-col gap-3 mt-4 w-[70%]">
                         <span className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center cursor-default">

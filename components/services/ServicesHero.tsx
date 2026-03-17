@@ -59,11 +59,11 @@ export default function ServicesHero() {
 
                     <div className="flex flex-col gap-2 max-w-2xl mt-1">
                         <p className="text-[#333333] text-xs md:text-sm font-medium leading-relaxed">
-                            From strategy to execution, MBK delivers end-to-end solutions that move ventures, enterprises, and institutions forward.
+                            From strategy to execution, MBK delivers end to end solutions that move ventures, enterprises, and institutions forward.
                         </p>
 
                         <p className="text-[#333333] text-xs md:text-sm leading-relaxed">
-                            Whether you&apos;re starting with a bold idea, scaling a high-impact venture, or transforming complex operations—we bring the tools, talent, and structure to get it done. Every service we offer is built to drive outcomes, not just outputs.
+                            Whether you&apos;re starting with a bold idea, scaling a high-impact venture, or transforming complex operations we bring the tools, talent, and structure to get it done. Every service we offer is built to drive outcomes, not just outputs.
                         </p>
                     </div>
 

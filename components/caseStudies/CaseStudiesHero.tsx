@@ -55,12 +55,12 @@ export default function CaseStudiesHero() {
                     </p>
 
                     <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-extrabold text-[#3b177d] leading-[1.1] tracking-tight max-w-[800px]">
-                        Proven Digital Impact Across the Energy Value Chain
+                        Our Technology & Innovation Partners 
                     </h1>
 
                     <div className="flex flex-col gap-2 max-w-3xl mt-2">
                         <p className="text-[#333333] text-sm md:text-base font-medium leading-relaxed">
-                            Real-world transformations delivered across subsurface, facilities, plants, and enterprise operations — integrating, optimising, and automating with measurable results.
+                           MBK Global collaborates with leading technology and innovation partners to deliver advanced digital, engineering, and industrial solutions across energy, infrastructure, and enterprise sectors. 
                         </p>
                     </div>
                 </div>

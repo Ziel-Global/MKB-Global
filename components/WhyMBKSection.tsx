@@ -22,7 +22,7 @@ const achievements = [
     },
     {
         title: "Greater operational certainty",
-        description: "Because intelligence, automation, and human-centred design are built into every layer — from subsurface to trading.",
+        description: "Because intelligence, automation, and human-centred design are built into every layer from subsurface to trading.",
     },
     {
         title: "Sustained competitiveness",
@@ -33,7 +33,7 @@ const achievements = [
 const partnerAchievements = [
     {
         title: "Embedding their capabilities inside national-scale solutions",
-        description: "Partners become part of integrated, end-to-end transformations — not isolated tools.",
+        description: "Partners become part of integrated, end-to-end transformations not isolated tools.",
     },
     {
         title: "Reducing sales friction and cycle time",
@@ -49,7 +49,7 @@ const partnerAchievements = [
     },
     {
         title: "Accelerating adoption at ecosystem level",
-        description: "Because MBK orchestrates multi-party deployments — operators, EPCs, fabricators, logistics, regulators, and service providers.",
+        description: "Because MBK orchestrates multi-party deployments operators, EPCs, fabricators, logistics, regulators, and service providers.",
     },
 ];
 
@@ -397,7 +397,7 @@ export default function WhyMBKSection() {
                         Why Partners Accelerate Further With MBK Global
                     </h2>
                     <p className="text-gray-600 text-[0.88rem] md:text-[1rem] leading-relaxed mb-3 md:mb-5 font-medium">
-                        Technology providers, OEMs, advanced manufacturers, integrators, and digital platforms want to scale in energy — but scaling alone is slow, expensive, and risky.
+                        Technology providers, OEMs, advanced manufacturers, integrators, and digital platforms want to scale in energy but scaling alone is slow, expensive, and risky.
                     </p>
                     <p className="text-[#3D1E85] text-[0.95rem] md:text-[1.05rem] font-semibold">
                         MBK Global changes the equation.
@@ -408,7 +408,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 3: Right content panel — "We amplify partners by" ===== */}
             <div
                 ref={phase3Ref}
-                className="absolute top-[20%] md:top-[28%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center"
+                className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center"
                 style={{ opacity: 0 }}
             >
                 <h2 className="text-[1.3rem] md:text-[1.9rem] font-semibold text-[#3D1E85] mb-3 md:mb-4 leading-[1.15]">
@@ -451,7 +451,7 @@ export default function WhyMBKSection() {
                         Partners go further and faster with MBK because the ecosystem is already built around success.
                     </p>
                     <p className="text-[0.75rem] md:text-[0.82rem] text-gray-500 leading-relaxed">
-                        We create the conditions where the right technologies reach the right users at the right time — and deliver the impact they were designed for.
+                        We create the conditions where the right technologies reach the right users at the right time and deliver the impact they were designed for.
                     </p>
                 </div>
             </div>
@@ -471,16 +471,16 @@ export default function WhyMBKSection() {
                         Orchestration at Industrial Scale
                     </h3>
                     <p className="text-gray-700 text-[0.82rem] md:text-[0.92rem] leading-relaxed mb-3">
-                        Digitalisation is no longer a technology problem — it is an integration problem.
+                        Digitalisation is no longer a technology problem it is an integration problem.
                     </p>
                     <p className="text-gray-700 text-[0.82rem] md:text-[0.92rem] leading-relaxed mb-3">
                         MBK Global solves it.
                     </p>
                     <p className="text-gray-700 text-[0.82rem] md:text-[0.92rem] leading-relaxed mb-3">
-                        We bring together the full IR4 stack — sensing, digital twins, AI, additive manufacturing, cloud, edge, robotics, supply-chain intelligence, and automation — into one coherent model of how the energy ecosystem should operate.
+                        We bring together the full IR4 stack sensing, digital twins, AI, additive manufacturing, cloud, edge, robotics, supply-chain intelligence, and automation into one coherent model of how the energy ecosystem should operate.
                     </p>
                     <p className="text-gray-700 text-[0.82rem] md:text-[0.92rem] leading-relaxed">
-                        This is how Qatar moves from a fragmented, reactive, commodity price taker to an Energy-as-a-Service price maker — adaptive, predictive, and globally differentiated.
+                        This is how Qatar moves from a fragmented, reactive, commodity price taker to an Energy as a Service price maker adaptive, predictive, and globally differentiated.
                     </p>
                 </div>
 
@@ -541,7 +541,7 @@ export default function WhyMBKSection() {
                             Go Together.
                         </h2>
                         <p className="text-gray-600 text-[0.82rem] md:text-[0.95rem] leading-relaxed max-w-[420px]">
-                            Whether you operate assets or build technologies, MBK Global helps you achieve more — with less complexity, less risk, and significantly more impact.
+                            Whether you operate assets or build technologies, MBK Global helps you achieve more with less complexity, less risk, and significantly more impact.
                         </p>
                     </div>
 
@@ -642,7 +642,7 @@ export default function WhyMBKSection() {
                         Let&apos;s Build the Future of Operations
                     </h2>
                     <p className="text-gray-500 text-[0.8rem] md:text-[0.88rem] leading-relaxed mb-4 md:mb-6">
-                        Whether you&apos;re exploring digitalisation, scaling solutions, or seeking impact — MBK Global helps you move forward safely, confidently, and fully.
+                        Whether you&apos;re exploring digitalisation, scaling solutions, or seeking impact MBK Global helps you move forward safely, confidently, and fully.
                     </p>
                     <div className="flex gap-3 flex-1 min-h-[160px] md:min-h-0">
                         <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group">
