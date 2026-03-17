@@ -13,8 +13,8 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 text-sm text-[#3d3d50]">
               <li><Link href="/" className="hover:text-[#2E0E68] transition-colors">Home</Link></li>
               <li><Link href="/about" className="hover:text-[#2E0E68] transition-colors">About Us</Link></li>
-              <li><Link href="/services" className="hover:text-[#2E0E68] transition-colors">Services</Link></li>
-              <li><Link href="/contact" className="hover:text-[#2E0E68] transition-colors">Contact Us</Link></li>
+              {/* <li><Link href="/services" className="hover:text-[#2E0E68] transition-colors">Services</Link></li> */}
+              {/* <li><Link href="/contact" className="hover:text-[#2E0E68] transition-colors">Contact Us</Link></li> */}
             </ul>
           </div>
 

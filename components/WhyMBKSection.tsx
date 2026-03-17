@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Image from "next/image";
-import emailjs from "@emailjs/browser";
+import { useContactForm } from "@/lib/useContactForm";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -60,17 +60,7 @@ const CARD_FULL_HEIGHT = 140;
 const DESC_MAX_HEIGHT = 80;
 
 export default function WhyMBKSection() {
-    const [role, setRole] = useState<"Operator" | "Partner">("Operator");
-    const [formData, setFormData] = useState({
-        name: "",
-        company: "",
-        jobRole: "",
-        email: "",
-        phone: "",
-        challenge: "",
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitMessage, setSubmitMessage] = useState("");
+    const { role, setRole, formData, isSubmitting, submitMessage, handleFieldChange, handleSubmit } = useContactForm("Operator");
     const stRef = useRef<any>(null);
     const sectionRef = useRef<HTMLElement>(null);
     // Left panel refs
@@ -124,70 +114,6 @@ export default function WhyMBKSection() {
         if (dragScrollRef.current) dragScrollRef.current.style.cursor = 'grab';
     };
 
-    const handleFieldChange = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = event.target;
-        setFormData((previous) => ({ ...previous, [name]: value }));
-    };
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (!formData.name || !formData.email || !formData.challenge) {
-            setSubmitMessage("Please fill Name, Email, and Challenge before submitting.");
-            return;
-        }
-
-        setIsSubmitting(true);
-        setSubmitMessage("");
-
-        try {
-            const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-            const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-            const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-            if (!serviceId || !templateId || !publicKey) {
-                setSubmitMessage("Email service is not configured yet.");
-                return;
-            }
-
-            await emailjs.send(
-                serviceId,
-                templateId,
-                {
-                    to_email: "hello@mbk.global",
-                    name: formData.name,
-                    company: formData.company || "-",
-                    role: formData.jobRole || "-",
-                    email: formData.email,
-                    phone: formData.phone || "-",
-                    user_type: role,
-                    time: new Date().toLocaleString(),
-                    challenge: formData.challenge,
-                    reply_to: formData.email,
-                },
-                {
-                    publicKey,
-                }
-            );
-
-            setSubmitMessage("Thanks! Your message has been sent.");
-            setFormData({
-                name: "",
-                company: "",
-                jobRole: "",
-                email: "",
-                phone: "",
-                challenge: "",
-            });
-        } catch (error: any) {
-            setSubmitMessage(error?.text || "Unable to send right now. Please check EmailJS settings and try again.");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
     const logos = [
         "/slider-images/innowise-logo.png",
         "/slider-images/29e3441716eeb4aef5a80b7ca6949718e11d2ef9.png",
@@ -198,12 +124,6 @@ export default function WhyMBKSection() {
     ];
 
     useEffect(() => {
-        const handleSetRole = (e: any) => {
-            if (e.detail?.role) {
-                setRole(e.detail.role);
-            }
-        };
-
         const handleScrollToContact = () => {
              // Jump directly to the end of the GSAP animation where the form is visible
              if (stRef.current) {
@@ -217,7 +137,6 @@ export default function WhyMBKSection() {
              }
         };
 
-        window.addEventListener("set-contact-role", handleSetRole as EventListener);
         window.addEventListener("scroll-to-contact", handleScrollToContact as EventListener);
 
         const ctx = gsap.context(() => {
@@ -425,7 +344,6 @@ export default function WhyMBKSection() {
         return () => {
             clearTimeout(refreshTimer);
             ctx.revert();
-            window.removeEventListener("set-contact-role", handleSetRole as EventListener);
             window.removeEventListener("scroll-to-contact", handleScrollToContact as EventListener);
         };
     }, []);

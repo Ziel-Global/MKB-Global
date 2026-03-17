@@ -1,24 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useContactForm } from "@/lib/useContactForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ServicesCTA() {
     const containerRef = useRef<HTMLElement>(null);
-    const [role, setRole] = useState<"Operator" | "Partner">("Operator");
+    const {
+        role,
+        setRole,
+        formData,
+        isSubmitting,
+        submitMessage,
+        handleFieldChange,
+        handleSubmit,
+    } = useContactForm("Operator");
 
     useEffect(() => {
-        const handleSetRole = (e: any) => {
-            if (e.detail?.role) {
-                setRole(e.detail.role);
-            }
-        };
-        window.addEventListener("set-contact-role", handleSetRole as EventListener);
-
         const ctx = gsap.context(() => {
             gsap.fromTo(".fade-up-element",
                 { opacity: 0, y: 30 },
@@ -38,7 +40,6 @@ export default function ServicesCTA() {
 
         return () => {
             ctx.revert();
-            window.removeEventListener("set-contact-role", handleSetRole as EventListener);
         };
     }, []);
 
@@ -95,14 +96,17 @@ export default function ServicesCTA() {
                         Work With Us
                     </h2>
 
-                    <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
 
                         {/* Name Field */}
                         <div className="flex flex-col gap-2">
                             <label className="text-xs font-semibold text-[#3b177d]">Name</label>
                             <input
+                                name="name"
                                 type="text"
                                 placeholder="Enter your name"
+                                value={formData.name}
+                                onChange={handleFieldChange}
                                 className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                             />
                         </div>
@@ -112,16 +116,22 @@ export default function ServicesCTA() {
                             <div className="flex flex-col gap-2 flex-1">
                                 <label className="text-xs font-semibold text-[#3b177d]">Company</label>
                                 <input
+                                    name="company"
                                     type="text"
                                     placeholder="Enter your company name"
+                                    value={formData.company}
+                                    onChange={handleFieldChange}
                                     className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
                             <div className="flex flex-col gap-2 flex-1">
                                 <label className="text-xs font-semibold text-[#3b177d]">Role</label>
                                 <input
+                                    name="jobRole"
                                     type="text"
                                     placeholder="What's your role?"
+                                    value={formData.jobRole}
+                                    onChange={handleFieldChange}
                                     className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
@@ -132,16 +142,22 @@ export default function ServicesCTA() {
                             <div className="flex flex-col gap-2 flex-1">
                                 <label className="text-xs font-semibold text-[#3b177d]">Email</label>
                                 <input
+                                    name="email"
                                     type="email"
                                     placeholder="Enter your email"
+                                    value={formData.email}
+                                    onChange={handleFieldChange}
                                     className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
                             <div className="flex flex-col gap-2 flex-1">
                                 <label className="text-xs font-semibold text-[#3b177d]">Phone</label>
                                 <input
+                                    name="phone"
                                     type="tel"
                                     placeholder="Enter your phone"
+                                    value={formData.phone}
+                                    onChange={handleFieldChange}
                                     className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400"
                                 />
                             </div>
@@ -173,8 +189,11 @@ export default function ServicesCTA() {
                         <div className="flex flex-col gap-2 mt-1">
                             <label className="text-xs font-semibold text-[#3b177d]">What challenge are you facing?</label>
                             <textarea
+                                name="challenge"
                                 placeholder="Type here..."
                                 rows={3}
+                                value={formData.challenge}
+                                onChange={handleFieldChange}
                                 className="w-full px-4 py-2.5 rounded-xl border-none outline-none focus:ring-2 focus:ring-[#8B3DFF]/50 text-sm bg-white placeholder:text-gray-400 resize-none"
                             />
                         </div>
@@ -182,10 +201,12 @@ export default function ServicesCTA() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="mt-2 self-start bg-[#8B3DFF] hover:bg-[#7220e8] text-white font-semibold py-2.5 px-8 rounded-full transition-colors text-sm shadow-md"
+                            disabled={isSubmitting}
+                            className="mt-2 self-start bg-[#8B3DFF] hover:bg-[#7220e8] disabled:opacity-70 text-white font-semibold py-2.5 px-8 rounded-full transition-colors text-sm shadow-md"
                         >
-                            Submit
+                            {isSubmitting ? "Sending..." : "Submit"}
                         </button>
+                        {submitMessage && <p className="text-xs text-[#3b177d]">{submitMessage}</p>}
                     </form>
                 </div>
             </div>
