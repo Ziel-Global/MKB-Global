@@ -8,6 +8,7 @@ export const caseStudyPartnerLogos = [
     { src: "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png", alt: "Kongsberg", partnerKey: "kongsberg" },
     { src: "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png", alt: "SP3D", partnerKey: "pdo" },
     { src: "/slider-images/Frame 10.png", alt: "Optvance AI", partnerKey: "optvance" },
+    { src: "/slider-images/applied-computing-new.png", alt: "Applied Computing", partnerKey: "applied.computing" },
     { src: "/slider-images/b5f0af026953b945a92a3bb0a8a23fc641e85d52.png", alt: "Orbital", partnerKey: "orbital" },
     { src: "/slider-images/fbf484095b4d10ed6abf6c611faf3f91a01f1ddb.png", alt: "Ocyan", partnerKey: "ocyan" },
 ] as const;
@@ -31,6 +32,9 @@ export default function CaseStudiesLogoSelector({
                         const isInnowise = logo.partnerKey === "innowise";
                         const isOrbital = logo.partnerKey === "orbital";
                         const isKongsberg = logo.partnerKey === "kongsberg";
+                        const isAppliedComputing = logo.partnerKey === "applied.computing";
+                        const isOcyan = logo.partnerKey === "ocyan";
+                        const isOptvance = logo.partnerKey === "optvance";
 
                         return (
                             <button
@@ -51,7 +55,7 @@ export default function CaseStudiesLogoSelector({
                                     height={60}
                                     className={`w-auto object-contain transition-all duration-200 ${
                                         isActive ? "grayscale-0" : "grayscale"
-                                    } ${isInnowise ? "h-5 md:h-6" : isOrbital ? "h-6 md:h-7" : isKongsberg ? "h-12 md:h-14" : "h-8 md:h-10"}`}
+                                    } ${isInnowise ? "h-5 md:h-6" : isOrbital ? "h-6 md:h-7" : isKongsberg ? "h-12 md:h-14" : isAppliedComputing ? "h-10 md:h-12" : isOcyan ? "h-12 md:h-14" : isOptvance ? "h-6 md:h-8" : "h-8 md:h-10"}`}
                                 />
                             </button>
                         );
