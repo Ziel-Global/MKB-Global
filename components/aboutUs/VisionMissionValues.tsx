@@ -11,12 +11,12 @@ const cards = [
   {
     title: "Our Vision",
     description:
-      "We identify, invest in, and nurture digital solutions that solve critical challenges across sectors and regions creating sustainable value for our partners and positive impact for societies worldwide.",
+      "To be Qatar’s trusted leader in technology driven transformation for energy operations by 2030.",
   },
   {
     title: "Our Mission",
     description:
-      "We identify, invest in, and nurture digital solutions that solve critical challenges across sectors and regions creating sustainable value for our partners and positive impact for societies worldwide.",
+      "We orchestrate and deliver end to end systems integration through Qatar‑owned and Qatar‑controlled joint ventures with proven global partners.",
   },
   {
     title: "Our Values",
@@ -85,14 +85,13 @@ export default function VisionMissionValues() {
                 <p className="text-purple-200 text-sm leading-relaxed">{card.description}</p>
               </div>
 
-              <div className="absolute bottom-0 right-0 w-[70%] opacity-20 pointer-events-none select-none">
-                <Image
-                  src="/logos/transparent-logo.png"
-                  alt=""
-                  width={400}
-                  height={200}
-                  className="w-full h-auto object-contain"
-                />
+              <div className="absolute bottom-2 right-2 w-[50%] opacity-[0.35] pointer-events-none select-none">
+                <svg viewBox="20 28 130 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto text-[#DCD9ED]">
+                  <path 
+                    d="M37.958 101.243L22 69.9357C34.8283 72.8567 40.9435 66.3387 42.3973 62.7145L54.2088 38.4063C61.2625 28.615 69.4585 34.3266 72.6747 38.4063L83.6546 62.7145C91.773 76.9933 100.679 68.6639 104.117 62.7145L115.097 39.9362C123.614 29.193 131.511 35.4597 134.394 39.9362L149 71.4848C136.816 68.5102 132.72 72.8089 131.611 75.4797L118.756 101.243C111.037 115.203 101.899 107.059 98.2942 101.243L86.1511 75.4797C80.7713 68.9511 72.5072 71.9257 70.6921 75.4797L57.1076 101.243C48.6817 115.07 40.8304 107.004 37.958 101.243Z" 
+                    fill="currentColor"
+                  />
+                </svg>
               </div>
             </div>
           ))}

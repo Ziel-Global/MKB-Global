@@ -51,7 +51,7 @@ export default function CaseStudiesHero() {
 
                 <div ref={textRef} className="w-full flex flex-col items-center gap-4 md:gap-6 relative z-20">
                     <p className="text-black font-extrabold text-sm md:text-base tracking-wide mt-1">
-                        Case Studies
+                        Our Partners
                     </p>
 
                     <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-extrabold text-[#3b177d] leading-[1.1] tracking-tight max-w-[800px]">

@@ -47,8 +47,8 @@ export default function AboutPage() {
             <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[560px] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/about-us/aboutus.png"
-                  alt="MBK Global – engineer at industrial facility"
+                  src="/team-images/Group 1.jpg"
+                  alt="MBK Global team"
                   fill
                   className="object-cover"
                   priority
