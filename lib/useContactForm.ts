@@ -14,6 +14,10 @@ type ContactFormData = {
     challenge: string;
 };
 
+type EmailJsError = {
+    text?: string;
+};
+
 const initialFormData: ContactFormData = {
     name: "",
     company: "",
@@ -103,9 +107,10 @@ export function useContactForm(defaultRole: ContactRole = "Operator") {
 
             setSubmitMessage("Thanks! Your message has been sent.");
             setFormData(initialFormData);
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const emailError = error as EmailJsError;
             setSubmitMessage(
-                error?.text || "Unable to send right now. Please check EmailJS settings and try again."
+                emailError?.text || "Unable to send right now. Please check EmailJS settings and try again."
             );
         } finally {
             setIsSubmitting(false);

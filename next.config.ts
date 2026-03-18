@@ -20,11 +20,6 @@ const nextConfig: NextConfig = {
   // You can add any other Next.js configurations here
 };
 
-const sentryWebpackPluginOptions = {
-  // Your Sentry configuration (optional)
-  widenClientFileUpload: true, // Optional: for handling large file uploads
-};
-
 export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options

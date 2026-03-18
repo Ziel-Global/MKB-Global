@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import CaseStudyHero from "@/components/caseStudyDetails/CaseStudyHero";
 import CaseStudySection from "@/components/caseStudyDetails/CaseStudySection";
 import { caseStudiesData } from "@/data/caseStudiesData";

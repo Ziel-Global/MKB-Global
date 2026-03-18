@@ -61,7 +61,7 @@ const DESC_MAX_HEIGHT = 80;
 
 export default function WhyMBKSection() {
     const { role, setRole, formData, isSubmitting, submitMessage, handleFieldChange, handleSubmit } = useContactForm("Operator");
-    const stRef = useRef<any>(null);
+    const stRef = useRef<ScrollTrigger | null>(null);
     const sectionRef = useRef<HTMLElement>(null);
     // Left panel refs
     const leftPanelRef = useRef<HTMLDivElement>(null);

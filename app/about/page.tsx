@@ -5,7 +5,6 @@ import CoreValues from "@/components/aboutUs/CoreValues";
 import UniqueApproach from "@/components/aboutUs/UniqueApproach";
 import ContactForm from "@/components/aboutUs/ContactForm";
 import Image from "next/image";
-import Link from "next/link";
 
 // Removed unused divisions and pillars variables
 export default function AboutPage() {

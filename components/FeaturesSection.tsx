@@ -230,7 +230,7 @@ export default function FeaturesSection() {
         window.addEventListener("hero-exit", handleHeroExit);
 
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
+            gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
