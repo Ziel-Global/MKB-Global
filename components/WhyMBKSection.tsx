@@ -704,7 +704,7 @@ export default function WhyMBKSection() {
                 <form
                     id="contact-form"
                     onSubmit={handleSubmit}
-                    className="max-w-full md:max-w-[620px] md:flex-1 bg-[#EEE9F9] rounded-3xl p-3 md:p-7 flex flex-col gap-1.5 md:gap-3 md:self-stretch"
+                    className="max-w-full md:max-w-[620px] md:flex-1 bg-[#EEE9F9] rounded-3xl p-6 md:p-7 flex flex-col gap-3 md:gap-3 md:self-stretch"
                 >
                     <h3 className="text-[1.15rem] md:text-[1.6rem] font-bold text-[#2D1469] mb-0.5 md:mb-1">Work With Us</h3>
 
@@ -800,7 +800,7 @@ export default function WhyMBKSection() {
                             placeholder="Type here..."
                             value={formData.challenge}
                             onChange={handleFieldChange}
-                            className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none placeholder:text-gray-400"
+                            className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none min-h-[75px] md:min-h-0 placeholder:text-gray-400"
                         />
                     </div>
 
