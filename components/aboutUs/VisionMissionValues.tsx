@@ -85,7 +85,7 @@ export default function VisionMissionValues() {
 
   if (isMobile) {
     return (
-      <section className="w-full px-6 py-12 bg-white">
+      <section className="w-full px-6 py-10 bg-white">
         <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 gap-6">
           {cards.map((card) => (
             <div
@@ -114,11 +114,11 @@ export default function VisionMissionValues() {
 
   return (
     // Wrapper height controls reveal distance while pinned
-    <div ref={wrapperRef} className="relative w-full" style={{ height: "220vh" }}>
+    <div ref={wrapperRef} className="relative w-full" style={{ height: "200vh" }}>
       {/* Sticky grid — stays on screen while wrapper scrolls */}
       <div
         ref={stickyRef}
-        className="sticky top-0 w-full flex items-center justify-center py-20 px-6 md:px-16 lg:px-24 bg-white overflow-hidden"
+        className="sticky top-0 w-full flex items-center justify-center py-16 px-6 md:px-16 lg:px-24 bg-white overflow-hidden"
         style={{ height: "100vh" }}
       >
         <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-start">

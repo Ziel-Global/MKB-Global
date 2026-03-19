@@ -2,12 +2,24 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
+
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [menuOpen]);
 
     const scrollToContact = (role: "Operator" | "Partner") => {
         setMenuOpen(false);
@@ -33,8 +45,8 @@ export default function Header() {
     };
 
     return (
-        <>
-            <header className="fixed top-0 z-50 w-full bg-[#EBE9FFE5] px-6 py-2 flex items-center justify-between rounded-full mt-2 mx-4 max-w-[calc(100%-2rem)] shadow-sm">
+        <div className="fixed top-0 z-50 mt-2 w-[calc(100%-2rem)] max-w-[calc(100%-2rem)] mx-4">
+            <header className={`relative bg-[#EBE9FFF2] backdrop-blur-xl px-6 py-2 flex items-center justify-between shadow-sm ${menuOpen ? "rounded-t-[28px] rounded-b-none" : "rounded-full"}`}>
                 {/* Left Navigation — hidden on mobile (below 849px) */}
                 <nav className="hidden min-[849px]:flex items-center gap-6 text-sm font-medium text-gray-700">
                     <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
@@ -77,6 +89,7 @@ export default function Header() {
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="min-[849px]:hidden relative z-[60] flex flex-col items-center justify-center w-9 h-9 gap-[5px] ml-auto"
                     aria-label="Toggle menu"
+                    aria-expanded={menuOpen}
                 >
                     <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
                     <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
@@ -84,13 +97,23 @@ export default function Header() {
                 </button>
             </header>
 
-            {/* Mobile Menu Overlay — hidden above 848px */}
-            {menuOpen && (
-                <div className="min-[849px]:hidden fixed inset-0 top-[52px] z-50 bg-white/95 backdrop-blur-md flex flex-col items-center pt-12 gap-6 animate-fadeIn">
-                    <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">About Us</Link>
-                    {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
-                    <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Our Partners</Link>
-                    <div className="flex flex-col gap-3 mt-4 w-[70%]">
+            {/* Mobile Dropdown Menu — hidden above 848px */}
+            <div
+                className={`min-[849px]:hidden absolute top-full left-0 right-0 overflow-hidden transition-[max-height,opacity] duration-220 ease-out ${menuOpen ? "max-h-[380px] opacity-100 pointer-events-auto" : "max-h-0 opacity-0 pointer-events-none"}`}
+            >
+                <div className="bg-[#EBE9FFF2] backdrop-blur-xl rounded-[0_0_28px_28px] shadow-lg overflow-hidden -mt-[2px]">
+                    <div className="px-6 pt-7 pb-6">
+                    <nav className="flex flex-col items-center gap-8">
+                        <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
+                            About Us
+                        </Link>
+                        {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
+                        <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
+                            Our Partners
+                        </Link>
+                    </nav>
+
+                    <div className="flex flex-col gap-3 mt-8 px-4">
                         <button
                             onClick={() => scrollToContact("Operator")}
                             className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
@@ -104,8 +127,10 @@ export default function Header() {
                             Partner With Us
                         </button>
                     </div>
+                    </div>
                 </div>
-            )}
-        </>
+            </div>
+            
+        </div>
     );
 }

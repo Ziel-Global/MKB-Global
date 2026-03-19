@@ -659,19 +659,19 @@ export default function WhyMBKSection() {
             {/* ===== Phase 6 — Contact / Let's Build the Future ===== */}
             <div
                 ref={phase6Ref}
-                className="absolute inset-0 z-40 bg-white flex flex-col md:flex-row items-stretch justify-start md:justify-center px-5 md:px-10 lg:px-16 gap-6 md:gap-10 overflow-y-auto md:overflow-hidden pt-24 pb-20 md:py-16"
+                className="absolute inset-0 z-40 bg-white flex flex-col md:flex-row items-stretch justify-start md:justify-center px-4 md:px-10 lg:px-16 gap-3 md:gap-10 overflow-hidden pt-16 pb-2 md:py-16"
                 style={{ transform: "translateX(100%)", opacity: 0 }}
             >
                 {/* Left: text + prospectus cards */}
                 <div className="flex flex-col w-full md:w-[38%] md:max-w-[420px] shrink-0 md:self-stretch">
-                    <h2 className="text-[1.6rem] md:text-[2.7rem] font-extrabold text-[#2D1469] leading-[1.1] mb-3 md:mb-4">
+                    <h2 className="text-[1.15rem] md:text-[2.7rem] font-extrabold text-[#2D1469] leading-[1.1] mb-2 md:mb-4">
                         Let&apos;s Build the Future of Operations
                     </h2>
-                    <p className="text-gray-500 text-[0.8rem] md:text-[0.88rem] leading-relaxed mb-4 md:mb-6">
+                    <p className="hidden md:block text-gray-500 text-[0.8rem] md:text-[0.88rem] leading-relaxed mb-4 md:mb-6">
                         Whether you&apos;re exploring digitalisation, scaling solutions, or seeking impact MBK Global helps you move forward safely, confidently, and fully.
                     </p>
-                    <div className="flex gap-3 flex-1 min-h-[160px] md:min-h-0">
-                        <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group">
+                    <div className="flex gap-2 md:gap-3 min-h-[98px] md:flex-1 md:min-h-0">
+                        <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group min-h-[98px] md:min-h-0">
                             <Image src="/images/subsurface&drilling/0c8e090b98c8c49cb9692105363fdaefdc980b6a.png" alt="Operator Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
                             {/* Download icon */}
@@ -682,9 +682,9 @@ export default function WhyMBKSection() {
                                     </svg>
                                 </div>
                             </div>
-                            <span className="absolute bottom-3 left-3 text-white font-bold text-[0.75rem] md:text-[0.85rem] z-10">Operator Prospectus</span>
+                            <span className="absolute bottom-2 left-2 md:bottom-3 md:left-3 text-white font-bold text-[0.68rem] md:text-[0.85rem] z-10">Operator Prospectus</span>
                         </div>
-                        <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group">
+                        <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group min-h-[98px] md:min-h-0">
                             <Image src="/images/Midstream&Transport/5edae69127d285ba10ec779628c678137107df22.png" alt="Partner Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
                             {/* Download icon */}
@@ -695,7 +695,7 @@ export default function WhyMBKSection() {
                                     </svg>
                                 </div>
                             </div>
-                            <span className="absolute bottom-3 left-3 text-white font-bold text-[0.75rem] md:text-[0.85rem] z-10">Partner Prospectus</span>
+                            <span className="absolute bottom-2 left-2 md:bottom-3 md:left-3 text-white font-bold text-[0.68rem] md:text-[0.85rem] z-10">Partner Prospectus</span>
                         </div>
                     </div>
                 </div>
@@ -704,88 +704,88 @@ export default function WhyMBKSection() {
                 <form
                     id="contact-form"
                     onSubmit={handleSubmit}
-                    className="flex-1 max-w-full md:max-w-[620px] bg-[#EEE9F9] rounded-3xl p-5 md:p-7 flex flex-col gap-3 md:self-stretch justify-between"
+                    className="max-w-full md:max-w-[620px] md:flex-1 bg-[#EEE9F9] rounded-3xl p-3 md:p-7 flex flex-col gap-1.5 md:gap-3 md:self-stretch"
                 >
-                    <h3 className="text-[1.3rem] md:text-[1.6rem] font-bold text-[#2D1469] mb-1">Work With Us</h3>
+                    <h3 className="text-[1.15rem] md:text-[1.6rem] font-bold text-[#2D1469] mb-0.5 md:mb-1">Work With Us</h3>
 
                     {/* Name */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Name</label>
+                        <label className="text-[0.68rem] md:text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Name</label>
                         <input
                             name="name"
                             type="text"
                             placeholder="Enter your name"
                             value={formData.name}
                             onChange={handleFieldChange}
-                            className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                            className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
                         />
                     </div>
 
                     {/* Company + Role */}
-                    <div className="flex flex-col md:flex-row gap-3">
+                    <div className="flex flex-row gap-2 md:gap-3">
                         <div className="flex flex-col gap-1 flex-1">
-                            <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Company</label>
+                            <label className="text-[0.68rem] md:text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Company</label>
                             <input
                                 name="company"
                                 type="text"
                                 placeholder="Enter your company name"
                                 value={formData.company}
                                 onChange={handleFieldChange}
-                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                                className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
                             />
                         </div>
                         <div className="flex flex-col gap-1 flex-1">
-                            <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Role</label>
+                            <label className="text-[0.68rem] md:text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Role</label>
                             <input
                                 name="jobRole"
                                 type="text"
                                 placeholder="What's your role?"
                                 value={formData.jobRole}
                                 onChange={handleFieldChange}
-                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                                className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
                             />
                         </div>
                     </div>
 
                     {/* Email + Phone */}
-                    <div className="flex flex-col md:flex-row gap-3">
+                    <div className="flex flex-row gap-2 md:gap-3">
                         <div className="flex flex-col gap-1 flex-1">
-                            <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Email</label>
+                            <label className="text-[0.68rem] md:text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Email</label>
                             <input
                                 name="email"
                                 type="email"
                                 placeholder="Enter your email"
                                 value={formData.email}
                                 onChange={handleFieldChange}
-                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                                className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
                             />
                         </div>
                         <div className="flex flex-col gap-1 flex-1">
-                            <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Phone</label>
+                            <label className="text-[0.68rem] md:text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">Phone</label>
                             <input
                                 name="phone"
                                 type="tel"
                                 placeholder="Enter your phone"
                                 value={formData.phone}
                                 onChange={handleFieldChange}
-                                className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
+                                className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors placeholder:text-gray-400"
                             />
                         </div>
                     </div>
 
                     {/* Operator / Partner toggle */}
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 md:gap-3">
                         <button
                             type="button"
                             onClick={() => setRole("Operator")}
-                            className={`flex-1 py-2.5 rounded-xl font-semibold text-[0.85rem] transition-all duration-300 ${role === "Operator" ? 'bg-[#7C3AED] text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-[#7C3AED]'}`}
+                            className={`flex-1 py-2 md:py-2.5 rounded-xl font-semibold text-[0.85rem] transition-all duration-300 ${role === "Operator" ? 'bg-[#7C3AED] text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-[#7C3AED]'}`}
                         >
                             Operator
                         </button>
                         <button
                             type="button"
                             onClick={() => setRole("Partner")}
-                            className={`flex-1 py-2.5 rounded-xl font-semibold text-[0.85rem] transition-all duration-300 ${role === "Partner" ? 'bg-[#7C3AED] text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-[#7C3AED]'}`}
+                            className={`flex-1 py-2 md:py-2.5 rounded-xl font-semibold text-[0.85rem] transition-all duration-300 ${role === "Partner" ? 'bg-[#7C3AED] text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-[#7C3AED]'}`}
                         >
                             Partner
                         </button>
@@ -793,21 +793,21 @@ export default function WhyMBKSection() {
 
                     {/* Challenge textarea */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">What challenge are you facing?</label>
+                        <label className="text-[0.68rem] md:text-[0.7rem] font-semibold text-gray-500 uppercase tracking-wide">What challenge are you facing?</label>
                         <textarea
                             name="challenge"
-                            rows={3}
+                            rows={1}
                             placeholder="Type here..."
                             value={formData.challenge}
                             onChange={handleFieldChange}
-                            className="w-full bg-white rounded-xl px-4 py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none placeholder:text-gray-400"
+                            className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none placeholder:text-gray-400"
                         />
                     </div>
 
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="self-start bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-70 text-white font-semibold text-[0.9rem] px-7 py-2.5 rounded-full transition-colors"
+                        className="self-start bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-70 text-white font-semibold text-[0.85rem] md:text-[0.9rem] px-6 md:px-7 py-1.5 md:py-2.5 rounded-full transition-colors"
                     >
                         {isSubmitting ? "Sending..." : "Submit"}
                     </button>
