@@ -34,7 +34,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="hidden min-[849px]:flex fixed top-0 z-50 w-full bg-[#EBE9FFE5] px-6 py-2 items-center justify-between rounded-full mt-2 mx-4 max-w-[calc(100%-2rem)] shadow-sm">
+            <header className="fixed top-0 z-50 w-full bg-[#EBE9FFE5] px-6 py-2 flex items-center justify-between rounded-full mt-2 mx-4 max-w-[calc(100%-2rem)] shadow-sm">
                 {/* Left Navigation — hidden on mobile (below 849px) */}
                 <nav className="hidden min-[849px]:flex items-center gap-6 text-sm font-medium text-gray-700">
                     <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
@@ -71,59 +71,41 @@ export default function Header() {
                         Partner With Us
                     </button>
                 </div>
+
+                {/* Hamburger Button — visible only on mobile/tablet (below 849px) */}
+                <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="min-[849px]:hidden relative z-[60] flex flex-col items-center justify-center w-9 h-9 gap-[5px] ml-auto"
+                    aria-label="Toggle menu"
+                >
+                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+                </button>
             </header>
 
-            {/* Mobile navbar + dropdown menu */}
-            <div className="min-[849px]:hidden fixed top-2 left-4 right-4 z-50">
-                <div className={`w-full h-[58px] bg-[#EBE9FFE5] backdrop-blur-md shadow-sm px-6 flex items-center justify-center relative ${menuOpen ? "rounded-t-[28px]" : "rounded-full"}`}>
-                    <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-                        <Image
-                            src="/svg-logos/Horizontal%20Logo.svg"
-                            alt="MBK Global horizontal logo"
-                            width={240}
-                            height={56}
-                            className="h-8 w-auto object-contain"
-                            priority
-                        />
-                    </Link>
-
-                    <button
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        className="absolute right-6 z-[60] flex flex-col items-center justify-center w-9 h-9 gap-[5px]"
-                        aria-label="Toggle menu"
-                    >
-                        <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-                        <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-                        <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-                    </button>
-                </div>
-
-                <div
-                    className={`absolute left-0 right-0 top-[58px] w-full rounded-b-[28px] bg-[#EBE9FFE5] backdrop-blur-md px-5 pb-6 transition-opacity duration-150 ease-out ${
-                        menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                    }`}
-                >
-                    <div className={`flex flex-col items-center gap-6 ${menuOpen ? "pt-7" : "pt-0"}`}>
-                        <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">About Us</Link>
-                        {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
-                        <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Our Partners</Link>
-                        <div className="flex flex-col gap-3 mt-2 w-full max-w-[560px]">
-                            <button
-                                onClick={() => scrollToContact("Operator")}
-                                className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
-                            >
-                                Work With Us
-                            </button>
-                            <button
-                                onClick={() => scrollToContact("Partner")}
-                                className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
-                            >
-                                Partner With Us
-                            </button>
-                        </div>
+            {/* Mobile Menu Overlay — hidden above 848px */}
+            {menuOpen && (
+                <div className="min-[849px]:hidden fixed inset-0 top-[52px] z-50 bg-white/95 backdrop-blur-md flex flex-col items-center pt-12 gap-6 animate-fadeIn">
+                    <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">About Us</Link>
+                    {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
+                    <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Our Partners</Link>
+                    <div className="flex flex-col gap-3 mt-4 w-[70%]">
+                        <button
+                            onClick={() => scrollToContact("Operator")}
+                            className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
+                        >
+                            Work With Us
+                        </button>
+                        <button
+                            onClick={() => scrollToContact("Partner")}
+                            className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
+                        >
+                            Partner With Us
+                        </button>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     );
 }

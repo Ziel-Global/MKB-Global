@@ -15,8 +15,8 @@ export default function ContactForm() {
   } = useContactForm("Operator");
 
   return (
-    <section id="contact-form" className="w-full py-14 md:py-16 px-6 md:px-16 lg:px-24 bg-white">
-      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-start">
+    <section id="contact-form" className="w-full py-20 px-6 md:px-16 lg:px-24 bg-white">
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
         {/* ── Left ── */}
         <div className="flex flex-col gap-8">
