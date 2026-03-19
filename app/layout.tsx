@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
+const envUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const siteUrl = envUrl ? `https://${envUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}` : "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -22,7 +23,9 @@ export const metadata: Metadata = {
       "MBK Global helps operators and partners accelerate digital transformation with integrated, scalable, and impact-driven execution.",
     images: [
       {
-        url: "/logos/logo-main.png",
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
         alt: "MBK Global",
       },
     ],
@@ -33,7 +36,7 @@ export const metadata: Metadata = {
     title: "MBK Global",
     description:
       "MBK Global helps operators and partners accelerate digital transformation with integrated, scalable, and impact-driven execution.",
-    images: ["/logos/logo-main.png"],
+    images: ["/opengraph-image"],
   },
   icons: {
     icon: "/favicon.svg",
