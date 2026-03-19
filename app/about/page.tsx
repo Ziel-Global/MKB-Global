@@ -17,7 +17,7 @@ export default function AboutPage() {
 
       <main className="w-full flex-1">
         {/* ── Hero ── */}
-        <section className="w-full min-h-screen bg-white flex items-center pt-24 pb-16 px-6 md:px-16 lg:px-24 overflow-hidden">
+        <section className="w-full min-h-[88vh] bg-white flex items-center pt-20 pb-10 px-6 md:px-16 lg:px-24 overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left content */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">

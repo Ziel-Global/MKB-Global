@@ -9,8 +9,8 @@ export default function OurStory() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
-    <section className="w-full py-24 px-6 md:px-16 lg:px-24 bg-white overflow-hidden">
-      <div className="w-full max-w-[1100px] mx-auto relative">
+    <section className="w-full py-16 md:py-20 px-6 md:px-16 lg:px-24 bg-white overflow-hidden">
+      <div className="w-full max-w-[1200px] mx-auto relative">
 
         {/* Card — text only, right padding reserves space so text doesn't go under video */}
         <div className="bg-[#f0eef8] rounded-3xl p-10 lg:p-12 lg:pr-[52%]">

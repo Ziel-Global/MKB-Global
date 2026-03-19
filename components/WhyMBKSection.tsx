@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -61,6 +61,7 @@ const DESC_MAX_HEIGHT = 80;
 
 export default function WhyMBKSection() {
     const { role, setRole, formData, isSubmitting, submitMessage, handleFieldChange, handleSubmit } = useContactForm("Operator");
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
     const stRef = useRef<ScrollTrigger | null>(null);
     const sectionRef = useRef<HTMLElement>(null);
     // Left panel refs
@@ -124,6 +125,18 @@ export default function WhyMBKSection() {
     ];
 
     useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 767px)");
+        const updateScreenState = () => setIsSmallScreen(mediaQuery.matches);
+
+        updateScreenState();
+        mediaQuery.addEventListener("change", updateScreenState);
+
+        return () => {
+            mediaQuery.removeEventListener("change", updateScreenState);
+        };
+    }, []);
+
+    useEffect(() => {
         const handleScrollToContact = () => {
              // Jump directly to the end of the GSAP animation where the form is visible
              if (stRef.current) {
@@ -138,6 +151,13 @@ export default function WhyMBKSection() {
         };
 
         window.addEventListener("scroll-to-contact", handleScrollToContact as EventListener);
+
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            stRef.current = null;
+            return () => {
+                window.removeEventListener("scroll-to-contact", handleScrollToContact as EventListener);
+            };
+        }
 
         const ctx = gsap.context(() => {
             // Tighter durations for snappier transitions
@@ -349,7 +369,7 @@ export default function WhyMBKSection() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white">
+        <section ref={sectionRef} className="relative w-full bg-white md:h-screen md:overflow-hidden">
             {/* Isometric video — hidden on mobile to avoid overlap */}
             <div
                 ref={videoContainerRef}
@@ -368,7 +388,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 1: Left content panel — "With MBK, customers achieve" ===== */}
             <div
                 ref={leftPanelRef}
-                className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10"
+                className="hidden md:block absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10"
             >
                 <h2 className="text-[1.5rem] md:text-[2.25rem] font-semibold text-[#2D1469] mb-5 md:mb-7 leading-tight">
                     With MBK, customers achieve
@@ -415,7 +435,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 2: Right content panel — "Why Partners Accelerate..." ===== */}
             <div
                 ref={rightPanelRef}
-                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%]"
+                className="hidden md:flex absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex-col justify-start h-[70%]"
                 style={{ opacity: 0 }}
             >
                 <div className="bg-[#F5F2FC] rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-sm pointer-events-auto relative z-20">
@@ -434,7 +454,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 3: Right content panel — "We amplify partners by" ===== */}
             <div
                 ref={phase3Ref}
-                className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center"
+                className="hidden md:flex absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex-col justify-center"
                 style={{ opacity: 0 }}
             >
                 <h2 className="text-[1.3rem] md:text-[1.9rem] font-semibold text-[#3D1E85] mb-3 md:mb-4 leading-[1.15]">
@@ -485,7 +505,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 4 — "The MBK Advantage" ===== */}
             <div
                 ref={phase4Ref}
-                className="absolute inset-0 z-30 bg-white flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-16 lg:px-24 overflow-y-auto md:overflow-hidden"
+                className="hidden md:flex absolute inset-0 z-30 bg-white flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-16 lg:px-24 overflow-y-auto md:overflow-hidden"
                 style={{ transform: "translateY(100%)", opacity: 0 }}
             >
                 {/* Left: text */}
@@ -554,7 +574,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 5 — "Go Further. Go Faster. Go Together." ===== */}
             <div
                 ref={phase5Ref}
-                className="absolute inset-0 z-30 bg-white flex flex-col overflow-hidden"
+                className="hidden md:flex absolute inset-0 z-30 bg-white flex-col overflow-hidden"
                 style={{ transform: "translateY(100%)", opacity: 0 }}
             >
                 {/* Top section: headline + cards */}
@@ -659,8 +679,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 6 — Contact / Let's Build the Future ===== */}
             <div
                 ref={phase6Ref}
-                className="absolute inset-0 z-40 bg-white flex flex-col md:flex-row items-stretch justify-start md:justify-center px-5 md:px-10 lg:px-16 gap-6 md:gap-10 overflow-y-auto md:overflow-hidden pt-24 pb-20 md:py-16"
-                style={{ transform: "translateX(100%)", opacity: 0 }}
+                className="relative z-40 bg-white flex flex-col md:flex-row items-stretch justify-start md:justify-center px-5 md:px-10 lg:px-16 gap-6 md:gap-10 pt-20 pb-8 md:absolute md:inset-0 md:pt-24 md:pb-20 md:py-16"
+                style={isSmallScreen ? { transform: "translateX(0%)", opacity: 1 } : { transform: "translateX(100%)", opacity: 0 }}
             >
                 {/* Left: text + prospectus cards */}
                 <div className="flex flex-col w-full md:w-[38%] md:max-w-[420px] shrink-0 md:self-stretch">
@@ -816,7 +836,7 @@ export default function WhyMBKSection() {
             </div>
 
             {/* Marquee layer - positioned at the very bottom spanning the entire width */}
-            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-4 md:pt-6 pb-2 overflow-hidden">
+            <div ref={marqueeRef} className="hidden md:block absolute bottom-0 left-0 w-full z-20 pt-4 md:pt-6 pb-2 overflow-hidden">
                 <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
                 <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
                 <div className="relative z-10 w-full overflow-hidden">
