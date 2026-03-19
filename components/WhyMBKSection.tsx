@@ -820,11 +820,11 @@ export default function WhyMBKSection() {
                 <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
                 <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
                 <div className="relative z-10 w-full overflow-hidden">
-                    <div className="flex w-[200%] animate-marquee">
+                    <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee">
                         {/* First set of logos */}
-                        <div className="flex w-1/2 items-center justify-around">
+                        <div className="flex shrink-0 items-center gap-5 md:gap-10">
                             {logos.map((logo, index) => (
-                                <div key={`logo-1-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
+                                <div key={`logo-1-${index}`} className="flex shrink-0 items-center justify-center min-w-[110px] md:min-w-[150px]">
                                     <div className={`relative w-full h-full ${logo.includes('applied-computing') ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]' : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'}`}>
                                         <Image
                                             src={logo}
@@ -837,9 +837,9 @@ export default function WhyMBKSection() {
                             ))}
                         </div>
                         {/* Second set of logos for seamless loop */}
-                        <div className="flex w-1/2 items-center justify-around">
+                        <div className="flex shrink-0 items-center gap-5 md:gap-10" aria-hidden="true">
                             {logos.map((logo, index) => (
-                                <div key={`logo-2-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
+                                <div key={`logo-2-${index}`} className="flex shrink-0 items-center justify-center min-w-[110px] md:min-w-[150px]">
                                     <div className={`relative w-full h-full ${logo.includes('applied-computing') ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]' : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'}`}>
                                         <Image
                                             src={logo}

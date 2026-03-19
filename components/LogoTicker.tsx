@@ -12,31 +12,31 @@ const logos = [
 export default function LogoTicker() {
     return (
         <div className="w-full overflow-hidden bg-white py-3 md:py-4 mt-2 md:mt-4 relative">
-            <div className="flex w-[200%] animate-marquee">
+            <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee">
                 {/* First set of logos */}
-                <div className="flex w-1/2 items-center justify-around">
+                <div className="flex shrink-0 items-center gap-5 md:gap-10">
                     {logos.map((logo, index) => (
-                        <div key={`logo-1-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
+                        <div key={`logo-1-${index}`} className="flex shrink-0 items-center justify-center min-w-[110px] md:min-w-[150px]">
                             <Image
                                 src={logo}
                                 alt={`Partner logo ${index + 1}`}
                                 width={120}
                                 height={40}
-                                className={`object-contain w-auto ${logo.includes('applied-computing') ? 'max-h-[20px] md:max-h-[32px]' : 'max-h-[28px] md:max-h-[40px]'}`}
+                                className={`object-contain w-auto shrink-0 ${logo.includes('applied-computing') ? 'max-h-[20px] md:max-h-[32px]' : 'max-h-[28px] md:max-h-[40px]'}`}
                             />
                         </div>
                     ))}
                 </div>
                 {/* Second set of logos for seamless loop */}
-                <div className="flex w-1/2 items-center justify-around">
+                <div className="flex shrink-0 items-center gap-5 md:gap-10" aria-hidden="true">
                     {logos.map((logo, index) => (
-                        <div key={`logo-2-${index}`} className="flex items-center justify-center min-w-[90px] md:min-w-[150px]">
+                        <div key={`logo-2-${index}`} className="flex shrink-0 items-center justify-center min-w-[110px] md:min-w-[150px]">
                             <Image
                                 src={logo}
                                 alt={`Partner logo ${index + 1}`}
                                 width={120}
                                 height={40}
-                                className={`object-contain w-auto ${logo.includes('applied-computing') ? 'max-h-[20px] md:max-h-[32px]' : 'max-h-[28px] md:max-h-[40px]'}`}
+                                className={`object-contain w-auto shrink-0 ${logo.includes('applied-computing') ? 'max-h-[20px] md:max-h-[32px]' : 'max-h-[28px] md:max-h-[40px]'}`}
                             />
                         </div>
                     ))}
