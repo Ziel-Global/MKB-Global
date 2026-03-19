@@ -165,14 +165,14 @@ export default function Hero() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="w-full h-screen flex flex-col items-center overflow-hidden bg-white pt-20 md:pt-[100px]">
-            <div ref={contentToHideRef} className="w-full flex flex-col items-center">
+        <section ref={sectionRef} className="w-full h-screen flex flex-col items-center overflow-hidden bg-white pt-16 md:pt-[100px]">
+            <div ref={contentToHideRef} className="w-full flex flex-col items-center relative z-20">
                 {/* Main Headlines */}
                 <div className="text-center w-full max-w-5xl px-4 flex flex-col items-center gap-1 mb-2">
-                    <h1 className="text-[1.1rem] sm:text-[1.5rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
+                    <h1 className="text-[1.85rem] sm:text-[1.9rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
                         The Integrated Energy Value Chain.
                     </h1>
-                    <h1 className="text-[1.1rem] sm:text-[1.5rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
+                    <h1 className="text-[1.85rem] sm:text-[1.9rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
                         Reimagined for the Fourth Industrial Revolution.
                     </h1>
                 </div>
@@ -184,11 +184,11 @@ export default function Hero() {
             </div>
 
             {/* Video section */}
-            <div className="w-full px-4 md:px-8 flex flex-col justify-start items-center flex-1 min-h-0 pb-6 relative z-10 mt-4 origin-center">
-                <div ref={videoContainerRef} className="relative w-full max-w-[1200px] bg-transparent rounded-xl flex justify-center items-center h-full origin-bottom">
+            <div className="w-full px-2 md:px-8 flex flex-col justify-start items-center flex-1 min-h-0 pb-2 md:pb-6 relative z-10 mt-2 md:mt-4 origin-center">
+                <div ref={videoContainerRef} className="relative w-[130%] md:w-full max-w-none md:max-w-[1200px] bg-transparent rounded-xl flex justify-center items-center h-full origin-bottom -mt-2 md:mt-0">
                     <video
                         src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-full object-contain rounded-xl"
+                        className="w-full h-full object-contain object-center rounded-xl"
                         autoPlay
                         loop
                         muted
@@ -198,11 +198,11 @@ export default function Hero() {
                     {/* Overlay Card that appears on scroll */}
                     <div
                         ref={overlayRef}
-                        className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[92%] sm:w-[80%] md:w-auto max-w-[95%] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
+                        className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[84%] sm:w-[78%] md:w-auto max-w-[320px] sm:max-w-[420px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-2.5 sm:p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
                     >
-                        <h2 className="text-xs sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
-                        <p className="text-[8px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
-                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous,integrated value chains safely, reliably, and at speed.
+                        <h2 className="text-[11px] sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
+                        <p className="text-[9px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
+                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
                         </p>
                     </div>
                 </div>

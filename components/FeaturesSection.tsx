@@ -18,6 +18,64 @@ const tabs = [
     "Ecosystem Performance"
 ];
 
+const tabCopy: Record<string, { heading: string; lines: string[] }> = {
+    "Subsurface & Drilling": {
+        heading: "Every Asset Connected. Every Risk Anticipated.",
+        lines: [
+            "Real-time subsurface intelligence synchronises teams, reduces interventions, and stabilises production.",
+            "Models learn continuously, guiding drilling with precision and confidence.",
+        ],
+    },
+    "Midstream & Transport": {
+        heading: "Every Asset Connected. Every Risk Anticipated.",
+        lines: [
+            "Pipelines, valves, compressors, and terminals form a live digital mesh.",
+            "AI identifies anomalies early, enabling proactive maintenance and uninterrupted flow.",
+        ],
+    },
+    "Processing & Refining": {
+        heading: "Plants That Adapt Automatically.",
+        lines: [
+            "Digital twins, simulation, and advanced process control optimise throughput, emissions, and energy use.",
+            "The plant behaves as a learning system always tuned for safety, reliability, and performance.",
+        ],
+    },
+    "Trade & Commercial": {
+        heading: "Frictionless Movements. Instant Certainty.",
+        lines: [
+            "Digital workflows synchronise contracts, certifications, carbon intensity, and logistics.",
+            "Transactions complete without delay, reducing friction and unlocking faster commercial cycles.",
+        ],
+    },
+    "Supply Chain & Industrial Services": {
+        heading: "An Agile, Intelligent Supply Network.",
+        lines: [
+            "Demand and supply match in real time. Material codes translate across systems.",
+            "Resources, capabilities, and inventory become visible across the ecosystem creating speed, resilience, and cost advantage.",
+        ],
+    },
+    "Corporate & Operations Centres": {
+        heading: "One Source of Truth. One Integrated View.",
+        lines: [
+            "Finance, operations, projects, and sustainability teams share live data and common dashboards.",
+            "AI accelerates analysis, reduces manual effort, and elevates decision-making quality.",
+        ],
+    },
+    "Digital Nervous System": {
+        heading: "The Foundation for Autonomous Operations.",
+        lines: [
+            "Sensors, networks, edge computing, cloud, data lakes, AI models, digital twins, ERP meshes, and automation platforms combine into a coherent digital architecture.",
+            "The entire energy value chain sees more, acts faster, and collaborates seamlessly.",
+        ],
+    },
+    "Ecosystem Performance": {
+        heading: "A Value Chain That Senses, Learns, and Improves.",
+        lines: [
+            "When people, assets, workflows, and systems connect across operators, EPCs, OEMs, logistics providers, fabricators, and regulators, the result is an adaptive ecosystem safer, more competitive, and more resilient.",
+        ],
+    },
+};
+
 const tabData: Record<string, Array<{ title: string; subtitles: string[]; image: string }>> = {
     "Subsurface & Drilling": [
         {
@@ -151,6 +209,7 @@ export default function FeaturesSection() {
     const recenterFrameRef = useRef<number | null>(null);
 
     const currentCards = tabData[activeTab] || [];
+    const currentCopy = tabCopy[activeTab] || tabCopy["Subsurface & Drilling"];
 
     const smoothRecenterToFeatures = () => {
         const sectionTop = sectionRef.current?.offsetTop ?? window.scrollY;
@@ -359,11 +418,15 @@ export default function FeaturesSection() {
                         <div className="absolute top-0 left-[-20%] w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
 
                         <h2 className="text-2xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-2 md:mb-3 relative z-10">
-                            Every Asset Connected. Every Risk Anticipated.
+                            {currentCopy.heading}
                         </h2>
                         <p className="text-[#374151] text-xs md:text-base font-medium leading-relaxed max-w-2xl relative z-10">
-                            Real-time subsurface intelligence synchronises teams, reduces interventions, and stabilises production.<br />
-                            Models learn continuously, guiding drilling with precision and confidence.
+                            {currentCopy.lines.map((line, index) => (
+                                <span key={`${activeTab}-line-${index}`}>
+                                    {line}
+                                    {index < currentCopy.lines.length - 1 && <><br /><br /></>}
+                                </span>
+                            ))}
                         </p>
                     </div>
                 </div>

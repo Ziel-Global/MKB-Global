@@ -36,7 +36,7 @@ export default function ContactForm() {
             {/* Operator Prospectus */}
             <div className="relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer group">
               <Image
-                src="/about-us/aboutus.png"
+                src="/work-with-us/839afe1e339b32e95f94af548b116ed1813f57b0.png"
                 alt="Operator Prospectus"
                 fill
                 className="object-cover brightness-50 group-hover:scale-105 transition-transform duration-500"
@@ -50,7 +50,7 @@ export default function ContactForm() {
             {/* Partner Prospectus */}
             <div className="relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer group">
               <Image
-                src="/about-us/aboutus.png"
+                src="/work-with-us/0436f4551509088b818c12028374d32a21737219.png"
                 alt="Partner Prospectus"
                 fill
                 className="object-cover brightness-50 group-hover:scale-105 transition-transform duration-500"

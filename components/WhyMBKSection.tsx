@@ -672,7 +672,7 @@ export default function WhyMBKSection() {
                     </p>
                     <div className="flex gap-2 md:gap-3 min-h-[98px] md:flex-1 md:min-h-0">
                         <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group min-h-[98px] md:min-h-0">
-                            <Image src="/images/subsurface&drilling/0c8e090b98c8c49cb9692105363fdaefdc980b6a.png" alt="Operator Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <Image src="/work-with-us/839afe1e339b32e95f94af548b116ed1813f57b0.png" alt="Operator Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
                             {/* Download icon */}
                             <div className="absolute bottom-12 left-4 z-10 opacity-0 group-hover:opacity-100 transform -translate-y-[500%] group-hover:translate-y-0 transition-all duration-500 ease-out">
@@ -685,7 +685,7 @@ export default function WhyMBKSection() {
                             <span className="absolute bottom-2 left-2 md:bottom-3 md:left-3 text-white font-bold text-[0.68rem] md:text-[0.85rem] z-10">Operator Prospectus</span>
                         </div>
                         <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group min-h-[98px] md:min-h-0">
-                            <Image src="/images/Midstream&Transport/5edae69127d285ba10ec779628c678137107df22.png" alt="Partner Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <Image src="/work-with-us/0436f4551509088b818c12028374d32a21737219.png" alt="Partner Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
                             {/* Download icon */}
                             <div className="absolute bottom-12 left-4 z-10 opacity-0 group-hover:opacity-100 transform -translate-y-[500%] group-hover:translate-y-0 transition-all duration-500 ease-out">
