@@ -198,7 +198,7 @@ export default function Hero() {
                     {/* Overlay Card that appears on scroll */}
                     <div
                         ref={overlayRef}
-                        className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[84%] sm:w-[78%] md:w-auto max-w-[320px] sm:max-w-[420px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-2.5 sm:p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
+                        className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[70vw] min-[417px]:w-[92vw] sm:w-[65%] md:w-auto max-w-[320px] sm:max-w-[420px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-2.5 sm:p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
                     >
                         <h2 className="text-[11px] sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
                         <p className="text-[9px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
