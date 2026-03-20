@@ -142,7 +142,7 @@ export default function ContactSection() {
 
           {/* Submit */}
           <div>
-            <button className="bg-[#6D28D9] hover:bg-purple-800 text-white font-semibold px-8 py-3 rounded-full transition-colors text-sm">
+            <button className="w-full bg-[#6D28D9] hover:bg-purple-800 text-white font-semibold px-8 py-3 rounded-full transition-colors text-sm">
               Submit
             </button>
           </div>

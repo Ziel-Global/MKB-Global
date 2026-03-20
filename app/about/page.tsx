@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import OurStory from "@/components/aboutUs/OurStory";
 import VisionMissionValues from "@/components/aboutUs/VisionMissionValues";
+import OurTeam from "@/components/aboutUs/OurTeam";
 import CoreValues from "@/components/aboutUs/CoreValues";
 import UniqueApproach from "@/components/aboutUs/UniqueApproach";
 import ContactForm from "@/components/aboutUs/ContactForm";
@@ -68,6 +69,9 @@ export default function AboutPage() {
 
         {/* ── Unique Approach ── */}
         <UniqueApproach />
+
+        {/* ── Our Team ── */}
+        <OurTeam />
 
         {/* ── Contact Form ── */}
         <ContactForm />

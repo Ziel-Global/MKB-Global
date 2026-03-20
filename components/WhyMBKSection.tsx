@@ -704,9 +704,11 @@ export default function WhyMBKSection() {
                 <form
                     id="contact-form"
                     onSubmit={handleSubmit}
-                    className="max-w-full md:max-w-[620px] md:flex-1 bg-[#EEE9F9] rounded-3xl p-6 md:p-7 flex flex-col gap-3 md:gap-3 md:self-stretch"
+                    className="max-w-full md:max-w-[620px] md:flex-1 bg-[#EEE9F9] rounded-3xl p-6 md:p-7 flex flex-col gap-3 md:gap-3 md:self-stretch lg:h-full"
                 >
                     <h3 className="text-[1.15rem] md:text-[1.6rem] font-bold text-[#2D1469] mb-0.5 md:mb-1">Work With Us</h3>
+
+                    <div className="flex flex-col gap-3 md:gap-3 lg:gap-4">
 
                     {/* Name */}
                     <div className="flex flex-col gap-1">
@@ -800,18 +802,22 @@ export default function WhyMBKSection() {
                             placeholder="Type here..."
                             value={formData.challenge}
                             onChange={handleFieldChange}
-                            className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none min-h-[75px] md:min-h-0 placeholder:text-gray-400"
+                            className="w-full bg-white rounded-xl px-3 py-2 md:py-2.5 text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none min-h-[75px] md:min-h-0 lg:min-h-[96px] placeholder:text-gray-400"
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="self-start bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-70 text-white font-semibold text-[0.85rem] md:text-[0.9rem] px-6 md:px-7 py-1.5 md:py-2.5 rounded-full transition-colors"
-                    >
-                        {isSubmitting ? "Sending..." : "Submit"}
-                    </button>
-                    {submitMessage && <p className="text-[0.78rem] text-[#2D1469]">{submitMessage}</p>}
+                    </div>
+
+                    <div className="lg:mt-auto flex flex-col gap-2">
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-70 text-white font-semibold text-[0.85rem] md:text-[0.9rem] px-6 md:px-7 py-1.5 md:py-2.5 lg:py-3 rounded-full transition-colors"
+                        >
+                            {isSubmitting ? "Sending..." : "Submit"}
+                        </button>
+                        {submitMessage && <p className="text-[0.78rem] text-[#2D1469]">{submitMessage}</p>}
+                    </div>
                 </form>
             </div>
 

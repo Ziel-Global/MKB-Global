@@ -202,7 +202,7 @@ export default function ServicesCTA() {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="mt-2 self-start bg-[#8B3DFF] hover:bg-[#7220e8] disabled:opacity-70 text-white font-semibold py-2.5 px-8 rounded-full transition-colors text-sm shadow-md"
+                            className="mt-2 w-full bg-[#8B3DFF] hover:bg-[#7220e8] disabled:opacity-70 text-white font-semibold py-2.5 px-8 rounded-full transition-colors text-sm shadow-md"
                         >
                             {isSubmitting ? "Sending..." : "Submit"}
                         </button>
