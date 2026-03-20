@@ -146,13 +146,17 @@ export default function WhyMBKSection() {
             // Collect snap points (normalized 0–1) for each phase boundary
             const snapPoints: number[] = [];
 
+            const isMobile = window.innerWidth < 768;
+            const scrollMultiplier = isMobile ? 30 : 55;
+            const scrubValue = isMobile ? 1.2 : 0.6;
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: `+=${totalDuration * 55}%`,
+                    end: `+=${totalDuration * scrollMultiplier}%`,
                     pin: true,
-                    scrub: 0.6,
+                    scrub: scrubValue,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                 },
