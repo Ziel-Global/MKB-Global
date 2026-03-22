@@ -57,35 +57,33 @@ export default function ServicesCTA() {
                         MBK Global is a venture builder based in Qatar, built by people who believe execution is a craft and building with others is a privilege.
                     </p>
 
-                    <div className="w-full flex flex-row gap-4 h-[250px] md:h-[320px]">
+                    <div className="grid grid-cols-2 gap-4">
                         {/* Operator Prospectus Card */}
-                        <div className="fade-up-element relative w-1/2 h-full rounded-2xl overflow-hidden group cursor-pointer">
+                        <div className="fade-up-element relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer group">
                             <Image
-                                src="/images/digitalNervousSystem/6b06ef62bbbd0c024dde1dc604086089715d1147.png"
+                                src="/work-with-us/839afe1e339b32e95f94af548b116ed1813f57b0.png"
                                 alt="Operator Prospectus"
                                 fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="object-cover brightness-50 group-hover:scale-105 transition-transform duration-500"
                             />
-                            {/* Dark Overlay gradient for text readability */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
-                            <div className="absolute bottom-6 left-6 right-6">
-                                <h3 className="text-white text-xl font-bold">Operator Prospectus</h3>
-                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                            <span className="absolute bottom-4 left-4 text-white font-bold text-sm">
+                                Operator Prospectus
+                            </span>
                         </div>
 
                         {/* Partner Prospectus Card */}
-                        <div className="fade-up-element relative w-1/2 h-full rounded-2xl overflow-hidden group cursor-pointer">
+                        <div className="fade-up-element relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer group">
                             <Image
-                                src="/images/digitalNervousSystem/4c3b42c8648a634d83ee022c1a421637a99d7e49.png"
+                                src="/work-with-us/0436f4551509088b818c12028374d32a21737219.png"
                                 alt="Partner Prospectus"
                                 fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="object-cover brightness-50 group-hover:scale-105 transition-transform duration-500"
                             />
-                            {/* Dark Overlay gradient for text readability */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
-                            <div className="absolute bottom-6 left-6 right-6">
-                                <h3 className="text-white text-xl font-bold">Partner Prospectus</h3>
-                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                            <span className="absolute bottom-4 left-4 text-white font-bold text-sm">
+                                Partner Prospectus
+                            </span>
                         </div>
                     </div>
                 </div>

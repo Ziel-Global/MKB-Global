@@ -31,8 +31,8 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <span className="font-bold text-[#1e1e24] text-sm">Policies</span>
             <ul className="flex flex-col gap-3 text-sm text-[#3d3d50]">
-              <li><Link href="#" className="hover:text-[#2E0E68] transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-[#2E0E68] transition-colors">Terms &amp; Conditions</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-[#2E0E68] transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms-and-conditions" className="hover:text-[#2E0E68] transition-colors">Terms &amp; Conditions</Link></li>
             </ul>
           </div>
 
