@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
                         <p><strong>Effective Date:</strong> March 2026</p>
 
                         <h2 className="text-2xl font-bold text-[#3D1E85] mt-8 mb-4">1. Introduction</h2>
-                        <p>Welcome to MBK Global. We are committed to protecting the privacy and security of your personal data. This Privacy Policy explains how MBK Global Holding ("we," "us," or "our") collects, uses, shares, and protects information when you visit our website (mbk.global) or interact with our services, including our Operator and Partner capabilities.</p>
+                        <p>Welcome to MBK Global. We are committed to protecting the privacy and security of your personal data. This Privacy Policy explains how MBK Global Holding (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses, shares, and protects information when you visit our website (mbk.global) or interact with our services, including our Operator and Partner capabilities.</p>
 
                         <h2 className="text-2xl font-bold text-[#3D1E85] mt-8 mb-4">2. Information We Collect</h2>
                         <p>We may collect information you provide directly to us when you use our website, contact us, or participate in our initiatives. This includes:</p>
@@ -53,7 +53,6 @@ export default function PrivacyPolicyPage() {
                     </div>
                 </div>
             </main>
-            <Footer />
         </div>
     );
 }
