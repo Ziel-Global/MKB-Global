@@ -61,14 +61,15 @@ export default function EmergencyPopup() {
 
                     {/* Titles */}
                     <h2 className="text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight text-center">
-                        <span className="text-white block">Your facility is hit.</span>
-                        <span className="text-[#c082ff] block mt-1.5">We help get you running again.</span>
+                        <span className="text-white block">Your facility is hit</span>
+                        <span className="text-[#c082ff] block mt-1.5">We help get you running again</span>
                     </h2>
 
                     {/* Description */}
                     <p className="text-[#a09eab] text-lg leading-relaxed max-w-[95%] mt-1 text-center mx-auto">
-                        Emergency repair, parts sourcing, and operational restart for critical national infrastructure{" "}
-                        <span className="text-white font-semibold">in days, not months.</span>
+                        Emergency repair, parts sourcing, and operational restart for critical national infrastructure
+                        <br />
+                        <span className="text-white font-semibold">in days, not months</span>
                     </p>
 
                     {/* CTA Button */}
