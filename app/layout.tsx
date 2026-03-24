@@ -1,5 +1,6 @@
 import "./globals.css";
 import Footer from "@/components/Footer";
+import EmergencyPopup from "@/components/EmergencyPopup";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} font-sans flex flex-col min-h-screen bg-white`}>
         {children}
         <Footer />
+        <EmergencyPopup />
       </body>
     </html>
   );

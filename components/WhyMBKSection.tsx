@@ -140,8 +140,8 @@ export default function WhyMBKSection() {
         window.addEventListener("scroll-to-contact", handleScrollToContact as EventListener);
 
         const ctx = gsap.context(() => {
-            // Tighter durations for snappier transitions
-            const totalDuration = achievements.length * 1.2 + 1.0 + 2.5 + partnerAchievements.length * 1.2 + 1.5 + 1.5 + 3.0 + 3.5 + 4.5;
+            // Tighter durations for snappier transitions (shorter because staggered animations are removed)
+            const totalDuration = 18.0;
 
             // Collect snap points (normalized 0–1) for each phase boundary
             const snapPoints: number[] = [];
@@ -167,36 +167,9 @@ export default function WhyMBKSection() {
                 stRef.current = tl.scrollTrigger;
             }
 
-            achievements.forEach((_, i) => {
-                const t = i * 1.2;
-
-                tl.fromTo(
-                    wrapperRefs.current[i],
-                    { maxHeight: 0, marginBottom: 0, opacity: 0 },
-                    { maxHeight: CARD_FULL_HEIGHT, marginBottom: 2, opacity: 1, ease: "power2.out", duration: 0.8 },
-                    t
-                );
-
-                if (i > 0) {
-                    tl.to(
-                        descRefs.current[i - 1],
-                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.5 },
-                        t
-                    );
-                }
-            });
-
-            // Footer appears after all cards
-            const footerStart = achievements.length * 1.2;
-            tl.fromTo(
-                footerRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, ease: "power2.out", duration: 0.6 },
-                footerStart
-            );
-
             // --- Transition to "Why Partners" Section ---
-            const transitionStart = footerStart + 1.0;
+            // Phase 1 just stays pinned for reading
+            const transitionStart = 2.5;
             snapPoints.push(transitionStart / totalDuration);
 
             tl.to(leftPanelRef.current, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, transitionStart);
@@ -234,37 +207,8 @@ export default function WhyMBKSection() {
                 phase3Start + 0.6
             );
 
-            // Phase 3 Accordion sequence
-            partnerAchievements.forEach((_, i) => {
-                const t = phase3Start + 1.5 + (i * 1.2);
-
-                tl.fromTo(
-                    partnerWrapperRefs.current[i],
-                    { maxHeight: 0, opacity: 0 },
-                    { maxHeight: CARD_FULL_HEIGHT, opacity: 1, ease: "power2.out", duration: 0.8 },
-                    t
-                );
-
-                if (i > 0) {
-                    tl.to(
-                        partnerDescRefs.current[i - 1],
-                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.5 },
-                        t
-                    );
-                }
-            });
-
-            // Phase 3 footer
-            const phase3FooterStart = phase3Start + 1.5 + partnerAchievements.length * 1.2;
-            tl.fromTo(
-                phase3FooterRef.current,
-                { opacity: 0, y: 24, maxHeight: 0 },
-                { opacity: 1, y: 0, maxHeight: 200, ease: "power2.out", duration: 0.8 },
-                phase3FooterStart
-            );
-
             // --- Phase 4: "The MBK Advantage" ---
-            const phase4Start = phase3FooterStart + 1.2;
+            const phase4Start = phase3Start + 3.0;
             snapPoints.push(phase4Start / totalDuration);
 
             // Exit: video LEFT, phase3 RIGHT
@@ -380,12 +324,11 @@ export default function WhyMBKSection() {
 
                 <div className="flex flex-col">
                     {achievements.map((item, i) => (
-                        // Wrapper: overflow-hidden, starts at height 0 — no empty space
+                        // Wrapper: overflow-hidden, no empty space
                         <div
                             key={i}
                             ref={(el) => { wrapperRefs.current[i] = el; }}
-                            className="group overflow-hidden rounded-2xl bg-[#EAE6F5] hover:bg-[#E2DCEF] transition-colors duration-300 cursor-pointer"
-                            style={{ maxHeight: 0, opacity: 0, marginBottom: 0 }}
+                            className="group overflow-hidden rounded-2xl bg-[#EAE6F5] hover:bg-[#E2DCEF] transition-colors duration-300 cursor-pointer mb-[2px]"
                         >
                             {/* Inner card content */}
                             <div className="px-4 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4">
@@ -396,7 +339,7 @@ export default function WhyMBKSection() {
                                 <div
                                     ref={(el) => { descRefs.current[i] = el; }}
                                     className="overflow-hidden transition-all duration-300 group-hover:!max-h-[120px] group-hover:!opacity-100"
-                                    style={{ maxHeight: DESC_MAX_HEIGHT }}
+                                    style={{ maxHeight: 0, opacity: 0 }}
                                 >
                                     <p className="text-[0.75rem] md:text-[0.82rem] text-gray-500 mt-1.5 md:mt-2 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
                                         {item.description}
@@ -410,7 +353,7 @@ export default function WhyMBKSection() {
                 {/* Closing statement */}
                 <p
                     ref={footerRef}
-                    className="mt-4 md:mt-5 text-[0.88rem] md:text-[1.1rem] font-semibold text-[#2D1469] leading-snug opacity-0"
+                    className="mt-4 md:mt-5 text-[0.88rem] md:text-[1.1rem] font-semibold text-[#2D1469] leading-snug"
                 >
                     MBK Global makes digitalisation work — not once, not in pockets, but across the entire value chain.
                 </p>
@@ -451,7 +394,6 @@ export default function WhyMBKSection() {
                             key={i}
                             ref={(el) => { partnerWrapperRefs.current[i] = el; }}
                             className="group overflow-hidden bg-[#F5F2FC] hover:bg-[#EBE5F7] transition-colors duration-300 cursor-pointer w-full"
-                            style={{ maxHeight: 0, opacity: 0 }}
                         >
                             <div className="px-4 md:px-5 pt-2.5 md:pt-3 pb-2.5 md:pb-3">
                                 <h3 className="font-bold text-[0.8rem] md:text-[0.88rem] text-[#3D1E85] leading-snug group-hover:text-[#1A0B3B] transition-colors duration-300">
@@ -460,7 +402,7 @@ export default function WhyMBKSection() {
                                 <div
                                     ref={(el) => { partnerDescRefs.current[i] = el; }}
                                     className="overflow-hidden transition-all duration-300 group-hover:!max-h-[120px] group-hover:!opacity-100"
-                                    style={{ maxHeight: DESC_MAX_HEIGHT }}
+                                    style={{ maxHeight: 0, opacity: 0 }}
                                 >
                                     <p className="text-[0.72rem] md:text-[0.78rem] text-gray-600 mt-1 md:mt-1.5 leading-relaxed group-hover:text-gray-900 transition-colors duration-300 pr-2">
                                         {item.description}
@@ -474,8 +416,7 @@ export default function WhyMBKSection() {
                 {/* Closing statement */}
                 <div
                     ref={phase3FooterRef}
-                    className="mt-4 md:mt-5 overflow-hidden pointer-events-auto"
-                    style={{ opacity: 0, maxHeight: 0 }}
+                    className="mt-4 md:mt-5 pointer-events-auto"
                 >
                     <p className="text-[0.95rem] md:text-[1.25rem] font-semibold text-[#3D1E85] leading-snug mb-2">
                         Partners go further and faster with MBK because the ecosystem is already built around success.
