@@ -52,7 +52,7 @@ export default function EmergencyPopup() {
                 <div className="relative z-10 p-8 sm:p-10 pt-12 flex flex-col gap-6">
 
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-900/60 bg-red-950/40 w-fit backdrop-blur-md">
+                    <div className="mx-auto inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-900/60 bg-red-950/40 w-fit backdrop-blur-md">
                         <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444] animate-pulse" />
                         <span className="text-[#e25555] text-[0.7rem] md:text-xs font-bold tracking-widest uppercase">
                             Emergency Response Active
@@ -66,7 +66,7 @@ export default function EmergencyPopup() {
                     </h2>
 
                     {/* Description */}
-                    <p className="text-[#a09eab] text-lg leading-relaxed max-w-[95%] mt-1">
+                    <p className="text-[#a09eab] text-lg leading-relaxed max-w-[95%] mt-1 text-center mx-auto">
                         Emergency repair, parts sourcing, and operational restart for critical national infrastructure{" "}
                         <span className="text-white font-semibold">in days, not months.</span>
                     </p>
