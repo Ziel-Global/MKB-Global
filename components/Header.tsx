@@ -23,7 +23,7 @@ export default function Header() {
 
     const scrollToContact = (role: "Operator" | "Partner") => {
         setMenuOpen(false);
-        
+
         // Dispatch the role change event immediately so components can update stat
         window.dispatchEvent(new CustomEvent("set-contact-role", { detail: { role } }));
 
@@ -37,10 +37,27 @@ export default function Header() {
                 }
             }, 50);
         } else {
-            // Give GSAP time to process the event and set scroll
-            setTimeout(() => {
-                window.dispatchEvent(new CustomEvent("scroll-to-contact"));
-            }, 50);
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                // On mobile, find the phase-6 container (the contact form's snap slide) and scroll it into view
+                setTimeout(() => {
+                    const element = document.getElementById("contact-form");
+                    if (element) {
+                        // Find the snap child (parent with snap-start) to scroll to
+                        const snapParent = element.closest('[class*="snap-start"]') as HTMLElement | null;
+                        if (snapParent) {
+                            snapParent.scrollIntoView({ behavior: "smooth", block: "start" });
+                        } else {
+                            element.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                    }
+                }, 100);
+            } else {
+                // Give GSAP time to process the event and set scroll
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent("scroll-to-contact"));
+                }, 50);
+            }
         }
     };
 
@@ -103,34 +120,34 @@ export default function Header() {
             >
                 <div className="bg-[#EBE9FFF2] backdrop-blur-xl rounded-[0_0_28px_28px] overflow-hidden -mt-[2px]">
                     <div className="px-6 pt-7 pb-6">
-                    <nav className="flex flex-col items-center gap-8">
-                        <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
-                            About Us
-                        </Link>
-                        {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
-                        <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
-                            Our Partners
-                        </Link>
-                    </nav>
+                        <nav className="flex flex-col items-center gap-8">
+                            <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
+                                About Us
+                            </Link>
+                            {/* <Link href="/services" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">Services</Link> */}
+                            <Link href="/our-partners" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
+                                Our Partners
+                            </Link>
+                        </nav>
 
-                    <div className="flex flex-col gap-3 mt-8 px-4">
-                        <button
-                            onClick={() => scrollToContact("Operator")}
-                            className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
-                        >
-                            Work With Us
-                        </button>
-                        <button
-                            onClick={() => scrollToContact("Partner")}
-                            className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
-                        >
-                            Partner With Us
-                        </button>
-                    </div>
+                        <div className="flex flex-col gap-3 mt-8 px-4">
+                            <button
+                                onClick={() => scrollToContact("Operator")}
+                                className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
+                            >
+                                Work With Us
+                            </button>
+                            <button
+                                onClick={() => scrollToContact("Partner")}
+                                className="bg-[#1e1e24] hover:bg-black text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors text-center"
+                            >
+                                Partner With Us
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     );
 }

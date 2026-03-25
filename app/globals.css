@@ -136,26 +136,48 @@
 
 .animate-marquee {
   animation: marquee 25s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Orbital animation — element centered at parent, pushed out by radius, counter-rotated to stay upright */
 @keyframes orbit {
-  from { transform: rotate(0deg)   translateX(190px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(190px) rotate(-360deg); }
+  from {
+    transform: rotate(0deg) translateX(190px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(190px) rotate(-360deg);
+  }
 }
 
 @media (max-width: 768px) {
   @keyframes orbit {
-    from { transform: rotate(0deg)   translateX(100px) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    from {
+      transform: rotate(0deg) translateX(100px) rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg) translateX(100px) rotate(-360deg);
+    }
   }
 }
 
 /* Mobile menu fade animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .animate-fadeIn {
   animation: fadeIn 0.25s ease-out;
 }
