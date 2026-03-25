@@ -11,8 +11,14 @@ export default function Home() {
       </div>
       <main className="w-full flex-1">
         <Hero />
-        <FeaturesSection />
-        <WhyMBKSection />
+        <div
+          id="mobile-snap-wrapper"
+          className="max-md:h-[100dvh] max-md:overflow-y-auto max-md:[scroll-snap-type:y_mandatory] max-md:overscroll-behavior-contain max-md:bg-white"
+          style={{ WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
+        >
+          <FeaturesSection />
+          <WhyMBKSection />
+        </div>
       </main>
     </div>
   );

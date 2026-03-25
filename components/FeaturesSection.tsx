@@ -4,8 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const tabs = [
     "Subsurface & Drilling",
@@ -187,143 +188,214 @@ export default function FeaturesSection() {
         recenterFrameRef.current = requestAnimationFrame(animate);
     };
 
+    // Mobile-only Transition Logic
     useEffect(() => {
-        // Inner div starts fully translated down (hidden inside clip, no DOM gap)
-        gsap.set(innerRef.current, { yPercent: 100 });
+        const isMobile = window.innerWidth < 768;
+        if (!isMobile) return;
+
+        const wrapper = document.getElementById('mobile-snap-wrapper');
+        if (!wrapper) return;
+
+        let touchStartY = 0;
+        let isAtTop = false;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            touchStartY = e.touches[0].clientY;
+            isAtTop = wrapper.scrollTop <= 2;
+        };
+
+        const handleTouchMove = (e: TouchEvent) => {
+            if (isAtTop && wrapper.scrollTop <= 2) {
+                const touchY = e.touches[0].clientY;
+                if (touchY > touchStartY + 45 && !isTransitioningRef.current) {
+                    isTransitioningRef.current = true;
+                    document.body.style.overflow = "";
+                    window.dispatchEvent(new CustomEvent("features-exit-back"));
+                    setTimeout(() => { isTransitioningRef.current = false; }, 800);
+                }
+            }
+        };
+
+        const handleWheel = (e: WheelEvent) => {
+            if (wrapper.scrollTop <= 2 && e.deltaY < -10 && !isTransitioningRef.current) {
+                isTransitioningRef.current = true;
+                document.body.style.overflow = "";
+                window.dispatchEvent(new CustomEvent("features-exit-back"));
+                setTimeout(() => { isTransitioningRef.current = false; }, 800);
+            }
+        };
 
         const handleHeroExit = () => {
             if (isTransitioningRef.current) return;
             isTransitioningRef.current = true;
 
-            // Lock scroll so user can't linger between sections
-            document.body.style.overflow = "hidden";
-
-            // Snap into view immediately
-            const el = curtainRef.current;
-            if (el) {
-                setTimeout(() => {
-                    el.scrollIntoView({ behavior: "instant" });
-                }, 20);
-            }
-
-            // Curtain inner slides up — cinematic reveal
-            gsap.to(innerRef.current, {
-                yPercent: 0,
-                duration: 1.0,
-                ease: "power3.out",
-                delay: 0.04,
+            gsap.to(window, {
+                scrollTo: { y: wrapper, autoKill: false },
+                duration: 0.7,
+                ease: "power2.inOut",
                 onComplete: () => {
-                    // Unlock scroll once fully revealed
+                    document.body.style.overflow = "hidden";
                     isTransitioningRef.current = false;
-                    document.body.style.overflow = "";
-                    ScrollTrigger.refresh();
-                },
+                }
             });
-
-            // Content rises inside as section appears
-            gsap.fromTo(contentRef.current,
-                { y: 100, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.9, ease: "power2.out", delay: 0.35 }
-            );
         };
 
         window.addEventListener("hero-exit", handleHeroExit);
-
-        const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top top",
-                    end: "+=180%",
-                    pin: true,
-                    scrub: 1,
-                    onEnterBack: () => {
-                        // Coming back from WhyMBK: first upward overscroll should stop here.
-                        requireSecondBackScrollRef.current = true;
-                        backScrollCooldownUntilRef.current = 0;
-                        blockedBackAttemptsRef.current = 0;
-                    },
-                    onLeaveBack: () => {
-                        const now = performance.now();
-
-                        if (now < backScrollCooldownUntilRef.current) {
-                            smoothRecenterToFeatures();
-                            return;
-                        }
-
-                        if (requireSecondBackScrollRef.current) {
-                            requireSecondBackScrollRef.current = false;
-                            backScrollCooldownUntilRef.current = now + 550;
-                            blockedBackAttemptsRef.current = 1;
-                            smoothRecenterToFeatures();
-                            return;
-                        }
-
-                        if (blockedBackAttemptsRef.current < requiredBackAttempts) {
-                            blockedBackAttemptsRef.current += 1;
-                            backScrollCooldownUntilRef.current = now + 500;
-                            smoothRecenterToFeatures();
-                            return;
-                        }
-
-                        if (isTransitioningRef.current) return;
-                        isTransitioningRef.current = true;
-
-                        // User scrolled back up — jump straight to Hero with no in-between gap
-                        document.body.style.overflow = "hidden";
-
-                        requestAnimationFrame(() => {
-                            window.dispatchEvent(new CustomEvent("features-exit-back"));
-                            gsap.set(contentRef.current, { y: 100, opacity: 0 });
-                            gsap.set(innerRef.current, { yPercent: 100 });
-                            blockedBackAttemptsRef.current = 0;
-                            backScrollCooldownUntilRef.current = 0;
-                            isTransitioningRef.current = false;
-                        });
-                    },
-                }
-            });
-
-        }, sectionRef);
+        wrapper.addEventListener("touchstart", handleTouchStart, { passive: true });
+        wrapper.addEventListener("touchmove", handleTouchMove, { passive: true });
+        wrapper.addEventListener("wheel", handleWheel, { passive: true });
 
         return () => {
-            ctx.revert();
-            isTransitioningRef.current = false;
-            requireSecondBackScrollRef.current = false;
-            backScrollCooldownUntilRef.current = 0;
-            blockedBackAttemptsRef.current = 0;
-            if (recenterFrameRef.current) {
-                cancelAnimationFrame(recenterFrameRef.current);
-                recenterFrameRef.current = null;
-            }
-            document.body.style.overflow = "";
             window.removeEventListener("hero-exit", handleHeroExit);
+            wrapper.removeEventListener("touchstart", handleTouchStart);
+            wrapper.removeEventListener("touchmove", handleTouchMove);
+            wrapper.removeEventListener("wheel", handleWheel);
+            document.body.style.overflow = "";
         };
+    }, []);
+
+    useEffect(() => {
+        const mm = gsap.matchMedia();
+        mm.add("(min-width: 768px)", () => {
+            // Inner div starts fully translated down (hidden inside clip, no DOM gap)
+            gsap.set(innerRef.current, { yPercent: 100 });
+
+            const handleHeroExit = () => {
+                if (isTransitioningRef.current) return;
+                isTransitioningRef.current = true;
+
+                // Lock scroll so user can't linger between sections
+                document.body.style.overflow = "hidden";
+
+                // Snap into view immediately
+                const el = curtainRef.current;
+                if (el) {
+                    setTimeout(() => {
+                        el.scrollIntoView({ behavior: "instant" });
+                    }, 20);
+                }
+
+                // Curtain inner slides up — cinematic reveal
+                gsap.to(innerRef.current, {
+                    yPercent: 0,
+                    duration: 1.0,
+                    ease: "power3.out",
+                    delay: 0.04,
+                    onComplete: () => {
+                        // Unlock scroll once fully revealed
+                        isTransitioningRef.current = false;
+                        document.body.style.overflow = "";
+                        ScrollTrigger.refresh();
+                    },
+                });
+
+                // Content rises inside as section appears
+                gsap.fromTo(contentRef.current,
+                    { y: 100, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out", delay: 0.35 }
+                );
+            };
+
+            window.addEventListener("hero-exit", handleHeroExit);
+
+            const ctx = gsap.context(() => {
+                gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "+=180%",
+                        pin: true,
+                        scrub: 1,
+                        onEnterBack: () => {
+                            // Coming back from WhyMBK: first upward overscroll should stop here.
+                            requireSecondBackScrollRef.current = true;
+                            backScrollCooldownUntilRef.current = 0;
+                            blockedBackAttemptsRef.current = 0;
+                        },
+                        onLeaveBack: () => {
+                            const now = performance.now();
+
+                            if (now < backScrollCooldownUntilRef.current) {
+                                smoothRecenterToFeatures();
+                                return;
+                            }
+
+                            if (requireSecondBackScrollRef.current) {
+                                requireSecondBackScrollRef.current = false;
+                                backScrollCooldownUntilRef.current = now + 550;
+                                blockedBackAttemptsRef.current = 1;
+                                smoothRecenterToFeatures();
+                                return;
+                            }
+
+                            if (blockedBackAttemptsRef.current < requiredBackAttempts) {
+                                blockedBackAttemptsRef.current += 1;
+                                backScrollCooldownUntilRef.current = now + 500;
+                                smoothRecenterToFeatures();
+                                return;
+                            }
+
+                            if (isTransitioningRef.current) return;
+                            isTransitioningRef.current = true;
+
+                            // User scrolled back up — jump straight to Hero with no in-between gap
+                            document.body.style.overflow = "hidden";
+
+                            requestAnimationFrame(() => {
+                                window.dispatchEvent(new CustomEvent("features-exit-back"));
+                                gsap.set(contentRef.current, { y: 100, opacity: 0 });
+                                gsap.set(innerRef.current, { yPercent: 100 });
+                                blockedBackAttemptsRef.current = 0;
+                                backScrollCooldownUntilRef.current = 0;
+                                isTransitioningRef.current = false;
+                            });
+                        },
+                    }
+                });
+
+            }, sectionRef);
+
+            return () => {
+                ctx.revert();
+                isTransitioningRef.current = false;
+                requireSecondBackScrollRef.current = false;
+                backScrollCooldownUntilRef.current = 0;
+                blockedBackAttemptsRef.current = 0;
+                if (recenterFrameRef.current) {
+                    cancelAnimationFrame(recenterFrameRef.current);
+                    recenterFrameRef.current = null;
+                }
+                document.body.style.overflow = "";
+                window.removeEventListener("hero-exit", handleHeroExit);
+            };
+        });
+
+        return () => mm.revert();
     }, []);
 
     return (
         /* Outer div: clips overflow so inner slide doesn't create a DOM gap */
-        <div ref={curtainRef} className="w-full overflow-hidden" style={{ height: "100vh" }}>
-        {/* Inner div: slides up from below the clip boundary */}
-        <div ref={innerRef} className="w-full h-full">
-        <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white">
-            {/* Video Background */}
-            <div className="absolute inset-0 w-full h-full">
-                <video
-                    src="/icons/Final - Scene 2.mp4"
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                />
-            </div>
+        <div ref={curtainRef} className="w-full overflow-hidden max-md:contents max-md:overflow-visible max-md:h-auto" style={{ height: "100vh" }}>
+            {/* Inner div: slides up from below the clip boundary */}
+            <div ref={innerRef} className="w-full h-full max-md:contents max-md:!transform-none max-md:![transform:none]">
+                <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white max-md:snap-start max-md:snap-always max-md:h-[100dvh] max-md:shrink-0" style={{ touchAction: 'pan-y' }}>
+                    {/* Video Background */}
+                    <div className="absolute inset-0 w-full h-full">
+                        <video
+                            src="/icons/Final - Scene 2.mp4"
+                            className="w-full h-full object-cover"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                        />
+                    </div>
 
-            {/* Soft Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />
+                    {/* Soft Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />
 
-            <style>
-                {`
+                    <style>
+                        {`
                     .full-bleed-scroll {
                         width: 100%;
                         padding-left: 1rem;
@@ -347,81 +419,85 @@ export default function FeaturesSection() {
                         }
                     }
                 `}
-            </style>
+                    </style>
 
-            {/* Content Container */}
-            <div ref={contentRef} className="absolute bottom-0 w-full pb-6 md:pb-8 z-10 flex flex-col items-start">
+                    {/* Content Container */}
+                    <div ref={contentRef} className="absolute bottom-0 w-full pb-6 md:pb-8 z-10 flex flex-col items-start max-md:!opacity-100 max-md:![transform:none]">
 
-                {/* Headers */}
-                <div className="relative mb-3 md:mb-4 w-full max-w-[1280px] mx-auto px-4 md:px-12 flex flex-col z-10">
-                    <div className="relative max-w-3xl z-10">
-                        {/* Gloss / Frosty background effect */}
-                        <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
+                        {/* Headers */}
+                        <div className="relative mb-3 md:mb-4 w-full max-w-[1280px] mx-auto px-4 md:px-12 flex flex-col z-10">
+                            <div className="relative max-w-3xl z-10">
+                                {/* Gloss / Frosty background effect */}
+                                <div className="absolute top-0 left-[-20%] w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
 
-                        <h2 className="text-2xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-2 md:mb-3 relative z-10">
-                            Every Asset Connected. Every Risk Anticipated.
-                        </h2>
-                        <p className="text-[#374151] text-xs md:text-base font-medium leading-relaxed max-w-2xl relative z-10">
-                            Real-time subsurface intelligence synchronises teams, reduces interventions, and stabilises production.<br />
-                            Models learn continuously, guiding drilling with precision and confidence.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Tabs Row — horizontally scrollable on mobile & desktop */}
-                <div className="w-full overflow-x-auto scrollbar-none mb-4 md:mb-5 pointer-events-auto relative z-20 full-bleed-scroll flex">
-                    <div className="flex gap-2" style={{ minWidth: "max-content" }}>
-                        {tabs.map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`text-center px-3 py-2.5 md:py-3 rounded-xl text-[10px] md:text-xs font-semibold transition-all duration-300 shadow-sm leading-tight whitespace-nowrap
-                                    ${activeTab === tab
-                                        ? "bg-[#2E0E68] text-white shadow-[#2E0E68]/20"
-                                        : "bg-[#F3F4FB] hover:bg-white text-[#481E8D] hover:shadow-md"
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Cards Row */}
-                <div className="relative z-20 w-full flex overflow-x-auto gap-3 md:gap-4 scrollbar-none pb-2 pointer-events-auto items-stretch full-bleed-scroll">
-                    {currentCards.map((card, idx) => (
-                        <div
-                            key={`${activeTab}-${idx}`}
-                            className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] md:min-w-[340px] w-[280px] md:w-[340px] h-[86px] md:h-[96px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
-                        >
-                            {/* Left side Image */}
-                            <div className="w-[35%] relative bg-[#1A0B3F] overflow-hidden">
-                                <Image
-                                    src={card.image}
-                                    alt={card.title}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                                />
-                            </div>
-
-                            {/* Right side Text */}
-                            <div className="w-[65%] p-2.5 md:p-3 flex flex-col justify-center text-white">
-                                <h3 className="font-semibold text-[0.70rem] md:text-xs mb-1 leading-tight">
-                                    {card.title}
-                                </h3>
-                                <div className="text-[0.60rem] md:text-[0.65rem] text-purple-200/90 font-light space-y-0.5">
-                                    {card.subtitles.map((sub, i) => (
-                                        <p key={i}>{sub}</p>
+                                <h2 className="text-2xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-2 md:mb-3 relative z-10">
+                                    {currentCopy.heading}
+                                </h2>
+                                <p className="text-[#374151] text-xs md:text-base font-medium leading-relaxed max-w-2xl relative z-10">
+                                    {currentCopy.lines.map((line, index) => (
+                                        <span key={`${activeTab}-line-${index}`}>
+                                            {line}
+                                            {index < currentCopy.lines.length - 1 && <><br /><br /></>}
+                                        </span>
                                     ))}
-                                </div>
+                                </p>
                             </div>
                         </div>
-                    ))}
-                </div>
 
+                        {/* Tabs Row — horizontally scrollable on mobile & desktop */}
+                        <div className="w-full overflow-x-auto scrollbar-none mb-4 md:mb-5 pointer-events-auto relative z-20 full-bleed-scroll flex">
+                            <div className="flex gap-2" style={{ minWidth: "max-content" }}>
+                                {tabs.map((tab) => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`text-center px-3 py-2.5 md:py-3 rounded-xl text-[10px] md:text-xs font-semibold transition-all duration-300 shadow-sm leading-tight whitespace-nowrap
+                                    ${activeTab === tab
+                                                ? "bg-[#2E0E68] text-white shadow-[#2E0E68]/20"
+                                                : "bg-[#F3F4FB] hover:bg-white text-[#481E8D] hover:shadow-md"
+                                            }`}
+                                    >
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Cards Row */}
+                        <div className="relative z-20 w-full flex overflow-x-auto gap-3 md:gap-4 scrollbar-none pb-2 pointer-events-auto items-stretch full-bleed-scroll">
+                            {currentCards.map((card, idx) => (
+                                <div
+                                    key={`${activeTab}-${idx}`}
+                                    className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] md:min-w-[340px] w-[280px] md:w-[340px] h-[86px] md:h-[96px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
+                                >
+                                    {/* Left side Image */}
+                                    <div className="w-[35%] relative bg-[#1A0B3F] overflow-hidden">
+                                        <Image
+                                            src={card.image}
+                                            alt={card.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                        />
+                                    </div>
+
+                                    {/* Right side Text */}
+                                    <div className="w-[65%] p-2.5 md:p-3 flex flex-col justify-center text-white">
+                                        <h3 className="font-semibold text-[0.70rem] md:text-xs mb-1 leading-tight">
+                                            {card.title}
+                                        </h3>
+                                        <div className="text-[0.60rem] md:text-[0.65rem] text-purple-200/90 font-light space-y-0.5">
+                                            {card.subtitles.map((sub, i) => (
+                                                <p key={i}>{sub}</p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+                </section>
             </div>
-        </section>
-        </div>
         </div>
     );
 }

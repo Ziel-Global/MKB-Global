@@ -119,228 +119,185 @@ export default function WhyMBKSection() {
     ];
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Tighter durations for snappier transitions
-            const totalDuration = achievements.length * 1.2 + 1.0 + 2.5 + partnerAchievements.length * 1.2 + 1.5 + 1.5 + 3.0 + 3.5 + 4.5;
+        const mm = gsap.matchMedia();
+        mm.add("(min-width: 768px)", () => {
+            const handleScrollToContact = () => {
+                // Jump directly to the end of the GSAP animation where the form is visible
+                if (stRef.current) {
+                    const targetScroll = stRef.current.end;
+                    gsap.to(window, { duration: 2, scrollTo: { y: targetScroll, autoKill: false }, ease: "power2.inOut" });
+                } else {
+                    const element = document.getElementById("contact-form");
+                    if (element) {
+                        gsap.to(window, { duration: 2, scrollTo: { y: "#contact-form", offsetY: 50, autoKill: false }, ease: "power2.inOut" });
+                    }
+                }
+            };
 
-            // Collect snap points (normalized 0–1) for each phase boundary
-            const snapPoints: number[] = [];
+            window.addEventListener("scroll-to-contact", handleScrollToContact as EventListener);
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top top",
-                    end: `+=${totalDuration * 55}%`,
-                    pin: true,
-                    scrub: 0.6,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                    snap: {
-                        snapTo: (progress: number) => {
-                            // Find the nearest snap point
-                            let closest = 0;
-                            let minDist = Infinity;
-                            for (const sp of snapPoints) {
-                                const dist = Math.abs(progress - sp);
-                                if (dist < minDist) {
-                                    minDist = dist;
-                                    closest = sp;
-                                }
-                            }
-                            return closest;
-                        },
-                        duration: { min: 0.2, max: 0.6 },
-                        ease: "power1.inOut",
+            const ctx = gsap.context(() => {
+                // Tighter durations for snappier transitions (shorter because staggered animations are removed)
+                const totalDuration = 18.0;
+
+                // Collect snap points (normalized 0–1) for each phase boundary
+                const snapPoints: number[] = [];
+
+                const isMobile = window.innerWidth < 768;
+                const scrollMultiplier = isMobile ? 30 : 55;
+                const scrubValue = isMobile ? 1.2 : 0.6;
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: `+=${totalDuration * scrollMultiplier}%`,
+                        pin: true,
+                        scrub: scrubValue,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
                     },
-                },
-            });
+                });
 
-            achievements.forEach((_, i) => {
-                const t = i * 1.2;
+                // Store the ScrollTrigger instance to allow scrolling directly to the end of the timeline
+                if (tl.scrollTrigger) {
+                    stRef.current = tl.scrollTrigger;
+                }
 
-                tl.fromTo(
-                    wrapperRefs.current[i],
-                    { maxHeight: 0, marginBottom: 0, opacity: 0 },
-                    { maxHeight: CARD_FULL_HEIGHT, marginBottom: 2, opacity: 1, ease: "power2.out", duration: 0.8 },
-                    t
+                // --- Transition to "Why Partners" Section ---
+                // Phase 1 just stays pinned for reading
+                const transitionStart = 2.5;
+                snapPoints.push(transitionStart / totalDuration);
+
+                tl.to(leftPanelRef.current, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, transitionStart);
+
+                tl.to(
+                    videoContainerRef.current,
+                    { left: 0, right: "auto", x: "-35%", scale: 1.6, duration: 1.2, ease: "power2.inOut" },
+                    transitionStart
                 );
 
-                if (i > 0) {
-                    tl.to(
-                        descRefs.current[i - 1],
-                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.5 },
-                        t
-                    );
-                }
-            });
-
-            // Footer appears after all cards
-            const footerStart = achievements.length * 1.2;
-            tl.fromTo(
-                footerRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, ease: "power2.out", duration: 0.6 },
-                footerStart
-            );
-
-            // --- Transition to "Why Partners" Section ---
-            const transitionStart = footerStart + 1.0;
-            snapPoints.push(transitionStart / totalDuration);
-
-            tl.to(leftPanelRef.current, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, transitionStart);
-
-            tl.to(
-                videoContainerRef.current,
-                { left: 0, right: "auto", x: "-35%", scale: 1.6, duration: 1.2, ease: "power2.inOut" },
-                transitionStart
-            );
-
-            tl.fromTo(
-                rightPanelRef.current,
-                { opacity: 0, x: 50 },
-                { opacity: 1, x: 0, duration: 1.0, ease: "power2.out" },
-                transitionStart + 0.8
-            );
-
-            // --- Phase 3: "We amplify partners by" ---
-            const phase3Start = transitionStart + 2.5;
-            snapPoints.push(phase3Start / totalDuration);
-
-            tl.to(rightPanelRef.current, { opacity: 0, y: -20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
-            tl.to(marqueeRef.current, { opacity: 0, y: 20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
-
-            tl.to(
-                videoContainerRef.current,
-                { x: "-8%", scale: 0.9, duration: 1.2, ease: "power2.inOut" },
-                phase3Start
-            );
-
-            tl.fromTo(
-                phase3Ref.current,
-                { opacity: 0, y: 50 },
-                { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" },
-                phase3Start + 0.6
-            );
-
-            // Phase 3 Accordion sequence
-            partnerAchievements.forEach((_, i) => {
-                const t = phase3Start + 1.5 + (i * 1.2);
-
                 tl.fromTo(
-                    partnerWrapperRefs.current[i],
-                    { maxHeight: 0, opacity: 0 },
-                    { maxHeight: CARD_FULL_HEIGHT, opacity: 1, ease: "power2.out", duration: 0.8 },
-                    t
+                    rightPanelRef.current,
+                    { opacity: 0, x: 50 },
+                    { opacity: 1, x: 0, duration: 1.0, ease: "power2.out" },
+                    transitionStart + 0.8
                 );
 
-                if (i > 0) {
-                    tl.to(
-                        partnerDescRefs.current[i - 1],
-                        { maxHeight: 0, opacity: 0, ease: "power2.inOut", duration: 0.5 },
-                        t
-                    );
-                }
-            });
+                // --- Phase 3: "We amplify partners by" ---
+                const phase3Start = transitionStart + 2.5;
+                snapPoints.push(phase3Start / totalDuration);
 
-            // Phase 3 footer
-            const phase3FooterStart = phase3Start + 1.5 + partnerAchievements.length * 1.2;
-            tl.fromTo(
-                phase3FooterRef.current,
-                { opacity: 0, y: 24, maxHeight: 0 },
-                { opacity: 1, y: 0, maxHeight: 200, ease: "power2.out", duration: 0.8 },
-                phase3FooterStart
-            );
+                tl.to(rightPanelRef.current, { opacity: 0, y: -20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
+                tl.to(marqueeRef.current, { opacity: 0, y: 20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
 
-            // --- Phase 4: "The MBK Advantage" ---
-            const phase4Start = phase3FooterStart + 1.2;
-            snapPoints.push(phase4Start / totalDuration);
+                tl.to(
+                    videoContainerRef.current,
+                    { x: "-8%", scale: 0.9, duration: 1.2, ease: "power2.inOut" },
+                    phase3Start
+                );
 
-            // Exit: video LEFT, phase3 RIGHT
-            tl.to(
-                videoContainerRef.current,
-                { x: "-130%", opacity: 0, duration: 0.8, ease: "power2.inOut" },
-                phase4Start
-            );
-            tl.to(
-                phase3Ref.current,
-                { x: "130%", opacity: 0, duration: 0.8, ease: "power2.inOut" },
-                phase4Start
-            );
+                tl.fromTo(
+                    phase3Ref.current,
+                    { opacity: 0, y: 50 },
+                    { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" },
+                    phase3Start + 0.6
+                );
 
-            // Entrance: Phase 4 rises
-            tl.fromTo(
-                phase4Ref.current,
-                { y: "100%", opacity: 0 },
-                { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
-                phase4Start + 1.0
-            );
+                // --- Phase 4: "The MBK Advantage" ---
+                const phase4Start = phase3Start + 3.0;
+                snapPoints.push(phase4Start / totalDuration);
 
-            // Snap point when Phase 4 is fully visible
-            const phase4VisibleAt = (phase4Start + 2.0) / totalDuration;
-            snapPoints.push(phase4VisibleAt);
+                // Exit: video LEFT, phase3 RIGHT
+                tl.to(
+                    videoContainerRef.current,
+                    { x: "-130%", opacity: 0, duration: 0.8, ease: "power2.inOut" },
+                    phase4Start
+                );
+                tl.to(
+                    phase3Ref.current,
+                    { x: "130%", opacity: 0, duration: 0.8, ease: "power2.inOut" },
+                    phase4Start
+                );
 
-            // --- Phase 5: "Go Further. Go Faster. Go Together." ---
-            const phase5Start = phase4Start + 3.0;
-            snapPoints.push(phase5Start / totalDuration);
+                // Entrance: Phase 4 rises
+                tl.fromTo(
+                    phase4Ref.current,
+                    { y: "100%", opacity: 0 },
+                    { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
+                    phase4Start + 1.0
+                );
 
-            // Exit Phase 4
-            tl.to(
-                phase4Ref.current,
-                { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
-                phase5Start
-            );
+                // Snap point when Phase 4 is fully visible
+                const phase4VisibleAt = (phase4Start + 2.0) / totalDuration;
+                snapPoints.push(phase4VisibleAt);
 
-            // Entrance Phase 5
-            tl.fromTo(
-                phase5Ref.current,
-                { y: "100%", opacity: 0 },
-                { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
-                phase5Start + 0.8
-            );
+                // --- Phase 5: "Go Further. Go Faster. Go Together." ---
+                const phase5Start = phase4Start + 3.0;
+                snapPoints.push(phase5Start / totalDuration);
 
-            // Snap point when Phase 5 is fully visible
-            const phase5VisibleAt = (phase5Start + 1.8) / totalDuration;
-            snapPoints.push(phase5VisibleAt);
+                // Exit Phase 4
+                tl.to(
+                    phase4Ref.current,
+                    { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
+                    phase5Start
+                );
 
-            // --- Phase 6: "Let's Build the Future" ---
-            const phase5ExitStart = phase5Start + 3.5;
-            snapPoints.push(phase5ExitStart / totalDuration);
+                // Entrance Phase 5
+                tl.fromTo(
+                    phase5Ref.current,
+                    { y: "100%", opacity: 0 },
+                    { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
+                    phase5Start + 0.8
+                );
 
-            tl.to(
-                phase5TopRef.current,
-                { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
-                phase5ExitStart
-            );
-            tl.to(
-                phase5BottomRef.current,
-                { y: "100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
-                phase5ExitStart
-            );
+                // Snap point when Phase 5 is fully visible
+                const phase5VisibleAt = (phase5Start + 1.8) / totalDuration;
+                snapPoints.push(phase5VisibleAt);
 
-            // Phase 6 slides in from the RIGHT
-            tl.fromTo(
-                phase6Ref.current,
-                { x: "100%", opacity: 0 },
-                { x: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
-                phase5ExitStart + 0.8
-            );
+                // --- Phase 6: "Let's Build the Future" ---
+                const phase5ExitStart = phase5Start + 3.5;
+                snapPoints.push(phase5ExitStart / totalDuration);
 
-            // Final snap point (end)
-            snapPoints.push(1);
+                tl.to(
+                    phase5TopRef.current,
+                    { y: "-100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
+                    phase5ExitStart
+                );
+                tl.to(
+                    phase5BottomRef.current,
+                    { y: "100%", opacity: 0, ease: "power2.inOut", duration: 0.8 },
+                    phase5ExitStart
+                );
 
-        }, sectionRef);
+                // Phase 6 slides in from the RIGHT
+                tl.fromTo(
+                    phase6Ref.current,
+                    { x: "100%", opacity: 0 },
+                    { x: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
+                    phase5ExitStart + 0.8
+                );
 
-        // Recalculate all ScrollTrigger positions after both sections have mounted.
-        const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 300);
+                // Final snap point (end)
+                snapPoints.push(1);
 
-        return () => {
-            clearTimeout(refreshTimer);
-            ctx.revert();
-        };
+            }, sectionRef);
+
+            // Recalculate all ScrollTrigger positions after both sections have mounted.
+            const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 300);
+
+            return () => {
+                clearTimeout(refreshTimer);
+                ctx.revert();
+                window.removeEventListener("scroll-to-contact", handleScrollToContact as EventListener);
+            };
+        });
+
+        return () => mm.revert();
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white">
+        <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white max-md:contents max-md:h-auto max-md:overflow-visible">
             {/* Isometric video — hidden on mobile to avoid overlap */}
             <div
                 ref={videoContainerRef}
@@ -359,7 +316,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 1: Left content panel — "With MBK, customers achieve" ===== */}
             <div
                 ref={leftPanelRef}
-                className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10"
+                className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10 max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto"
+                style={{ touchAction: 'pan-y' }}
             >
                 <h2 className="text-[1.5rem] md:text-[2.25rem] font-semibold text-[#2D1469] mb-5 md:mb-7 leading-tight">
                     With MBK, customers achieve
@@ -406,8 +364,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 2: Right content panel — "Why Partners Accelerate..." ===== */}
             <div
                 ref={rightPanelRef}
-                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%]"
-                style={{ opacity: 0 }}
+                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%] max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100"
+                style={{ opacity: 0, touchAction: 'pan-y' }}
             >
                 <div className="bg-[#F5F2FC] rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-sm pointer-events-auto relative z-20">
                     <h2 className="text-[1.6rem] md:text-[2.6rem] font-semibold text-[#3D1E85] mb-3 md:mb-5 leading-[1.15]">
@@ -425,8 +383,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 3: Right content panel — "We amplify partners by" ===== */}
             <div
                 ref={phase3Ref}
-                className="absolute top-[20%] md:top-[28%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center"
-                style={{ opacity: 0 }}
+                className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100"
+                style={{ opacity: 0, touchAction: 'pan-y' }}
             >
                 <h2 className="text-[1.3rem] md:text-[1.9rem] font-semibold text-[#3D1E85] mb-3 md:mb-4 leading-[1.15]">
                     We amplify partners by:
@@ -476,8 +434,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 4 — "The MBK Advantage" ===== */}
             <div
                 ref={phase4Ref}
-                className="absolute inset-0 z-30 bg-white flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-16 lg:px-24 overflow-y-auto md:overflow-hidden"
-                style={{ transform: "translateY(100%)", opacity: 0 }}
+                className="absolute inset-0 z-30 bg-white flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-16 lg:px-24 overflow-y-auto md:overflow-hidden max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:![transform:none] max-md:!opacity-100"
+                style={{ transform: "translateY(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Left: text */}
                 <div className="w-full md:w-[46%] max-w-[520px] flex flex-col justify-center pt-16 md:pt-0 pb-6 md:pb-0">
@@ -545,8 +503,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 5 — "Go Further. Go Faster. Go Together." ===== */}
             <div
                 ref={phase5Ref}
-                className="absolute inset-0 z-30 bg-white flex flex-col overflow-hidden"
-                style={{ transform: "translateY(100%)", opacity: 0 }}
+                className="absolute inset-0 z-30 bg-white flex flex-col overflow-hidden max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:![transform:none] max-md:!opacity-100"
+                style={{ transform: "translateY(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Top section: headline + cards */}
                 <div ref={phase5TopRef} className="flex flex-col md:flex-row flex-1 items-start md:items-center px-5 md:px-16 lg:px-24 pt-16 md:pt-20 pb-4 md:pb-6 gap-6 md:gap-12">
@@ -650,8 +608,8 @@ export default function WhyMBKSection() {
             {/* ===== Phase 6 — Contact / Let's Build the Future ===== */}
             <div
                 ref={phase6Ref}
-                className="absolute inset-0 z-40 bg-white flex flex-col md:flex-row items-stretch justify-start md:justify-center px-5 md:px-10 lg:px-16 gap-6 md:gap-10 overflow-y-auto md:overflow-hidden pt-24 pb-20 md:py-16"
-                style={{ transform: "translateX(100%)", opacity: 0 }}
+                className="absolute inset-0 z-40 bg-white flex flex-col md:flex-row items-stretch justify-center px-3 md:px-10 lg:px-16 gap-3 md:gap-10 overflow-hidden pt-[14vh] md:pt-16 pb-4 md:py-16 max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:![transform:none] max-md:!opacity-100"
+                style={{ transform: "translateX(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Left: text + prospectus cards */}
                 <div className="flex flex-col w-full md:w-[38%] md:max-w-[420px] shrink-0 md:self-stretch">
@@ -744,10 +702,11 @@ export default function WhyMBKSection() {
             </div>
 
             {/* Marquee layer - positioned at the very bottom spanning the entire width */}
-            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 bg-white pt-4 md:pt-6 pb-2">
-                <p className="text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
-                <div className="w-full overflow-hidden relative">
-                    <div className="flex w-[200%] animate-marquee">
+            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-4 md:pt-6 pb-2 overflow-hidden max-md:relative max-md:bottom-auto max-md:snap-start">
+                <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
+                <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
+                <div className="relative z-10 w-full overflow-hidden">
+                    <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee">
                         {/* First set of logos */}
                         <div className="flex w-1/2 items-center justify-around px-4 md:px-8">
                             {logos.map((logo, index) => (
