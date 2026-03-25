@@ -533,22 +533,22 @@ export default function WhyMBKSection() {
                 style={{ transform: "translateY(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Top section: headline + cards */}
-                <div ref={phase5TopRef} className="flex flex-col md:flex-row flex-1 items-start md:items-center px-5 md:px-16 lg:px-24 pt-16 md:pt-20 pb-4 md:pb-6 gap-6 md:gap-12">
+                <div ref={phase5TopRef} className="flex flex-col md:flex-row flex-1 items-start md:items-center px-5 md:px-16 lg:px-24 pt-16 max-[380px]:pt-[8vh] max-[380px]:pb-2 pb-4 md:pb-6 gap-6 max-[380px]:gap-2 md:gap-12">
                     {/* Left: headline */}
                     <div className="w-full md:w-[38%] flex flex-col justify-center">
-                        <h2 className="text-[1.8rem] md:text-[3.5rem] font-extrabold text-[#2D1469] leading-[1.1] mb-4 md:mb-6">
+                        <h2 className="text-[1.8rem] max-[380px]:text-[1.5rem] md:text-[3.5rem] font-extrabold text-[#2D1469] leading-[1.1] mb-4 max-[380px]:mb-2 md:mb-6">
                             Go Further.<br />
                             Go Faster.<br />
                             Go Together.
                         </h2>
-                        <p className="text-gray-600 text-[0.82rem] md:text-[0.95rem] leading-relaxed max-w-[420px]">
+                        <p className="text-gray-600 text-[0.82rem] max-[380px]:text-[0.7rem] max-[380px]:leading-snug md:text-[0.95rem] leading-relaxed max-w-[420px]">
                             Whether you operate assets or build technologies, MBK Global helps you achieve more with less complexity, less risk, and significantly more impact.
                         </p>
                     </div>
 
                     {/* Right: Customers + Partners cards */}
-                    <div className="flex flex-col sm:flex-row gap-4 md:gap-5 w-full md:w-[58%]">
-                        <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 md:p-7 flex flex-col justify-between min-h-[140px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                    <div className="flex flex-col sm:flex-row gap-4 max-[380px]:gap-2 md:gap-5 w-full md:w-[58%]">
+                        <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[380px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[380px]:min-h-[100px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
                             {/* Arrow - appears on hover */}
                             <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -559,10 +559,10 @@ export default function WhyMBKSection() {
                             <div className="absolute bottom-[-10%] right-[-2%] w-[45%] opacity-[0.18] group-hover:opacity-[0.28] group-hover:translate-y-[-12%] pointer-events-none select-none transition-all duration-500">
                                 <Image src="/logos/logo-main.png" alt="" fill className="object-contain" />
                             </div>
-                            <h3 className="text-[1.1rem] md:text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-2 md:mb-3 transition-colors duration-300">Customers</h3>
-                            <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.82rem] md:text-[0.92rem] leading-snug font-medium transition-colors duration-300">Unlock the full potential of digitalisation.</p>
+                            <h3 className="text-[1.1rem] max-[380px]:text-[1rem] md:text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-2 max-[380px]:mb-1 md:mb-3 transition-colors duration-300">Customers</h3>
+                            <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.82rem] max-[380px]:text-[0.75rem] max-[380px]:leading-tight md:text-[0.92rem] leading-snug font-medium transition-colors duration-300">Unlock the full potential of digitalisation.</p>
                         </div>
-                        <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 md:p-7 flex flex-col justify-between min-h-[140px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                        <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[380px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[380px]:min-h-[100px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
                             {/* Arrow - appears on hover */}
                             <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -573,8 +573,8 @@ export default function WhyMBKSection() {
                             <div className="absolute bottom-[-10%] right-[-2%] w-[45%] opacity-[0.18] group-hover:opacity-[0.28] group-hover:translate-y-[-12%] pointer-events-none select-none transition-all duration-500">
                                 <Image src="/logos/logo-main.png" alt="" fill className="object-contain" />
                             </div>
-                            <h3 className="text-[1.1rem] md:text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-2 md:mb-3 transition-colors duration-300">Partners</h3>
-                            <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.82rem] md:text-[0.92rem] leading-snug font-medium transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
+                            <h3 className="text-[1.1rem] max-[380px]:text-[1rem] md:text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-2 max-[380px]:mb-1 md:mb-3 transition-colors duration-300">Partners</h3>
+                            <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.82rem] max-[380px]:text-[0.75rem] max-[380px]:leading-tight md:text-[0.92rem] leading-snug font-medium transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
                         </div>
                     </div>
                 </div>
