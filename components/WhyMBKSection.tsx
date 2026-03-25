@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -58,6 +58,8 @@ const partnerAchievements = [
 
 export default function WhyMBKSection() {
     const { role, setRole, formData, isSubmitting, submitMessage, handleFieldChange, handleSubmit } = useContactForm("Operator");
+    const [activeAchievement, setActiveAchievement] = useState<number | null>(null);
+    const [activePartner, setActivePartner] = useState<number | null>(null);
     const stRef = useRef<ScrollTrigger | null>(null);
     const sectionRef = useRef<HTMLElement>(null);
     // Left panel refs
@@ -348,19 +350,20 @@ export default function WhyMBKSection() {
                             key={i}
                             ref={(el) => { wrapperRefs.current[i] = el; }}
                             className="group overflow-hidden rounded-2xl bg-[#EAE6F5] hover:bg-[#E2DCEF] transition-colors duration-300 cursor-pointer mb-[2px]"
+                            onClick={() => setActiveAchievement(activeAchievement === i ? null : i)}
                         >
                             {/* Inner card content */}
                             <div className="px-4 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4">
-                                <h3 className="font-bold text-[0.85rem] md:text-[0.95rem] text-[#2D1469] leading-snug group-hover:text-[#1A0B3B] transition-colors duration-300">
+                                <h3 className={`font-bold text-[0.85rem] md:text-[0.95rem] text-[#2D1469] leading-snug group-hover:text-[#1A0B3B] transition-colors duration-300 ${activeAchievement === i ? 'text-[#1A0B3B]' : ''}`}>
                                     {item.title}
                                 </h3>
                                 {/* Description – collapses when next card appears */}
                                 <div
                                     ref={(el) => { descRefs.current[i] = el; }}
                                     className="overflow-hidden transition-all duration-300 group-hover:!max-h-[120px] group-hover:!opacity-100"
-                                    style={{ maxHeight: 0, opacity: 0 }}
+                                    style={{ maxHeight: activeAchievement === i ? 120 : 0, opacity: activeAchievement === i ? 1 : 0 }}
                                 >
-                                    <p className="text-[0.75rem] md:text-[0.82rem] text-gray-500 mt-1.5 md:mt-2 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                                    <p className={`text-[0.75rem] md:text-[0.82rem] text-gray-500 mt-1.5 md:mt-2 leading-relaxed group-hover:text-gray-800 transition-colors duration-300 ${activeAchievement === i ? 'text-gray-800' : ''}`}>
                                         {item.description}
                                     </p>
                                 </div>
@@ -441,17 +444,18 @@ export default function WhyMBKSection() {
                             key={i}
                             ref={(el) => { partnerWrapperRefs.current[i] = el; }}
                             className="group overflow-hidden bg-[#F5F2FC] hover:bg-[#EBE5F7] transition-colors duration-300 cursor-pointer w-full"
+                            onClick={() => setActivePartner(activePartner === i ? null : i)}
                         >
                             <div className="px-4 md:px-5 pt-2.5 md:pt-3 pb-2.5 md:pb-3">
-                                <h3 className="font-bold text-[0.8rem] md:text-[0.88rem] text-[#3D1E85] leading-snug group-hover:text-[#1A0B3B] transition-colors duration-300">
+                                <h3 className={`font-bold text-[0.8rem] md:text-[0.88rem] text-[#3D1E85] leading-snug group-hover:text-[#1A0B3B] transition-colors duration-300 ${activePartner === i ? 'text-[#1A0B3B]' : ''}`}>
                                     {item.title}
                                 </h3>
                                 <div
                                     ref={(el) => { partnerDescRefs.current[i] = el; }}
                                     className="overflow-hidden transition-all duration-300 group-hover:!max-h-[120px] group-hover:!opacity-100"
-                                    style={{ maxHeight: 0, opacity: 0 }}
+                                    style={{ maxHeight: activePartner === i ? 120 : 0, opacity: activePartner === i ? 1 : 0 }}
                                 >
-                                    <p className="text-[0.72rem] md:text-[0.78rem] text-gray-600 mt-1 md:mt-1.5 leading-relaxed group-hover:text-gray-900 transition-colors duration-300 pr-2">
+                                    <p className={`text-[0.72rem] md:text-[0.78rem] text-gray-600 mt-1 md:mt-1.5 leading-relaxed group-hover:text-gray-900 transition-colors duration-300 pr-2 ${activePartner === i ? 'text-gray-900' : ''}`}>
                                         {item.description}
                                     </p>
                                 </div>
