@@ -571,32 +571,40 @@ export default function WhyMBKSection() {
                     {/* Right: Customers + Partners cards */}
                     <div className="flex flex-col sm:flex-row gap-4 max-[400px]:gap-2 md:gap-5 w-full md:w-[58%]">
                         <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                            {/* Watermark logo */}
+                            <img 
+                                src="/logos/transparent-logo.png" 
+                                alt="" 
+                                className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0" 
+                            />
                             {/* Arrow - appears on hover */}
-                            <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                                 </svg>
                             </div>
-                            {/* Watermark logo - rises on hover */}
-                            <div className="absolute bottom-[-10%] right-[-2%] w-[45%] opacity-[0.18] group-hover:opacity-[0.28] group-hover:translate-y-[-12%] pointer-events-none select-none transition-all duration-500">
-                                <Image src="/logos/logo-main.png" alt="" fill className="object-contain" />
+                            <div className="relative z-10 flex flex-col mt-auto h-full justify-end">
+                                <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Customers</h3>
+                                <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Unlock the full potential of digitalisation.</p>
                             </div>
-                            <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Customers</h3>
-                            <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.92rem] leading-snug font-medium transition-colors duration-300">Unlock the full potential of digitalisation.</p>
                         </div>
                         <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                            {/* Watermark logo */}
+                            <img 
+                                src="/logos/transparent-logo.png" 
+                                alt="" 
+                                className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0" 
+                            />
                             {/* Arrow - appears on hover */}
-                            <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                                 </svg>
                             </div>
-                            {/* Watermark logo - rises on hover */}
-                            <div className="absolute bottom-[-10%] right-[-2%] w-[45%] opacity-[0.18] group-hover:opacity-[0.28] group-hover:translate-y-[-12%] pointer-events-none select-none transition-all duration-500">
-                                <Image src="/logos/logo-main.png" alt="" fill className="object-contain" />
+                            <div className="relative z-10 flex flex-col mt-auto h-full justify-end">
+                                <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Partners</h3>
+                                <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
                             </div>
-                            <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.3rem] font-bold text-[#3D1E85] group-hover:text-[#5B21B6] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Partners</h3>
-                            <p className="text-[#3D1E85] group-hover:text-[#5B21B6] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.92rem] leading-snug font-medium transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
                         </div>
                     </div>
                 </div>
