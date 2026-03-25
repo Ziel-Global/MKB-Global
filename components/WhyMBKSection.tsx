@@ -58,8 +58,8 @@ const partnerAchievements = [
 
 export default function WhyMBKSection() {
     const { role, setRole, formData, isSubmitting, submitMessage, handleFieldChange, handleSubmit } = useContactForm("Operator");
-    const [activeAchievement, setActiveAchievement] = useState<number | null>(null);
-    const [activePartner, setActivePartner] = useState<number | null>(null);
+    const [activeAchievement, setActiveAchievement] = useState<number | null>(0);
+    const [activePartner, setActivePartner] = useState<number | null>(0);
     const stRef = useRef<ScrollTrigger | null>(null);
     const sectionRef = useRef<HTMLElement>(null);
     // Left panel refs
@@ -338,6 +338,9 @@ export default function WhyMBKSection() {
                             ref={(el) => { wrapperRefs.current[i] = el; }}
                             className="group overflow-hidden rounded-2xl bg-[#EAE6F5] hover:bg-[#E2DCEF] transition-colors duration-300 cursor-pointer mb-[2px]"
                             onClick={() => setActiveAchievement(activeAchievement === i ? null : i)}
+                            onMouseEnter={() => {
+                                if (window.innerWidth >= 768) setActiveAchievement(i);
+                            }}
                         >
                             {/* Inner card content */}
                             <div className="px-4 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4">
@@ -362,7 +365,7 @@ export default function WhyMBKSection() {
                 {/* Closing statement */}
                 <p
                     ref={footerRef}
-                    className="mt-4 md:mt-5 text-[0.88rem] md:text-[1.1rem] font-semibold text-[#2D1469] leading-snug"
+                    className="max-md:mt-8 md:mt-5 text-[0.88rem] md:text-[1.1rem] font-semibold text-[#2D1469] leading-snug"
                 >
                     MBK Global makes digitalisation work — not once, not in pockets, but across the entire value chain.
                 </p>
@@ -388,7 +391,7 @@ export default function WhyMBKSection() {
                 </div>
 
                 {/* Mobile video — dramatically larger, negative margin to overflow container padding */}
-                <div className="hidden max-md:flex mt-6 -mx-6 w-[calc(100%+3rem)] justify-center items-center pointer-events-none">
+                <div className="hidden max-md:flex mt-12 -mx-6 w-[calc(100%+3rem)] justify-center items-center pointer-events-none">
                     <video
                         src="/icons/Final - Scene 0.mp4"
                         className="w-full h-auto object-contain scale-[1.3] min-[400px]:scale-[1.4]"
@@ -418,6 +421,9 @@ export default function WhyMBKSection() {
                             ref={(el) => { partnerWrapperRefs.current[i] = el; }}
                             className="group overflow-hidden bg-[#F5F2FC] hover:bg-[#EBE5F7] transition-colors duration-300 cursor-pointer w-full"
                             onClick={() => setActivePartner(activePartner === i ? null : i)}
+                            onMouseEnter={() => {
+                                if (window.innerWidth >= 768) setActivePartner(i);
+                            }}
                         >
                             <div className="px-4 md:px-5 pt-2.5 md:pt-3 pb-2.5 md:pb-3">
                                 <h3 className={`font-bold text-[0.8rem] md:text-[0.88rem] text-[#3D1E85] leading-snug group-hover:text-[#1A0B3B] transition-colors duration-300 ${activePartner === i ? 'text-[#1A0B3B]' : ''}`}>
@@ -440,7 +446,7 @@ export default function WhyMBKSection() {
                 {/* Closing statement */}
                 <div
                     ref={phase3FooterRef}
-                    className="mt-4 md:mt-5 pointer-events-auto"
+                    className="max-md:mt-8 md:mt-5 pointer-events-auto"
                 >
                     <p className="text-[0.95rem] md:text-[1.25rem] font-semibold text-[#3D1E85] leading-snug mb-2">
                         Partners go further and faster with MBK because the ecosystem is already built around success.
