@@ -206,10 +206,10 @@ export default function Hero() {
                         {/* Overlay Card that appears on scroll */}
                         <div
                             ref={overlayRef}
-                            className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[70vw] min-[417px]:w-[92vw] sm:w-[65%] md:w-auto max-w-[320px] sm:max-w-[420px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-2.5 sm:p-3 md:p-4 md:px-6 text-center shadow-2xl z-20 max-md:hidden"
+                            className="absolute -bottom-2 max-[400px]:bottom-0 md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[94vw] md:w-auto max-w-[440px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
                         >
-                            <h2 className="text-[11px] sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
-                            <p className="text-[9px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
+                            <h2 className="text-[13px] max-[400px]:text-[12px] md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
+                            <p className="text-[9.5px] max-[400px]:text-[9px] max-[400px]:leading-[1.4] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto max-md:px-1">
                                 We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
                             </p>
                         </div>
@@ -217,24 +217,6 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className="hidden max-md:flex max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:overflow-hidden flex-col items-center justify-center bg-white px-5 w-full">
-                <div className="relative w-[130%] min-[400px]:w-[140%] max-w-none flex justify-center items-center h-auto pointer-events-none mb-2 -mt-12 md:mt-0">
-                    <video
-                        src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-auto object-contain rounded-xl"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                    />
-                </div>
-                <div className="bg-[#2E0E68] text-white rounded-[1.2rem] p-[clamp(12px,4vw,20px)] text-center shadow-2xl max-w-[380px] w-full -mt-6 min-[400px]:-mt-10 relative z-10 shrink-0">
-                    <h2 className="text-[clamp(15px,4.5vw,1.1rem)] font-semibold mb-[clamp(4px,1.5vw,8px)] leading-tight">Built for Qatar&apos;s Oil & Gas Leaders</h2>
-                    <p className="text-[clamp(11.5px,3.3vw,0.78rem)] text-gray-300 font-light leading-relaxed">
-                        We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
-                    </p>
-                </div>
-            </div>
 
         </section>
     );
