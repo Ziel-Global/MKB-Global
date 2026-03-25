@@ -247,71 +247,6 @@ export default function FeaturesSection() {
         recenterFrameRef.current = requestAnimationFrame(animate);
     };
 
-    // Mobile-only Transition Logic
-    useEffect(() => {
-        const isMobile = window.innerWidth < 768;
-        if (!isMobile) return;
-
-        const wrapper = document.getElementById('mobile-snap-wrapper');
-        if (!wrapper) return;
-
-        let touchStartY = 0;
-        let isAtTop = false;
-
-        const handleTouchStart = (e: TouchEvent) => {
-            touchStartY = e.touches[0].clientY;
-            isAtTop = wrapper.scrollTop <= 2;
-        };
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (isAtTop && wrapper.scrollTop <= 2) {
-                const touchY = e.touches[0].clientY;
-                if (touchY > touchStartY + 45 && !isTransitioningRef.current) {
-                    isTransitioningRef.current = true;
-                    document.body.style.overflow = "";
-                    window.dispatchEvent(new CustomEvent("features-exit-back"));
-                    setTimeout(() => { isTransitioningRef.current = false; }, 800);
-                }
-            }
-        };
-
-        const handleWheel = (e: WheelEvent) => {
-            if (wrapper.scrollTop <= 2 && e.deltaY < -10 && !isTransitioningRef.current) {
-                isTransitioningRef.current = true;
-                document.body.style.overflow = "";
-                window.dispatchEvent(new CustomEvent("features-exit-back"));
-                setTimeout(() => { isTransitioningRef.current = false; }, 800);
-            }
-        };
-
-        const handleHeroExit = () => {
-            if (isTransitioningRef.current) return;
-            isTransitioningRef.current = true;
-
-            gsap.to(window, {
-                scrollTo: { y: wrapper, autoKill: false },
-                duration: 0.7,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    document.body.style.overflow = "hidden";
-                    isTransitioningRef.current = false;
-                }
-            });
-        };
-
-        window.addEventListener("hero-exit", handleHeroExit);
-        wrapper.addEventListener("touchstart", handleTouchStart, { passive: true });
-        wrapper.addEventListener("touchmove", handleTouchMove, { passive: true });
-        wrapper.addEventListener("wheel", handleWheel, { passive: true });
-
-        return () => {
-            window.removeEventListener("hero-exit", handleHeroExit);
-            wrapper.removeEventListener("touchstart", handleTouchStart);
-            wrapper.removeEventListener("touchmove", handleTouchMove);
-            wrapper.removeEventListener("wheel", handleWheel);
-            document.body.style.overflow = "";
-        };
-    }, []);
 
     useEffect(() => {
         const mm = gsap.matchMedia();
@@ -439,7 +374,7 @@ export default function FeaturesSection() {
             <div ref={innerRef} className="w-full h-full max-md:contents max-md:!transform-none max-md:![transform:none]">
                 <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white max-md:snap-start max-md:snap-always max-md:h-[100dvh] max-md:shrink-0" style={{ touchAction: 'pan-y' }}>
                     {/* Video Background */}
-                    {/* TEMPORARILY COMMENTED OUT — revert later
+
                     <div className="absolute inset-0 w-full h-full">
                         <video
                             src="/icons/Final - Scene 2.mp4"
@@ -450,7 +385,7 @@ export default function FeaturesSection() {
                             playsInline
                         />
                     </div>
-                    */}
+
 
                     {/* Soft Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />

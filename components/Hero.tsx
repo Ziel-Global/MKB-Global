@@ -55,158 +55,188 @@ export default function Hero() {
     };
 
     useEffect(() => {
-        const isMobile = window.innerWidth < 768;
+        const mm = gsap.matchMedia();
 
-        // When FeaturesSection reverse-transitions back, smoothly bring Hero card into view
-        const handleFeaturesBack = () => {
-            if (isReturningRef.current) return;
-            isReturningRef.current = true;
+        mm.add("(min-width: 868px)", () => {
+            const isMobile = false;
 
-            const trigger = heroTriggerRef.current;
-            const fallbackTop = sectionRef.current?.offsetTop ?? 0;
-            const targetScrollRaw = trigger
-                ? trigger.start + (trigger.end - trigger.start) * 0.76
-                : fallbackTop + window.innerHeight * 1.2;
-            const targetScroll = Math.max(0, targetScrollRaw);
+            // When FeaturesSection reverse-transitions back, smoothly bring Hero card into view
+            const handleFeaturesBack = () => {
+                if (isReturningRef.current) return;
+                isReturningRef.current = true;
 
-            document.body.style.overflow = "hidden";
+                const trigger = heroTriggerRef.current;
+                const fallbackTop = sectionRef.current?.offsetTop ?? 0;
+                const targetScrollRaw = trigger
+                    ? trigger.start + (trigger.end - trigger.start) * 0.76
+                    : fallbackTop + window.innerHeight * 1.2;
+                const targetScroll = Math.max(0, targetScrollRaw);
 
-            smoothScrollTo(targetScroll, 700, () => {
-                preventTopUntilRef.current = performance.now() + 900;
+                document.body.style.overflow = "hidden";
+
+                smoothScrollTo(targetScroll, 700, () => {
+                    preventTopUntilRef.current = performance.now() + 900;
+                    if (unlockTimerRef.current) {
+                        window.clearTimeout(unlockTimerRef.current);
+                    }
+                    unlockTimerRef.current = window.setTimeout(() => {
+                        document.body.style.overflow = "";
+                        unlockTimerRef.current = null;
+                    }, 180);
+
+                    ScrollTrigger.refresh();
+                    isReturningRef.current = false;
+                });
+            };
+
+            window.addEventListener("features-exit-back", handleFeaturesBack);
+
+            const ctx = gsap.context(() => {
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "+=200%",
+                        pin: true,
+                        scrub: 1,
+                        onLeave: () => {
+                            window.dispatchEvent(new CustomEvent("hero-exit"));
+                        },
+                        onLeaveBack: (self) => {
+                            if (performance.now() < preventTopUntilRef.current) {
+                                window.scrollTo({ top: self.start + 2, behavior: "auto" });
+                            }
+                        },
+                    }
+                });
+
+                heroTriggerRef.current = tl.scrollTrigger ?? null;
+
+                // Step 1: Fade out the headline and logo ticker
+                tl.to(contentToHideRef.current, {
+                    opacity: 0,
+                    y: -40,
+                    duration: 0.4,
+                    ease: "power2.inOut"
+                }, 0);
+
+                // Step 2: Scale up the video — less on mobile to prevent overflow
+                tl.to(videoContainerRef.current, {
+                    scale: isMobile ? 1.3 : 1.6,
+                    y: isMobile ? -40 : -80,
+                    duration: 0.5,
+                    ease: "power2.inOut"
+                }, 0.3);
+
+                // Step 3: Fade in and slide up the overlay card last
+                tl.fromTo(overlayRef.current, {
+                    opacity: 0,
+                    y: 40,
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: "power2.out"
+                }, 0.6);
+
+                // Step 4: Card drops — cinematic exit before next section magically appears
+                tl.to(overlayRef.current, {
+                    y: "240%",
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power3.in"
+                }, 1.1);
+
+            }, sectionRef);
+
+            return () => {
+                ctx.revert();
+                heroTriggerRef.current = null;
+                if (scrollFrameRef.current) {
+                    cancelAnimationFrame(scrollFrameRef.current);
+                    scrollFrameRef.current = null;
+                }
                 if (unlockTimerRef.current) {
                     window.clearTimeout(unlockTimerRef.current);
-                }
-                unlockTimerRef.current = window.setTimeout(() => {
-                    document.body.style.overflow = "";
                     unlockTimerRef.current = null;
-                }, 180);
-
-                ScrollTrigger.refresh();
-                isReturningRef.current = false;
-            });
-        };
-
-        window.addEventListener("features-exit-back", handleFeaturesBack);
-
-        const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top top",
-                    end: "+=200%",
-                    pin: true,
-                    scrub: 1,
-                    onLeave: () => {
-                        window.dispatchEvent(new CustomEvent("hero-exit"));
-                    },
-                    onLeaveBack: (self) => {
-                        if (performance.now() < preventTopUntilRef.current) {
-                            window.scrollTo({ top: self.start + 2, behavior: "auto" });
-                        }
-                    },
                 }
-            });
+                preventTopUntilRef.current = 0;
+                isReturningRef.current = false;
+                document.body.style.overflow = "";
+                window.removeEventListener("features-exit-back", handleFeaturesBack);
+            };
+        });
 
-            heroTriggerRef.current = tl.scrollTrigger ?? null;
-
-            // Step 1: Fade out the headline and logo ticker
-            tl.to(contentToHideRef.current, {
-                opacity: 0,
-                y: -40,
-                duration: 0.4,
-                ease: "power2.inOut"
-            }, 0);
-
-            // Step 2: Scale up the video — less on mobile to prevent overflow
-            tl.to(videoContainerRef.current, {
-                scale: isMobile ? 1.3 : 1.6,
-                y: isMobile ? -40 : -80,
-                duration: 0.5,
-                ease: "power2.inOut"
-            }, 0.3);
-
-            // Step 3: Fade in and slide up the overlay card last
-            tl.fromTo(overlayRef.current, {
-                opacity: 0,
-                y: 40,
-            }, {
-                opacity: 1,
-                y: 0,
-                duration: 0.4,
-                ease: "power2.out"
-            }, 0.6);
-
-            // Step 4: Card drops — cinematic exit before next section magically appears
-            tl.to(overlayRef.current, {
-                y: "240%",
-                opacity: 0,
-                duration: 0.5,
-                ease: "power3.in"
-            }, 1.1);
-
-        }, sectionRef);
-
-        return () => {
-            ctx.revert();
-            heroTriggerRef.current = null;
-            if (scrollFrameRef.current) {
-                cancelAnimationFrame(scrollFrameRef.current);
-                scrollFrameRef.current = null;
-            }
-            if (unlockTimerRef.current) {
-                window.clearTimeout(unlockTimerRef.current);
-                unlockTimerRef.current = null;
-            }
-            preventTopUntilRef.current = 0;
-            isReturningRef.current = false;
-            document.body.style.overflow = "";
-            window.removeEventListener("features-exit-back", handleFeaturesBack);
-        };
+        return () => mm.revert();
     }, []);
 
     return (
-        <section ref={sectionRef} className="w-full h-screen flex flex-col items-center overflow-hidden bg-white pt-16 md:pt-[100px]">
-            <div ref={contentToHideRef} className="w-full flex flex-col items-center relative z-20">
-                {/* Main Headlines */}
-                <div className="text-center w-full max-w-5xl px-4 flex flex-col items-center gap-1 mb-2">
-                    <h1 className="text-[1.85rem] sm:text-[1.9rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
-                        The Integrated Energy Value Chain.
-                    </h1>
-                    <h1 className="text-[1.85rem] sm:text-[1.9rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
-                        Reimagined for the Fourth Industrial Revolution.
-                    </h1>
+        <section ref={sectionRef} className="w-full h-screen flex flex-col items-center overflow-hidden bg-white pt-16 md:pt-[100px] max-md:h-auto max-md:overflow-visible max-md:contents">
+
+            <div className="w-full h-full flex flex-col items-center max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:overflow-hidden max-md:pt-24 max-md:pb-4">
+                <div ref={contentToHideRef} className="w-full flex flex-col items-center relative z-20">
+                    {/* Main Headlines */}
+                    <div className="text-center w-full max-w-5xl px-4 flex flex-col items-center gap-1 mb-2">
+                        <h1 className="text-[1.85rem] sm:text-[1.9rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
+                            The Integrated Energy Value Chain.
+                        </h1>
+                        <h1 className="text-[1.85rem] sm:text-[1.9rem] md:text-[2.4rem] leading-tight font-extrabold text-[#481E8D]">
+                            Reimagined for the Fourth Industrial Revolution.
+                        </h1>
+                    </div>
+
+                    {/* Infinite Logo Slider */}
+                    <div className="w-full">
+                        <LogoTicker />
+                    </div>
                 </div>
 
-                {/* Infinite Logo Slider */}
-                <div className="w-full">
-                    <LogoTicker />
+                {/* Video section */}
+                <div className="w-full px-2 md:px-8 flex flex-col justify-start items-center flex-1 min-h-0 pb-2 md:pb-6 relative z-10 mt-2 md:mt-4 origin-center">
+                    <div ref={videoContainerRef} className="relative w-[130%] md:w-full max-w-none md:max-w-[1200px] bg-transparent rounded-xl flex justify-center items-center h-full origin-bottom -mt-2 md:mt-0">
+                        <video
+                            src="/icons/Final - Scene 0.mp4"
+                            className="w-full h-full object-contain object-center rounded-xl"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                        />
+
+                        {/* Overlay Card that appears on scroll */}
+                        <div
+                            ref={overlayRef}
+                            className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[70vw] min-[417px]:w-[92vw] sm:w-[65%] md:w-auto max-w-[320px] sm:max-w-[420px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-2.5 sm:p-3 md:p-4 md:px-6 text-center shadow-2xl z-20 max-md:hidden"
+                        >
+                            <h2 className="text-[11px] sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
+                            <p className="text-[9px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
+                                We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Video section */}
-            <div className="w-full px-2 md:px-8 flex flex-col justify-start items-center flex-1 min-h-0 pb-2 md:pb-6 relative z-10 mt-2 md:mt-4 origin-center">
-                <div ref={videoContainerRef} className="relative w-[130%] md:w-full max-w-none md:max-w-[1200px] bg-transparent rounded-xl flex justify-center items-center h-full origin-bottom -mt-2 md:mt-0">
+            <div className="hidden max-md:flex max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:overflow-hidden flex-col items-center justify-center bg-white px-5 w-full">
+                <div className="relative w-[130%] min-[400px]:w-[140%] max-w-none flex justify-center items-center h-auto pointer-events-none mb-2 -mt-12 md:mt-0">
                     <video
                         src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-full object-contain object-center rounded-xl"
+                        className="w-full h-auto object-contain rounded-xl"
                         autoPlay
                         loop
                         muted
                         playsInline
                     />
-
-                    {/* Overlay Card that appears on scroll */}
-                    <div
-                        ref={overlayRef}
-                        className="absolute bottom-[-5%] md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[70vw] min-[417px]:w-[92vw] sm:w-[65%] md:w-auto max-w-[320px] sm:max-w-[420px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-2.5 sm:p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
-                    >
-                        <h2 className="text-[11px] sm:text-sm md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
-                        <p className="text-[9px] sm:text-[9px] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto">
-                            We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
-                        </p>
-                    </div>
+                </div>
+                <div className="bg-[#2E0E68] text-white rounded-[1.2rem] p-[clamp(12px,4vw,20px)] text-center shadow-2xl max-w-[380px] w-full -mt-6 min-[400px]:-mt-10 relative z-10 shrink-0">
+                    <h2 className="text-[clamp(15px,4.5vw,1.1rem)] font-semibold mb-[clamp(4px,1.5vw,8px)] leading-tight">Built for Qatar&apos;s Oil & Gas Leaders</h2>
+                    <p className="text-[clamp(11.5px,3.3vw,0.78rem)] text-gray-300 font-light leading-relaxed">
+                        We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
+                    </p>
                 </div>
             </div>
+
         </section>
     );
 }
+

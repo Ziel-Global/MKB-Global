@@ -19,12 +19,12 @@ export default function Home() {
         <Header />
       </div>
       <main className="w-full flex-1">
-        <Hero />
         <div
           id="mobile-snap-wrapper"
           className="max-md:h-[100dvh] max-md:overflow-y-auto max-md:[scroll-snap-type:y_mandatory] max-md:overscroll-behavior-contain"
           style={{ WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
         >
+          <Hero />
           <FeaturesSection />
           <WhyMBKSection />
           {/* Mobile Snap Footer */}

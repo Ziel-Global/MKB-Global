@@ -371,7 +371,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 2: Right content panel — "Why Partners Accelerate..." ===== */}
             <div
                 ref={rightPanelRef}
-                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%] max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
+                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%] max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
                 style={{ opacity: 0, touchAction: 'pan-y' }}
             >
 
@@ -387,11 +387,11 @@ export default function WhyMBKSection() {
                     </p>
                 </div>
 
-                {/* Mobile video — proper visible video below text */}
-                <div className="hidden max-md:flex mt-4 w-full justify-center items-center pointer-events-none">
+                {/* Mobile video — dramatically larger, negative margin to overflow container padding */}
+                <div className="hidden max-md:flex mt-6 -mx-6 w-[calc(100%+3rem)] justify-center items-center pointer-events-none">
                     <video
                         src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-auto object-contain rounded-2xl"
+                        className="w-full h-auto object-contain scale-[1.3] min-[400px]:scale-[1.4]"
                         autoPlay
                         loop
                         muted
