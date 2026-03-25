@@ -570,7 +570,7 @@ export default function WhyMBKSection() {
 
                     {/* Right: Customers + Partners cards */}
                     <div className="flex flex-col sm:flex-row gap-4 max-[400px]:gap-2 md:gap-5 w-full md:w-[58%]">
-                        <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                        <a href="https://sumud.mbk.global/" target="_blank" rel="noopener noreferrer" className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
                             {/* Watermark logo */}
                             <img 
                                 src="/logos/transparent-logo.png" 
@@ -578,7 +578,7 @@ export default function WhyMBKSection() {
                                 className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0" 
                             />
                             {/* Arrow - appears on hover */}
-                            <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
+                            <div className="absolute top-4 md:top-5 left-4 md:left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                                 </svg>
@@ -587,8 +587,8 @@ export default function WhyMBKSection() {
                                 <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Customers</h3>
                                 <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Unlock the full potential of digitalisation.</p>
                             </div>
-                        </div>
-                        <div className="group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                        </a>
+                        <a href="https://sumud.mbk.global/" target="_blank" rel="noopener noreferrer" className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
                             {/* Watermark logo */}
                             <img 
                                 src="/logos/transparent-logo.png" 
@@ -596,7 +596,7 @@ export default function WhyMBKSection() {
                                 className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0" 
                             />
                             {/* Arrow - appears on hover */}
-                            <div className="absolute top-4 md:top-5 right-4 md:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
+                            <div className="absolute top-4 md:top-5 left-4 md:left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                                 </svg>
@@ -605,7 +605,7 @@ export default function WhyMBKSection() {
                                 <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Partners</h3>
                                 <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
