@@ -439,6 +439,7 @@ export default function FeaturesSection() {
             <div ref={innerRef} className="w-full h-full max-md:contents max-md:!transform-none max-md:![transform:none]">
                 <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white max-md:snap-start max-md:snap-always max-md:h-[100dvh] max-md:shrink-0" style={{ touchAction: 'pan-y' }}>
                     {/* Video Background */}
+                    {/* TEMPORARILY COMMENTED OUT — revert later
                     <div className="absolute inset-0 w-full h-full">
                         <video
                             src="/icons/Final - Scene 2.mp4"
@@ -449,6 +450,7 @@ export default function FeaturesSection() {
                             playsInline
                         />
                     </div>
+                    */}
 
                     {/* Soft Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />

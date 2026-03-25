@@ -325,19 +325,6 @@ export default function WhyMBKSection() {
                 className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10 max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:px-6"
                 style={{ touchAction: 'pan-y' }}
             >
-                {/* Mobile Video Fill with Transparent Effect */}
-                <div className="hidden max-md:flex absolute bottom-[1vh] left-[-5%] w-[110%] h-[50dvh] -z-10 justify-center items-center pointer-events-none overflow-hidden">
-                    {/* Fade into background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white z-10" />
-                    <video
-                        src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-full object-contain mix-blend-multiply opacity-25 scale-110"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                    />
-                </div>
 
                 <h2 className="text-[1.5rem] md:text-[2.25rem] font-semibold text-[#2D1469] mb-5 md:mb-7 leading-tight relative z-10">
                     With MBK, customers achieve
@@ -387,19 +374,6 @@ export default function WhyMBKSection() {
                 className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%] max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
                 style={{ opacity: 0, touchAction: 'pan-y' }}
             >
-                {/* Mobile Video Fill with Transparent Effect */}
-                <div className="hidden max-md:flex absolute bottom-[1vh] left-[-5%] w-[110%] h-[50dvh] -z-10 justify-center items-center pointer-events-none overflow-hidden">
-                    {/* Fade into background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white z-10" />
-                    <video
-                        src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-full object-contain mix-blend-multiply opacity-25 scale-110"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                    />
-                </div>
 
                 <div className="bg-[#F5F2FC] rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-sm pointer-events-auto relative z-20">
                     <h2 className="text-[1.6rem] md:text-[2.6rem] font-semibold text-[#3D1E85] mb-3 md:mb-5 leading-[1.15]">
@@ -412,6 +386,18 @@ export default function WhyMBKSection() {
                         MBK Global changes the equation.
                     </p>
                 </div>
+
+                {/* Mobile video — proper visible video below text */}
+                <div className="hidden max-md:flex mt-4 w-full justify-center items-center pointer-events-none">
+                    <video
+                        src="/icons/Final - Scene 0.mp4"
+                        className="w-full h-auto object-contain rounded-2xl"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                </div>
             </div>
 
             {/* ===== Phase 3: Right content panel — "We amplify partners by" ===== */}
@@ -420,19 +406,6 @@ export default function WhyMBKSection() {
                 className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
                 style={{ opacity: 0, touchAction: 'pan-y' }}
             >
-                {/* Mobile Video Fill with Transparent Effect */}
-                <div className="hidden max-md:flex absolute bottom-[1vh] left-[-5%] w-[110%] h-[50dvh] -z-10 justify-center items-center pointer-events-none overflow-hidden">
-                    {/* Fade into background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white z-10" />
-                    <video
-                        src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-full object-contain mix-blend-multiply opacity-25 scale-110"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                    />
-                </div>
 
                 <h2 className="text-[1.3rem] md:text-[1.9rem] font-semibold text-[#3D1E85] mb-3 md:mb-4 leading-[1.15] relative z-10">
                     We amplify partners by:
