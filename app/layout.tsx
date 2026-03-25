@@ -1,6 +1,7 @@
 import "./globals.css";
 import Footer from "@/components/Footer";
 import EmergencyPopup from "@/components/EmergencyPopup";
+import FloatingSupportButton from "@/components/FloatingSupportButton";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next";
 
@@ -66,6 +67,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <EmergencyPopup />
+        <FloatingSupportButton />
       </body>
     </html>
   );
