@@ -325,12 +325,23 @@ export default function WhyMBKSection() {
                 className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10 max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:px-6"
                 style={{ touchAction: 'pan-y' }}
             >
+                {/* Mobile-only subtle background video */}
+                <div className="hidden max-md:flex absolute inset-0 -z-0 items-center justify-center pointer-events-none opacity-[0.35] mix-blend-multiply overflow-hidden translate-y-[30vh]">
+                    <video
+                        src="/icons/Final - Scene 0.mp4"
+                        className="w-[170%] h-auto object-contain scale-[1.4]"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                </div>
 
                 <h2 className="text-[1.5rem] md:text-[2.25rem] font-semibold text-[#2D1469] mb-5 md:mb-7 leading-tight relative z-10">
                     With MBK, customers achieve
                 </h2>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col relative z-10">
                     {achievements.map((item, i) => (
                         // Wrapper: overflow-hidden, no empty space
                         <div
@@ -409,12 +420,23 @@ export default function WhyMBKSection() {
                 className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
                 style={{ opacity: 0, touchAction: 'pan-y' }}
             >
+                {/* Mobile-only subtle background video */}
+                <div className="hidden max-md:flex absolute inset-0 -z-0 items-center justify-center pointer-events-none opacity-[0.35] mix-blend-multiply overflow-hidden translate-y-[30vh]">
+                    <video
+                        src="/icons/Final - Scene 0.mp4"
+                        className="w-[170%] h-auto object-contain scale-[1.4]"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                </div>
 
                 <h2 className="text-[1.3rem] md:text-[1.9rem] font-semibold text-[#3D1E85] mb-3 md:mb-4 leading-[1.15] relative z-10">
                     We amplify partners by:
                 </h2>
 
-                <div className="flex flex-col gap-[2px] rounded-xl overflow-hidden pointer-events-auto">
+                <div className="flex flex-col gap-[2px] rounded-xl overflow-hidden pointer-events-auto relative z-10">
                     {partnerAchievements.map((item, i) => (
                         <div
                             key={i}
@@ -451,7 +473,7 @@ export default function WhyMBKSection() {
                     <p className="text-[0.95rem] md:text-[1.25rem] font-semibold text-[#3D1E85] leading-snug mb-2">
                         Partners go further and faster with MBK because the ecosystem is already built around success.
                     </p>
-                    <p className="text-[0.75rem] md:text-[0.82rem] text-gray-500 leading-relaxed">
+                    <p className="text-[0.75rem] md:text-[0.82rem] text-gray-500 max-md:text-black max-md:font-medium leading-relaxed drop-shadow-sm max-md:drop-shadow-none">
                         We create the conditions where the right technologies reach the right users at the right time and deliver the impact they were designed for.
                     </p>
                 </div>
