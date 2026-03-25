@@ -12,9 +12,9 @@ const logos = [
 export default function LogoTicker() {
     return (
         <div className="w-full overflow-hidden bg-white py-4 md:py-4 mt-2 md:mt-4 relative">
-            <div className="flex w-max items-center gap-8 md:gap-10 animate-marquee">
+            <div className="flex w-max items-center animate-marquee">
                 {/* First set of logos */}
-                <div className="flex shrink-0 items-center gap-8 md:gap-10">
+                <div className="flex shrink-0 items-center gap-8 md:gap-10 pr-8 md:pr-10">
                     {logos.map((logo, index) => (
                         <div key={`logo-1-${index}`} className="flex shrink-0 items-center justify-center min-w-[150px] md:min-w-[150px]">
                             <Image
@@ -28,7 +28,7 @@ export default function LogoTicker() {
                     ))}
                 </div>
                 {/* Second set of logos for seamless loop */}
-                <div className="flex shrink-0 items-center gap-8 md:gap-10" aria-hidden="true">
+                <div className="flex shrink-0 items-center gap-8 md:gap-10 pr-8 md:pr-10" aria-hidden="true">
                     {logos.map((logo, index) => (
                         <div key={`logo-2-${index}`} className="flex shrink-0 items-center justify-center min-w-[150px] md:min-w-[150px]">
                             <Image
