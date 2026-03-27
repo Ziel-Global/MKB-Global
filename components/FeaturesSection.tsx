@@ -19,6 +19,17 @@ const tabs = [
     "Ecosystem Performance"
 ];
 
+const tabVideos: Record<string, string> = {
+    "Subsurface & Drilling": "/icons/Final - Scene 2.mp4",
+    "Midstream & Transport": "/icons/Part 2_1.mp4",
+    "Processing & Refining": "/icons/Part 2_2.mp4",
+    "Trade & Commercial": "/icons/Part 2_3.mp4",
+    "Supply Chain & Industrial Services": "/icons/Part 2_4.mp4",
+    "Corporate & Operations Centres": "/icons/Part 2_5.mp4",
+    "Digital Nervous System": "/icons/Part 2_6.mp4",
+    "Ecosystem Performance": "/icons/Part 2_7.mp4"
+};
+
 const tabCopy: Record<string, { heading: string; lines: string[] }> = {
     "Subsurface & Drilling": {
         heading: "Every Asset Connected. Every Risk Anticipated.",
@@ -211,6 +222,7 @@ export default function FeaturesSection() {
 
     const currentCards = tabData[activeTab] || [];
     const currentCopy = tabCopy[activeTab] || tabCopy["Subsurface & Drilling"];
+    const currentVideo = tabVideos[activeTab] || "/icons/Final - Scene 2.mp4";
 
     const smoothRecenterToFeatures = () => {
         const sectionTop = sectionRef.current?.offsetTop ?? window.scrollY;
@@ -377,8 +389,9 @@ export default function FeaturesSection() {
 
                     <div className="absolute inset-0 w-full h-full">
                         <video
-                            src="/icons/Final - Scene 2.mp4"
-                            className="w-full h-full object-cover"
+                            key={currentVideo}
+                            src={currentVideo}
+                            className="w-full h-full object-cover transition-opacity duration-500"
                             autoPlay
                             loop
                             muted
