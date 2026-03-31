@@ -499,12 +499,12 @@ export default function FeaturesSection() {
                         </div>
 
                         {/* Cards Rows */}
-                        <div className="relative z-20 w-full pb-2 pointer-events-auto full-bleed-scroll h-[100px] md:h-[110px]">
+                        <div className="relative z-20 w-full pb-2 pointer-events-auto grid items-start h-[100px] md:h-[110px]">
                             {tabs.map((tab) => (
                                 <div
                                     key={tab}
-                                    className={`flex overflow-x-auto gap-3 md:gap-4 scrollbar-none items-stretch w-full transition-opacity duration-500
-                                        ${activeTab === tab ? "opacity-100 relative z-10" : "opacity-0 absolute top-0 left-0 pointer-events-none -z-10"}
+                                    className={`col-start-1 row-start-1 flex overflow-x-auto gap-3 md:gap-4 scrollbar-none items-stretch w-full full-bleed-scroll transition-all duration-700 ease-out
+                                        ${activeTab === tab ? "opacity-100 translate-y-0 z-10 delay-100" : "opacity-0 translate-y-4 pointer-events-none -z-10"}
                                     `}
                                 >
                                     {(tabData[tab] || []).map((card, idx) => (
@@ -539,6 +539,7 @@ export default function FeaturesSection() {
                                 </div>
                             ))}
                         </div>
+
 
                     </div>
                 </section>
