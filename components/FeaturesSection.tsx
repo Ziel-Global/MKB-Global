@@ -443,14 +443,14 @@ export default function FeaturesSection() {
                     }
                     @media (min-width: 768px) {
                         .full-bleed-scroll {
-                            padding-left: 3rem;
-                            padding-right: 3rem;
+                            padding-left: 2.5rem;
+                            padding-right: 2.5rem;
                         }
                     }
-                    @media (min-width: 1280px) {
+                    @media (min-width: 1344px) {
                         .full-bleed-scroll {
-                            padding-left: calc(3rem + (100vw - 1280px) / 2);
-                            padding-right: calc(3rem + (100vw - 1280px) / 2);
+                            padding-left: calc(2.5rem + (100vw - 1344px) / 2);
+                            padding-right: calc(2.5rem + (100vw - 1344px) / 2);
                         }
                     }
                 `}
@@ -460,7 +460,7 @@ export default function FeaturesSection() {
                     <div ref={contentRef} className="absolute bottom-0 w-full pb-6 md:pb-8 z-10 flex flex-col items-start max-md:!opacity-100 max-md:![transform:none]">
 
                         {/* Headers */}
-                        <div className="relative mb-3 md:mb-4 w-full max-w-[1280px] mx-auto px-4 md:px-12 flex flex-col z-10">
+                        <div className="relative mb-3 md:mb-4 w-full max-w-[1344px] mx-auto px-4 md:px-10 flex flex-col z-10">
                             <div className="relative max-w-3xl z-10">
                                 {/* Gloss / Frosty background effect */}
                                 <div className="absolute top-0 left-[-20%] w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
