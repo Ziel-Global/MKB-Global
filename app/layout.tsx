@@ -15,14 +15,14 @@ export const metadata: Metadata = {
     template: "%s | MBK Global",
   },
   description:
-    "MBK Global helps operators and partners accelerate digital transformation with integrated, scalable, and impact-driven execution.",
+    "MBK Global removes operational friction so energy teams deliver twice the impact with half the effort.",
   openGraph: {
     type: "website",
     url: "/",
     siteName: "MBK Global",
     title: "MBK Global",
     description:
-      "MBK Global helps operators and partners accelerate digital transformation with integrated, scalable, and impact-driven execution.",
+      "MBK Global removes operational friction so energy teams deliver twice the impact with half the effort.",
     images: [
       {
         url: "/opengraph-image",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MBK Global",
     description:
-      "MBK Global helps operators and partners accelerate digital transformation with integrated, scalable, and impact-driven execution.",
+      "MBK Global removes operational friction so energy teams deliver twice the impact with half the effort.",
     images: ["/opengraph-image"],
   },
   icons: {

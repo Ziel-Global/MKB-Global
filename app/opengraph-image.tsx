@@ -35,9 +35,9 @@ export default function OpenGraphImage() {
           </defs>
         </svg>
 
-        <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ fontSize: 88, fontWeight: 800, letterSpacing: -1, color: "#111111" }}>MBK</div>
-          <div style={{ fontSize: 80, fontWeight: 300, letterSpacing: -1, color: "#111111" }}>GLOBAL</div>
+          <div style={{ fontSize: 88, fontWeight: 400, letterSpacing: -1, color: "#111111" }}>GLOBAL</div>
         </div>
 
         <div style={{ fontSize: 34, color: "#3D1E85", fontWeight: 500 }}>
