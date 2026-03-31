@@ -498,34 +498,44 @@ export default function FeaturesSection() {
                             </div>
                         </div>
 
-                        {/* Cards Row */}
-                        <div className="relative z-20 w-full flex overflow-x-auto gap-3 md:gap-4 scrollbar-none pb-2 pointer-events-auto items-stretch full-bleed-scroll">
-                            {currentCards.map((card, idx) => (
+                        {/* Cards Rows */}
+                        <div className="relative z-20 w-full pb-2 pointer-events-auto full-bleed-scroll h-[100px] md:h-[110px]">
+                            {tabs.map((tab) => (
                                 <div
-                                    key={`${activeTab}-${idx}`}
-                                    className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] md:min-w-[340px] w-[280px] md:w-[340px] h-[86px] md:h-[96px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
+                                    key={tab}
+                                    className={`flex overflow-x-auto gap-3 md:gap-4 scrollbar-none items-stretch w-full transition-opacity duration-500
+                                        ${activeTab === tab ? "opacity-100 relative z-10" : "opacity-0 absolute top-0 left-0 pointer-events-none -z-10"}
+                                    `}
                                 >
-                                    {/* Left side Image */}
-                                    <div className="w-[35%] relative bg-[#1A0B3F] overflow-hidden">
-                                        <Image
-                                            src={card.image}
-                                            alt={card.title}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                                        />
-                                    </div>
+                                    {(tabData[tab] || []).map((card, idx) => (
+                                        <div
+                                            key={`${tab}-${idx}`}
+                                            className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] md:min-w-[340px] w-[280px] md:w-[340px] h-[86px] md:h-[96px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
+                                        >
+                                            {/* Left side Image */}
+                                            <div className="w-[35%] relative bg-[#1A0B3F] overflow-hidden">
+                                                <Image
+                                                    src={card.image}
+                                                    alt={card.title}
+                                                    fill
+                                                    loading={tab === activeTab ? "eager" : "lazy"}
+                                                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                                />
+                                            </div>
 
-                                    {/* Right side Text */}
-                                    <div className="w-[65%] p-2.5 md:p-3 flex flex-col justify-center text-white">
-                                        <h3 className="font-semibold text-[0.70rem] md:text-xs mb-1 leading-tight">
-                                            {card.title}
-                                        </h3>
-                                        <div className="text-[0.60rem] md:text-[0.65rem] text-purple-200/90 font-light space-y-0.5">
-                                            {card.subtitles.map((sub, i) => (
-                                                <p key={i}>{sub}</p>
-                                            ))}
+                                            {/* Right side Text */}
+                                            <div className="w-[65%] p-2.5 md:p-3 flex flex-col justify-center text-white">
+                                                <h3 className="font-semibold text-[0.70rem] md:text-xs mb-1 leading-tight">
+                                                    {card.title}
+                                                </h3>
+                                                <div className="text-[0.60rem] md:text-[0.65rem] text-purple-200/90 font-light space-y-0.5">
+                                                    {card.subtitles.map((sub, i) => (
+                                                        <p key={i}>{sub}</p>
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    ))}
                                 </div>
                             ))}
                         </div>
