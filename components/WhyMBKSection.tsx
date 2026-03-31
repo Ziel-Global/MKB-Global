@@ -115,12 +115,29 @@ export default function WhyMBKSection() {
 
     const logos = [
         "/slider-images/innowise-logo.png",
-        "/slider-images/29e3441716eeb4aef5a80b7ca6949718e11d2ef9.png",
         "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png",
         "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png",
         "/slider-images/Frame 10.png",
-        "/slider-images/applied-computing-new.png"
+        "/slider-images/applied-computing-new.png",
+        "/slider-images/image001.png",
+        "/slider-images/image002.jpg",
+        "/slider-images/image003.png",
+        "/slider-images/image010.png",
+        "/slider-images/image011.png",
+        "/slider-images/image013.png",
+        "/slider-images/image014.jpg",
+        "/slider-images/image015.jpg",
+        "/slider-images/image016.png",
+        "/slider-images/image017.jpg",
+        "/slider-images/image020.jpg",
+        "/slider-images/image021.png",
+        "/slider-images/image023.png",
+        "/slider-images/image024.png",
+        "/slider-images/image025.png",
+        "/slider-images/image000005.png"
     ];
+
+    const multipliedLogos = [...logos, ...logos];
 
     useEffect(() => {
         const handleScrollToContact = () => {
@@ -572,10 +589,10 @@ export default function WhyMBKSection() {
                     <div className="flex flex-col sm:flex-row gap-4 max-[400px]:gap-2 md:gap-5 w-full md:w-[58%]">
                         <a href="https://sumud.mbk.global/" target="_blank" rel="noopener noreferrer" className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
                             {/* Watermark logo */}
-                            <img 
-                                src="/logos/transparent-logo.png" 
-                                alt="" 
-                                className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0" 
+                            <img
+                                src="/logos/transparent-logo.png"
+                                alt=""
+                                className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0"
                             />
                             {/* Arrow - appears on hover */}
                             <div className="absolute top-4 md:top-5 left-4 md:left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
@@ -590,10 +607,10 @@ export default function WhyMBKSection() {
                         </a>
                         <a href="https://sumud.mbk.global/" target="_blank" rel="noopener noreferrer" className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
                             {/* Watermark logo */}
-                            <img 
-                                src="/logos/transparent-logo.png" 
-                                alt="" 
-                                className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0" 
+                            <img
+                                src="/logos/transparent-logo.png"
+                                alt=""
+                                className="absolute -bottom-8 -right-8 w-[85%] h-auto opacity-90 pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 z-0"
                             />
                             {/* Arrow - appears on hover */}
                             <div className="absolute top-4 md:top-5 left-4 md:left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
@@ -833,12 +850,22 @@ export default function WhyMBKSection() {
                 <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
                 <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
                 <div className="relative z-10 w-full overflow-hidden">
-                    <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee">
+                    <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee" style={{ animationDuration: "175s" }}>
                         {/* First set of logos */}
                         <div className="flex shrink-0 items-center gap-5 md:gap-10">
-                            {logos.map((logo, index) => (
-                                <div key={`logo-1-${index}`} className="flex shrink-0 items-center justify-center min-w-[110px] md:min-w-[150px]">
-                                    <div className={`relative w-full h-full ${logo.includes('applied-computing') ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]' : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'}`}>
+                            {multipliedLogos.map((logo, index) => (
+                                <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image002|image003|image010/)
+                                        ? 'min-w-[100px] md:min-w-[125px] mx-[-2px] md:mx-[-4px]'
+                                        : 'min-w-[110px] md:min-w-[150px]'
+                                    }`}>
+                                    <div className={`relative w-full h-full ${logo.includes('applied-computing')
+                                            ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]'
+                                            : logo.match(/image003|image010|image013|image014|image015|image017|image020/)
+                                                ? 'min-h-[46px] md:min-h-[60px] max-w-[120px] md:max-w-[160px]'
+                                                : logo.includes('image000005')
+                                                    ? 'min-h-[36px] md:min-h-[46px] max-w-[100px] md:max-w-[130px]'
+                                                    : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'
+                                        }`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
@@ -851,9 +878,19 @@ export default function WhyMBKSection() {
                         </div>
                         {/* Second set of logos for seamless loop */}
                         <div className="flex shrink-0 items-center gap-5 md:gap-10" aria-hidden="true">
-                            {logos.map((logo, index) => (
-                                <div key={`logo-2-${index}`} className="flex shrink-0 items-center justify-center min-w-[110px] md:min-w-[150px]">
-                                    <div className={`relative w-full h-full ${logo.includes('applied-computing') ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]' : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'}`}>
+                            {multipliedLogos.map((logo, index) => (
+                                <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image002|image003|image010/)
+                                        ? 'min-w-[100px] md:min-w-[125px] mx-[-2px] md:mx-[-4px]'
+                                        : 'min-w-[110px] md:min-w-[150px]'
+                                    }`}>
+                                    <div className={`relative w-full h-full ${logo.includes('applied-computing')
+                                            ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]'
+                                            : logo.match(/image003|image010|image013|image014|image015|image017|image020/)
+                                                ? 'min-h-[46px] md:min-h-[60px] max-w-[120px] md:max-w-[160px]'
+                                                : logo.includes('image000005')
+                                                    ? 'min-h-[36px] md:min-h-[46px] max-w-[100px] md:max-w-[130px]'
+                                                    : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'
+                                        }`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
