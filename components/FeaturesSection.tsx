@@ -219,10 +219,26 @@ export default function FeaturesSection() {
     const blockedBackAttemptsRef = useRef(0);
     const requiredBackAttempts = 2;
     const recenterFrameRef = useRef<number | null>(null);
+    const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
     const currentCards = tabData[activeTab] || [];
     const currentCopy = tabCopy[activeTab] || tabCopy["Subsurface & Drilling"];
     const currentVideo = tabVideos[activeTab] || "/icons/Final - Scene 2.mp4";
+
+    useEffect(() => {
+        Object.entries(videoRefs.current).forEach(([src, videoEl]) => {
+            if (videoEl) {
+                if (src === currentVideo) {
+                    const playPromise = videoEl.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(() => {});
+                    }
+                } else {
+                    videoEl.pause();
+                }
+            }
+        });
+    }, [currentVideo]);
 
     const smoothRecenterToFeatures = () => {
         const sectionTop = sectionRef.current?.offsetTop ?? window.scrollY;
@@ -387,16 +403,26 @@ export default function FeaturesSection() {
                 <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white max-md:snap-start max-md:snap-always max-md:h-[100dvh] max-md:shrink-0" style={{ touchAction: 'pan-y' }}>
                     {/* Video Background */}
 
-                    <div className="absolute inset-0 w-full h-full">
-                        <video
-                            key={currentVideo}
-                            src={currentVideo}
-                            className="w-full h-full object-cover transition-opacity duration-500"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                        />
+                    <div className="absolute inset-0 w-full h-full bg-[#1A0B3F]">
+                        {Object.values(tabVideos).map((videoSrc) => {
+                            const isActive = videoSrc === currentVideo;
+                            return (
+                                <video
+                                    key={videoSrc}
+                                    ref={(el) => {
+                                        videoRefs.current[videoSrc] = el;
+                                    }}
+                                    src={videoSrc}
+                                    preload="auto"
+                                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                                        isActive ? "opacity-100 z-10" : "opacity-0 z-0"
+                                    }`}
+                                    loop
+                                    muted
+                                    playsInline
+                                />
+                            );
+                        })}
                     </div>
 
 
