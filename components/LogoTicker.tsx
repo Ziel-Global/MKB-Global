@@ -2,7 +2,6 @@ import Image from "next/image";
 
 const logos = [
     "/slider-images/innowise-logo.png",
-    "/slider-images/29e3441716eeb4aef5a80b7ca6949718e11d2ef9.png",
     "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png",
     "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png",
     "/slider-images/Frame 10.png",
@@ -20,7 +19,6 @@ const logos = [
     "/slider-images/image020.jpg",
     "/slider-images/image021.png",
     "/slider-images/image023.png",
-    "/slider-images/image024.png",
     "/slider-images/image025.png",
     "/slider-images/image000005.png"
 ];

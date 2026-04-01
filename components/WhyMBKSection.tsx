@@ -132,7 +132,6 @@ export default function WhyMBKSection() {
         "/slider-images/image020.jpg",
         "/slider-images/image021.png",
         "/slider-images/image023.png",
-        "/slider-images/image024.png",
         "/slider-images/image025.png",
         "/slider-images/image000005.png"
     ];
