@@ -114,26 +114,27 @@ export default function WhyMBKSection() {
     };
 
     const logos = [
-        "/slider-images/innowise-logo.png",
-        "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png",
-        "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png",
-        "/slider-images/Frame 10.png",
-        "/slider-images/applied-computing-new.png",
-        "/slider-images/image001.png",
-        "/slider-images/image002.jpg",
+        "/logo 2/Untitled-1.png",
+        "/logo 2/Untitled-2.png",
+        "/logo 2/Untitled-3.png",
+        "/logo 2/Untitled-4.png",
+        "/logo 2/Untitled-5.png",
+        "/logo 2/Untitled-6.png",
+        "/logo 2/Untitled-7.png",
+        "/logo 2/Untitled-8.png",
+        "/logo 2/Untitled-9.png",
+        "/logo 2/Untitled-10.png",
+        "/logo 2/Untitled-11.png",
+        "/logo 2/Untitled-12.png",
+        "/logo 2/Untitled-13.png",
+        "/logo 2/Untitled-14.png",
+        "/logo 2/Untitled-15.png",
+        "/logo 2/Untitled-16.png",
+        "/logo 2/Untitled-17.png",
+        "/logo 2/Untitled-18.png",
+        "/logo 2/Untitled-19.png",
         "/slider-images/image003.png",
-        "/slider-images/image010.png",
-        "/slider-images/image011.png",
-        "/slider-images/image013.png",
-        "/slider-images/image014.jpg",
-        "/slider-images/image015.jpg",
-        "/slider-images/image016.png",
-        "/slider-images/image017.jpg",
-        "/slider-images/image020.jpg",
-        "/slider-images/image021.png",
-        "/slider-images/image023.png",
-        "/slider-images/image025.png",
-        "/slider-images/image000005.png"
+        "/logo 2/Untitled-21.png"
     ];
 
     const multipliedLogos = [...logos, ...logos];
@@ -845,26 +846,16 @@ export default function WhyMBKSection() {
             </div>
 
             {/* Marquee layer - positioned at the very bottom spanning the entire width */}
-            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-4 md:pt-6 pb-2 overflow-hidden max-md:relative max-md:bottom-auto max-md:snap-start">
+            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-2 md:pt-3 pb-2 overflow-hidden max-md:relative max-md:bottom-auto max-md:snap-start h-[110px] md:h-[140px]">
                 <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
-                <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-3 md:mb-4">Our Partners</p>
-                <div className="relative z-10 w-full overflow-hidden">
+                <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-1 md:mb-2">Our Partners</p>
+                <div className="relative z-10 w-full overflow-hidden h-[75px] md:h-[100px]">
                     <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee" style={{ animationDuration: "175s" }}>
                         {/* First set of logos */}
                         <div className="flex shrink-0 items-center gap-5 md:gap-10">
                             {multipliedLogos.map((logo, index) => (
-                                <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image002|image003|image010/)
-                                        ? 'min-w-[100px] md:min-w-[125px] mx-[-2px] md:mx-[-4px]'
-                                        : 'min-w-[110px] md:min-w-[150px]'
-                                    }`}>
-                                    <div className={`relative w-full h-full ${logo.includes('applied-computing')
-                                            ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]'
-                                            : logo.match(/image003|image010|image013|image014|image015|image017|image020/)
-                                                ? 'min-h-[46px] md:min-h-[60px] max-w-[120px] md:max-w-[160px]'
-                                                : logo.includes('image000005')
-                                                    ? 'min-h-[36px] md:min-h-[46px] max-w-[100px] md:max-w-[130px]'
-                                                    : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'
-                                        }`}>
+                                <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-8px] md:mx-[-12px]' : logo.match(/Untitled-19\.png/) ? 'mx-[-20px] md:mx-[-40px]' : logo.match(/Untitled-20\.png/) ? 'mx-[-40px] md:mx-[-65px]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-10px] md:mx-[-15px]' : logo.match(/Untitled-18\.png/) ? 'mx-[-18px] md:mx-[-30px]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[150px] md:min-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[180px] md:min-w-[220px]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[150px] md:min-w-[190px]' : 'min-w-[130px] md:min-w-[170px]'}`}>
+                                    <div className={`relative w-full h-full ${logo.match(/image003\.png/) ? 'min-h-[50px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-h-[60px] md:min-h-[80px] max-w-[170px] md:max-w-[210px]' : logo.includes('Untitled-10.png') ? 'min-h-[70px] md:min-h-[90px] max-w-[170px] md:max-w-[210px]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'min-h-[56px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : 'min-h-[40px] md:min-h-[50px] max-w-[110px] md:max-w-[140px]'}`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
@@ -878,18 +869,8 @@ export default function WhyMBKSection() {
                         {/* Second set of logos for seamless loop */}
                         <div className="flex shrink-0 items-center gap-5 md:gap-10" aria-hidden="true">
                             {multipliedLogos.map((logo, index) => (
-                                <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image002|image003|image010/)
-                                        ? 'min-w-[100px] md:min-w-[125px] mx-[-2px] md:mx-[-4px]'
-                                        : 'min-w-[110px] md:min-w-[150px]'
-                                    }`}>
-                                    <div className={`relative w-full h-full ${logo.includes('applied-computing')
-                                            ? 'min-h-[20px] md:min-h-[26px] max-w-[65px] md:max-w-[85px]'
-                                            : logo.match(/image003|image010|image013|image014|image015|image017|image020/)
-                                                ? 'min-h-[46px] md:min-h-[60px] max-w-[120px] md:max-w-[160px]'
-                                                : logo.includes('image000005')
-                                                    ? 'min-h-[36px] md:min-h-[46px] max-w-[100px] md:max-w-[130px]'
-                                                    : 'min-h-[28px] md:min-h-[35px] max-w-[80px] md:max-w-[110px]'
-                                        }`}>
+                                <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-8px] md:mx-[-12px]' : logo.match(/Untitled-19\.png/) ? 'mx-[-20px] md:mx-[-40px]' : logo.match(/Untitled-20\.png/) ? 'mx-[-40px] md:mx-[-65px]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-10px] md:mx-[-15px]' : logo.match(/Untitled-18\.png/) ? 'mx-[-18px] md:mx-[-30px]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[150px] md:min-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[180px] md:min-w-[220px]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[150px] md:min-w-[190px]' : 'min-w-[130px] md:min-w-[170px]'}`}>
+                                    <div className={`relative w-full h-full ${logo.match(/image003\.png/) ? 'min-h-[50px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-h-[60px] md:min-h-[80px] max-w-[170px] md:max-w-[210px]' : logo.includes('Untitled-10.png') ? 'min-h-[70px] md:min-h-[90px] max-w-[170px] md:max-w-[210px]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'min-h-[56px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : 'min-h-[40px] md:min-h-[50px] max-w-[110px] md:max-w-[140px]'}`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}

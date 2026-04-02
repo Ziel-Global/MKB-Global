@@ -1,26 +1,27 @@
 import Image from "next/image";
 
 const logos = [
-    "/slider-images/innowise-logo.png",
-    "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png",
-    "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png",
-    "/slider-images/Frame 10.png",
-    "/slider-images/applied-computing-new.png",
-    "/slider-images/image001.png",
-    "/slider-images/image002.jpg",
+    "/logo 2/Untitled-1.png",
+    "/logo 2/Untitled-2.png",
+    "/logo 2/Untitled-3.png",
+    "/logo 2/Untitled-4.png",
+    "/logo 2/Untitled-5.png",
+    "/logo 2/Untitled-6.png",
+    "/logo 2/Untitled-7.png",
+    "/logo 2/Untitled-8.png",
+    "/logo 2/Untitled-9.png",
+    "/logo 2/Untitled-10.png",
+    "/logo 2/Untitled-11.png",
+    "/logo 2/Untitled-12.png",
+    "/logo 2/Untitled-13.png",
+    "/logo 2/Untitled-14.png",
+    "/logo 2/Untitled-15.png",
+    "/logo 2/Untitled-16.png",
+    "/logo 2/Untitled-17.png",
+    "/logo 2/Untitled-18.png",
+    "/logo 2/Untitled-19.png",
     "/slider-images/image003.png",
-    "/slider-images/image010.png",
-    "/slider-images/image011.png",
-    "/slider-images/image013.png",
-    "/slider-images/image014.jpg",
-    "/slider-images/image015.jpg",
-    "/slider-images/image016.png",
-    "/slider-images/image017.jpg",
-    "/slider-images/image020.jpg",
-    "/slider-images/image021.png",
-    "/slider-images/image023.png",
-    "/slider-images/image025.png",
-    "/slider-images/image000005.png"
+    "/logo 2/Untitled-21.png"
 ];
 
 export default function LogoTicker() {
@@ -34,25 +35,13 @@ export default function LogoTicker() {
                 {/* First set of logos */}
                 <div className="flex shrink-0 items-center gap-8 md:gap-10 pr-8 md:pr-10">
                     {multipliedLogos.map((logo, index) => (
-                        <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${
-                            logo.match(/image002|image003|image010/) 
-                                ? 'min-w-[110px] md:min-w-[130px] mx-[-4px] md:mx-[-6px]' 
-                                : 'min-w-[150px] md:min-w-[150px]'
-                        }`}>
+                        <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-10px] md:mx-[-15px]' : logo.match(/Untitled-19\.png/) ? 'mx-[-25px] md:mx-[-45px]' : logo.match(/Untitled-20\.png/) ? 'mx-[-45px] md:mx-[-70px]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-12px] md:mx-[-20px]' : logo.match(/Untitled-18\.png/) ? 'mx-[-22px] md:mx-[-35px]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[150px] md:min-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[180px] md:min-w-[220px]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[170px] md:min-w-[200px]' : 'min-w-[150px] md:min-w-[150px]'}`}>
                             <Image
                                 src={logo}
                                 alt={`Partner logo ${index + 1}`}
-                                width={120}
-                                height={40}
-                                className={`object-contain w-auto shrink-0 ${
-                                    logo.includes('applied-computing') 
-                                        ? 'max-h-[28px] md:max-h-[32px]' 
-                                        : logo.match(/image003|image010|image013|image014|image015|image017|image020/) 
-                                            ? 'max-h-[56px] md:max-h-[72px]' 
-                                            : logo.includes('image000005')
-                                                ? 'max-h-[46px] md:max-h-[52px]'
-                                                : 'max-h-[36px] md:max-h-[40px]'
-                                }`}
+                                width={160}
+                                height={60}
+                                className={`object-contain w-auto shrink-0 ${logo.match(/image003\.png/) ? 'max-h-[60px] md:max-h-[80px]' : logo.match(/Untitled-(18|19)\.png/) ? 'max-h-[72px] md:max-h-[90px]' : logo.includes('Untitled-10.png') ? 'max-h-[80px] md:max-h-[100px]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'max-h-[64px] md:max-h-[80px]' : 'max-h-[48px] md:max-h-[56px]'}`}
                             />
                         </div>
                     ))}
@@ -60,25 +49,13 @@ export default function LogoTicker() {
                 {/* Second set of logos for seamless loop */}
                 <div className="flex shrink-0 items-center gap-8 md:gap-10 pr-8 md:pr-10" aria-hidden="true">
                     {multipliedLogos.map((logo, index) => (
-                        <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${
-                            logo.match(/image002|image003|image010/) 
-                                ? 'min-w-[110px] md:min-w-[130px] mx-[-4px] md:mx-[-6px]' 
-                                : 'min-w-[150px] md:min-w-[150px]'
-                        }`}>
+                        <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-10px] md:mx-[-15px]' : logo.match(/Untitled-19\.png/) ? 'mx-[-25px] md:mx-[-45px]' : logo.match(/Untitled-20\.png/) ? 'mx-[-45px] md:mx-[-70px]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-12px] md:mx-[-20px]' : logo.match(/Untitled-18\.png/) ? 'mx-[-22px] md:mx-[-35px]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[150px] md:min-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[180px] md:min-w-[220px]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[170px] md:min-w-[200px]' : 'min-w-[150px] md:min-w-[150px]'}`}>
                             <Image
                                 src={logo}
                                 alt={`Partner logo ${index + 1}`}
-                                width={120}
-                                height={40}
-                                className={`object-contain w-auto shrink-0 ${
-                                    logo.includes('applied-computing') 
-                                        ? 'max-h-[28px] md:max-h-[32px]' 
-                                        : logo.match(/image003|image010|image013|image014|image015|image017|image020/) 
-                                            ? 'max-h-[56px] md:max-h-[72px]' 
-                                            : logo.includes('image000005')
-                                                ? 'max-h-[46px] md:max-h-[52px]'
-                                                : 'max-h-[36px] md:max-h-[40px]'
-                                }`}
+                                width={160}
+                                height={60}
+                                className={`object-contain w-auto shrink-0 ${logo.match(/image003\.png/) ? 'max-h-[60px] md:max-h-[80px]' : logo.match(/Untitled-(18|19)\.png/) ? 'max-h-[72px] md:max-h-[90px]' : logo.includes('Untitled-10.png') ? 'max-h-[80px] md:max-h-[100px]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'max-h-[64px] md:max-h-[80px]' : 'max-h-[48px] md:max-h-[56px]'}`}
                             />
                         </div>
                     ))}
