@@ -12,14 +12,14 @@ export default function AboutPage() {
   return (
     <div className="flex min-h-[100dvh] flex-col w-full bg-white relative">
       {/* Header */}
-      <div className="w-full max-w-[1440px] mx-auto flex flex-col relative items-center">
+      <div className="w-full max-w-[90rem] mx-auto flex flex-col relative items-center">
         <Header />
       </div>
 
       <main className="w-full flex-1">
         {/* ── Hero ── */}
         <section className="w-full min-h-screen bg-white flex items-center pt-24 pb-16 px-6 md:px-16 lg:px-24 overflow-hidden">
-          <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="w-full max-w-[75rem] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left content */}
             <div className="flex flex-col gap-6 order-2 lg:order-1">
               <span className="text-sm font-semibold text-gray-500 tracking-widest uppercase">
@@ -45,7 +45,7 @@ export default function AboutPage() {
 
             {/* Right image */}
             <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[560px] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative w-full max-w-[35rem] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/team-images/Group 1.jpg"
                   alt="MBK Global team"

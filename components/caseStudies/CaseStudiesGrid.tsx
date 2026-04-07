@@ -15,7 +15,7 @@ export default function CaseStudiesGrid({ partnerFilter }: CaseStudiesGridProps)
 
     return (
         <section className="w-full py-16 md:py-24 bg-white">
-            <div className="max-w-[1240px] mx-auto px-4 md:px-8">
+            <div className="max-w-[77.5rem] mx-auto px-4 md:px-8">
                 {filteredStudies.length === 0 ? (
                     <p className="text-center text-gray-600 text-base md:text-lg">
                         No case studies found for this partner yet.

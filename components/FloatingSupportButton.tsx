@@ -13,7 +13,7 @@ export default function FloatingSupportButton() {
       {/* Warning Icon */}
       <div className="flex-shrink-0">
         <svg
-          className="w-7 h-7 sm:w-[34px] sm:h-[34px]"
+          className="w-7 h-7 sm:w-[2.125rem] sm:h-[2.125rem]"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -39,10 +39,10 @@ export default function FloatingSupportButton() {
 
       {/* Text Content */}
       <div className="flex flex-col pr-0 sm:pr-1">
-        <span className="text-white font-bold text-[14px] sm:text-[17px] leading-tight tracking-wide">
+        <span className="text-white font-bold text-[0.875rem] sm:text-[1.0625rem] leading-tight tracking-wide">
           Facility at Risk?
         </span>
-        <span className="text-white/90 font-medium text-[11px] sm:text-[13px] tracking-wide mt-0.5 sm:mt-0">
+        <span className="text-white/90 font-medium text-[0.6875rem] sm:text-[0.8125rem] tracking-wide mt-0.5 sm:mt-0">
           Get Immediate Support
         </span>
       </div>

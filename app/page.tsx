@@ -15,7 +15,7 @@ export default function Home() {
           }
         }
       `}</style>
-      <div className="w-full max-w-[1440px] mx-auto flex flex-col relative w-full items-center">
+      <div className="w-full max-w-[90rem] mx-auto flex flex-col relative w-full items-center">
         <Header />
       </div>
       <main className="w-full flex-1">

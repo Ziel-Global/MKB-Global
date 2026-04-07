@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#eeeaf8] mt-auto overflow-hidden" style={{ borderRadius: '3rem 3rem 0 0' }}>
       {/* Links grid */}
-      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 pt-10 md:pt-14 pb-0">
+      <div className="w-full max-w-[87.5rem] mx-auto px-6 md:px-16 lg:px-24 pt-10 md:pt-14 pb-0">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Quick Links */}
           <div className="flex flex-col gap-4">
@@ -77,7 +77,7 @@ export default function Footer() {
           alt="MBK Global horizontal logo"
           width={1200}
           height={280}
-          className="w-full max-w-[440px] sm:max-w-[680px] md:max-w-[920px] lg:max-w-[1240px] h-auto"
+          className="w-full max-w-[27.5rem] sm:max-w-[42.5rem] md:max-w-[57.5rem] lg:max-w-[77.5rem] h-auto"
           priority
         />
       </div>

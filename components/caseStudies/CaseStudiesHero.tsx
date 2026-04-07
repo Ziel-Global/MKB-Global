@@ -35,7 +35,7 @@ export default function CaseStudiesHero() {
 
     return (
         <section ref={sectionRef} className="w-full flex justify-center items-center py-6 md:py-12 px-4 md:px-6 mt-16 md:mt-24">
-            <div className="w-full max-w-[1100px] relative rounded-[2rem] overflow-hidden p-8 md:p-14 lg:py-20 lg:px-12 flex flex-col items-center text-center shadow-[0_8px_40px_rgb(0,0,0,0.08)] bg-gradient-to-br border border-white/40 from-[#e9e6f2] via-[#f7f6fb] to-[#dfd5f5]">
+            <div className="w-full max-w-[68.75rem] relative rounded-[2rem] overflow-hidden p-8 md:p-14 lg:py-20 lg:px-12 flex flex-col items-center text-center shadow-[0_8px_40px_rgb(0,0,0,0.08)] bg-gradient-to-br border border-white/40 from-[#e9e6f2] via-[#f7f6fb] to-[#dfd5f5]">
 
                 {/* Background Image Overlay to mimic the reference refinery picture */}
                 <Image
@@ -54,7 +54,7 @@ export default function CaseStudiesHero() {
                         Our Partners
                     </p>
 
-                    <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-extrabold text-[#3b177d] leading-[1.1] tracking-tight max-w-[800px]">
+                    <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-extrabold text-[#3b177d] leading-[1.1] tracking-tight max-w-[50rem]">
                         Our Technology & Innovation Partners 
                     </h1>
 

@@ -79,7 +79,7 @@ export default function AchievementsSection() {
             </div>
 
             {/* Left side content */}
-            <div className="absolute top-[15%] left-8 md:left-16 w-[380px] max-w-[38vw] z-10">
+            <div className="absolute top-[15%] left-8 md:left-16 w-[23.75rem] max-w-[38vw] z-10">
                 {/* Heading */}
                 <h2 className="text-3xl md:text-[2.5rem] font-medium text-[#481E8D] mb-8 leading-tight italic">
                     With MBK, customers achieve

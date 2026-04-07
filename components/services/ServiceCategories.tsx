@@ -132,7 +132,7 @@ export default function ServiceCategories() {
 
     return (
         <section className="w-full py-16 md:py-24 bg-white" ref={containerRef}>
-            <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col gap-20 md:gap-32">
+            <div className="w-full max-w-[75rem] mx-auto px-4 md:px-8 flex flex-col gap-20 md:gap-32">
                 {services.map((service, index) => (
                     <div
                         key={index}
@@ -182,7 +182,7 @@ export default function ServiceCategories() {
                         </div>
 
                         {/* Desktop Layout (Overlapping) */}
-                        <div className="hidden md:flex w-full relative h-[450px] lg:h-[500px]">
+                        <div className="hidden md:flex w-full relative h-[28.125rem] lg:h-[31.25rem]">
                             {/* Text Card background - Anchored to left or right based on reverse */}
                             <div className={`absolute top-0 bottom-0 w-[65%] bg-[#f3f0f8] rounded-[2rem] p-10 lg:p-14 flex flex-col justify-center z-0
                                 ${service.reverse ? 'right-0 lg:pl-32' : 'left-0 lg:pr-32'}

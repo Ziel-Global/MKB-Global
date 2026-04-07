@@ -12,12 +12,12 @@ interface CaseStudySectionProps {
 export default function CaseStudySection({ title, children, imageSrc, imageAlt }: CaseStudySectionProps) {
     return (
         <section className="w-full py-8 bg-white">
-            <div className="max-w-[1000px] mx-auto px-4 md:px-8">
+            <div className="max-w-[62.5rem] mx-auto px-4 md:px-8">
                 <h2 className="text-xl md:text-[1.35rem] font-bold text-black mb-5">
                     {title}
                 </h2>
 
-                <div className="text-gray-700 text-[14px] md:text-[15px] leading-relaxed flex flex-col gap-4 font-medium mb-12">
+                <div className="text-gray-700 text-[0.875rem] md:text-[0.9375rem] leading-relaxed flex flex-col gap-4 font-medium mb-12">
                     {children}
                 </div>
 

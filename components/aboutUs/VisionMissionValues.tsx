@@ -21,11 +21,11 @@ const cards = [
 const VisionMissionValues: FC = () => {
   return (
     <section className="w-full px-6 py-10 md:py-16 bg-white">
-      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+      <div className="w-full max-w-[75rem] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
         {cards.map((card) => (
           <div
             key={card.title}
-            className="relative bg-[#3b0e8c] rounded-2xl p-8 flex flex-col justify-between min-h-[320px] md:min-h-[420px] overflow-hidden"
+            className="relative bg-[#3b0e8c] rounded-2xl p-8 flex flex-col justify-between min-h-[20rem] md:min-h-[26.25rem] overflow-hidden"
           >
             <div className="flex flex-col gap-6 z-10 relative">
               <h3 className="text-2xl font-extrabold text-white">{card.title}</h3>

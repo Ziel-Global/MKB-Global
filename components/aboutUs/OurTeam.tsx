@@ -112,7 +112,7 @@ const OurTeam: FC = () => {
   return (
     <>
       <section className="w-full px-6 py-12 md:py-16 lg:px-24 bg-white relative">
-        <div className="w-full max-w-[1200px] mx-auto">
+        <div className="w-full max-w-[75rem] mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#2E0E68] leading-tight">
               Our Team
@@ -123,7 +123,7 @@ const OurTeam: FC = () => {
             {teamMembers.map((member, index) => (
               <div
                 key={`${member.name}-${member.image}`}
-                className={`group relative rounded-2xl overflow-hidden min-h-[380px] md:min-h-[460px] lg:min-h-[560px] ${member.bio ? "cursor-pointer" : ""
+                className={`group relative rounded-2xl overflow-hidden min-h-[23.75rem] md:min-h-[28.75rem] lg:min-h-[35rem] ${member.bio ? "cursor-pointer" : ""
                   }`}
                 onClick={() => member.bio && setSelectedMember(member)}
               >

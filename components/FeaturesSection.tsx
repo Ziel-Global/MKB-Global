@@ -447,10 +447,10 @@ export default function FeaturesSection() {
                             padding-right: 2.5rem;
                         }
                     }
-                    @media (min-width: 1344px) {
+                    @media (min-width: 84rem) {
                         .full-bleed-scroll {
-                            padding-left: calc(2.5rem + (100vw - 1344px) / 2);
-                            padding-right: calc(2.5rem + (100vw - 1344px) / 2);
+                            padding-left: calc(2.5rem + (100vw - 84rem) / 2);
+                            padding-right: calc(2.5rem + (100vw - 84rem) / 2);
                         }
                     }
                 `}
@@ -460,10 +460,10 @@ export default function FeaturesSection() {
                     <div ref={contentRef} className="absolute bottom-0 w-full pb-6 md:pb-8 z-10 flex flex-col items-start max-md:!opacity-100 max-md:![transform:none]">
 
                         {/* Headers */}
-                        <div className="relative mb-3 md:mb-4 w-full max-w-[1344px] mx-auto px-4 md:px-10 flex flex-col z-10">
+                        <div className="relative mb-3 md:mb-4 w-full max-w-[84rem] mx-auto px-4 md:px-10 flex flex-col z-10">
                             <div className="relative max-w-3xl z-10">
                                 {/* Gloss / Frosty background effect */}
-                                <div className="absolute top-0 left-[-20%] w-[150%] h-[250%] bg-white/60 blur-[100px] rounded-full pointer-events-none -z-10" />
+                                <div className="absolute top-0 left-[-20%] w-[150%] h-[250%] bg-white/60 blur-[6.25rem] rounded-full pointer-events-none -z-10" />
 
                                 <h2 className="text-2xl md:text-4xl leading-tight font-medium text-[#481E8D] mb-2 md:mb-3 relative z-10">
                                     {currentCopy.heading}
@@ -486,7 +486,7 @@ export default function FeaturesSection() {
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`text-center px-3 py-2.5 md:py-3 rounded-xl text-[10px] md:text-xs font-semibold transition-all duration-300 shadow-sm leading-tight whitespace-nowrap
+                                        className={`text-center px-3 py-2.5 md:py-3 rounded-xl text-[0.625rem] md:text-xs font-semibold transition-all duration-300 shadow-sm leading-tight whitespace-nowrap
                                     ${activeTab === tab
                                                 ? "bg-[#2E0E68] text-white shadow-[#2E0E68]/20"
                                                 : "bg-[#F3F4FB] hover:bg-white text-[#481E8D] hover:shadow-md"
@@ -499,7 +499,7 @@ export default function FeaturesSection() {
                         </div>
 
                         {/* Cards Rows */}
-                        <div className="relative z-20 w-full pb-2 pointer-events-auto grid items-start h-[100px] md:h-[110px]">
+                        <div className="relative z-20 w-full pb-2 pointer-events-auto grid items-start h-[6.25rem] md:h-[6.875rem]">
                             {tabs.map((tab) => (
                                 <div
                                     key={tab}
@@ -510,7 +510,7 @@ export default function FeaturesSection() {
                                     {(tabData[tab] || []).map((card, idx) => (
                                         <div
                                             key={`${tab}-${idx}`}
-                                            className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[280px] md:min-w-[340px] w-[280px] md:w-[340px] h-[86px] md:h-[96px] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
+                                            className="group flex bg-[#2E0E68] hover:bg-[#4D07E3] rounded-2xl overflow-hidden min-w-[17.5rem] md:min-w-[21.25rem] w-[17.5rem] md:w-[21.25rem] h-[5.375rem] md:h-[6rem] shrink-0 shadow-xl cursor-pointer transition-colors duration-500"
                                         >
                                             {/* Left side Image */}
                                             <div className="w-[35%] relative bg-[#1A0B3F] overflow-hidden">

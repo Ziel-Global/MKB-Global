@@ -34,7 +34,7 @@ export default function ServicesHero() {
 
     return (
         <section ref={sectionRef} className="w-full flex justify-center items-center py-6 md:py-8 px-4 md:px-6 mt-16 md:mt-20">
-            <div className="w-full max-w-[1000px] relative rounded-[2rem] overflow-hidden p-6 md:p-10 lg:py-12 lg:px-8 flex flex-col items-center text-center shadow-[0_4px_40px_rgb(0,0,0,0.06)] bg-[#f3f0f8]">
+            <div className="w-full max-w-[62.5rem] relative rounded-[2rem] overflow-hidden p-6 md:p-10 lg:py-12 lg:px-8 flex flex-col items-center text-center shadow-[0_4px_40px_rgb(0,0,0,0.06)] bg-[#f3f0f8]">
 
                 {/* Background Image using Next.js Image for reliability */}
                 <Image

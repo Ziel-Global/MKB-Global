@@ -85,7 +85,7 @@ export default function CoreValues() {
       ref={sectionRef}
       className="w-full py-16 px-6 md:px-16 lg:px-24 bg-white"
     >
-      <div className="w-full max-w-[1100px] mx-auto flex flex-col items-center">
+      <div className="w-full max-w-[68.75rem] mx-auto flex flex-col items-center">
         {/* Heading block */}
         <div ref={headingRef} className="text-center mb-12">
           <span className="text-sm font-bold text-[#1e1e24] tracking-wide">

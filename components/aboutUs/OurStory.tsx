@@ -10,7 +10,7 @@ export default function OurStory() {
 
   return (
     <section className="w-full py-16 px-6 md:px-16 lg:px-24 bg-white overflow-hidden">
-      <div className="w-full max-w-[1200px] mx-auto relative">
+      <div className="w-full max-w-[75rem] mx-auto relative">
 
         {/* Card — text only, right padding reserves space so text doesn't go under video */}
         <div className="bg-[#f0eef8] rounded-3xl p-10 lg:p-12 lg:pr-[52%]">
@@ -58,7 +58,7 @@ export default function OurStory() {
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                <span className="ml-1 w-0 h-0 border-y-[10px] border-y-transparent border-l-[16px] border-l-[#2E0E68]" />
+                <span className="ml-1 w-0 h-0 border-y-[0.625rem] border-y-transparent border-l-[1rem] border-l-[#2E0E68]" />
               </span>
             </div>
           </button>
@@ -81,7 +81,7 @@ export default function OurStory() {
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                <span className="ml-1 w-0 h-0 border-y-[9px] border-y-transparent border-l-[14px] border-l-[#2E0E68]" />
+                <span className="ml-1 w-0 h-0 border-y-[0.5625rem] border-y-transparent border-l-[0.875rem] border-l-[#2E0E68]" />
               </span>
             </div>
           </button>

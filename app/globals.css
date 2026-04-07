@@ -124,6 +124,14 @@
   }
 }
 
+@media (min-width: 1600px) {
+  html {
+    /* 1440px represents 90rem width constraints. 
+       This perfectly maintains the exact 1440px layout ratio across ultra-wide monitors. */
+    font-size: calc(100vw / 90);
+  }
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -145,22 +153,22 @@
 /* Orbital animation — element centered at parent, pushed out by radius, counter-rotated to stay upright */
 @keyframes orbit {
   from {
-    transform: rotate(0deg) translateX(190px) rotate(0deg);
+    transform: rotate(0deg) translateX(11.875rem) rotate(0deg);
   }
 
   to {
-    transform: rotate(360deg) translateX(190px) rotate(-360deg);
+    transform: rotate(360deg) translateX(11.875rem) rotate(-360deg);
   }
 }
 
 @media (max-width: 768px) {
   @keyframes orbit {
     from {
-      transform: rotate(0deg) translateX(100px) rotate(0deg);
+      transform: rotate(0deg) translateX(6.25rem) rotate(0deg);
     }
 
     to {
-      transform: rotate(360deg) translateX(100px) rotate(-360deg);
+      transform: rotate(360deg) translateX(6.25rem) rotate(-360deg);
     }
   }
 }

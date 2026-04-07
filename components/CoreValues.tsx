@@ -67,7 +67,7 @@ export default function CoreValues() {
       ref={sectionRef}
       className="w-full py-20 px-6 md:px-16 lg:px-24 bg-white"
     >
-      <div className="w-full max-w-[1100px] mx-auto flex flex-col items-center">
+      <div className="w-full max-w-[68.75rem] mx-auto flex flex-col items-center">
         {/* Header */}
         <span className="text-sm font-bold text-black tracking-wide">
           Our Core Values

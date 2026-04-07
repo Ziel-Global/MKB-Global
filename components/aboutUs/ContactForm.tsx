@@ -16,7 +16,7 @@ export default function ContactForm() {
 
   return (
     <section id="contact-form" className="w-full py-16 px-6 md:px-16 lg:px-24 bg-white">
-      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div className="w-full max-w-[75rem] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
         {/* ── Left ── */}
         <div className="flex flex-col gap-8">

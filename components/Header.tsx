@@ -63,9 +63,9 @@ export default function Header() {
 
     return (
         <div className="fixed top-0 z-50 mt-2 w-[calc(100%-2rem)] max-w-[calc(100%-2rem)] mx-4">
-            <header className={`relative bg-[#EBE9FFF2] backdrop-blur-xl px-6 py-2 flex items-center justify-between ${menuOpen ? "rounded-t-[28px] rounded-b-none" : "rounded-full"}`}>
+            <header className={`relative bg-[#EBE9FFF2] backdrop-blur-xl px-6 py-2 flex items-center justify-between ${menuOpen ? "rounded-t-[1.75rem] rounded-b-none" : "rounded-full"}`}>
                 {/* Left Navigation — hidden on mobile (below 849px) */}
-                <nav className="hidden min-[849px]:flex items-center gap-6 text-sm font-medium text-gray-700">
+                <nav className="hidden min-[53.0625rem]:flex items-center gap-6 text-sm font-medium text-gray-700">
                     <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
                     {/* <Link href="/services" className="hover:text-black transition-colors">Services</Link> */}
                     <Link href="/our-partners" className="hover:text-black transition-colors">Our Partners</Link>
@@ -86,7 +86,7 @@ export default function Header() {
                 </div>
 
                 {/* Right Buttons — hidden on mobile (below 849px) */}
-                <div className="hidden min-[849px]:flex items-center gap-3">
+                <div className="hidden min-[53.0625rem]:flex items-center gap-3">
                     <button
                         onClick={() => scrollToContact("Operator")}
                         className="bg-[#6D28D9] hover:bg-purple-800 text-white text-sm font-medium px-5 py-2 rounded-full transition-colors"
@@ -104,19 +104,19 @@ export default function Header() {
                 {/* Hamburger Button — visible only on mobile/tablet (below 849px) */}
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="min-[849px]:hidden relative z-[60] flex flex-col items-center justify-center w-9 h-9 gap-[5px] ml-auto"
+                    className="min-[53.0625rem]:hidden relative z-[60] flex flex-col items-center justify-center w-9 h-9 gap-[0.3125rem] ml-auto"
                     aria-label="Toggle menu"
                     aria-expanded={menuOpen}
                 >
-                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[0.4375rem]" : ""}`} />
                     <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+                    <span className={`block w-5 h-[2px] bg-[#1e1e24] rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[0.4375rem]" : ""}`} />
                 </button>
             </header>
 
             {/* Mobile Dropdown Menu — hidden above 848px */}
             <div
-                className={`min-[849px]:hidden absolute top-full left-0 right-0 overflow-hidden transition-[max-height,opacity] duration-220 ease-out ${menuOpen ? "max-h-[380px] opacity-100 pointer-events-auto" : "max-h-0 opacity-0 pointer-events-none"}`}
+                className={`min-[53.0625rem]:hidden absolute top-full left-0 right-0 overflow-hidden transition-[max-height,opacity] duration-220 ease-out ${menuOpen ? "max-h-[23.75rem] opacity-100 pointer-events-auto" : "max-h-0 opacity-0 pointer-events-none"}`}
             >
                 <div className="bg-[#EBE9FFF2] backdrop-blur-xl rounded-[0_0_28px_28px] overflow-hidden -mt-[2px]">
                     <div className="px-6 pt-7 pb-6">

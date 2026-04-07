@@ -45,7 +45,7 @@ export default function ServicesCTA() {
 
     return (
         <section ref={containerRef} className="w-full py-12 md:py-16 bg-white">
-            <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-10 lg:gap-8 justify-between">
+            <div className="w-full max-w-[75rem] mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-10 lg:gap-8 justify-between">
 
                 {/* Left Side - Information & Cards */}
                 <div className="w-full lg:w-[45%] flex flex-col justify-center">

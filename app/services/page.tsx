@@ -11,7 +11,7 @@ export default function ServicesPage() {
     // return (
     //     <div className="flex min-h-[100dvh] flex-col w-full bg-white relative">
     //         {/* Header */}
-    //         <div className="w-full max-w-[1440px] mx-auto flex flex-col relative items-center">
+    //         <div className="w-full max-w-[90rem] mx-auto flex flex-col relative items-center">
     //             <Header />
     //         </div>
     //

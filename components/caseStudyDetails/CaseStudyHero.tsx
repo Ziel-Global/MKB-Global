@@ -12,7 +12,7 @@ interface CaseStudyHeroProps {
 export default function CaseStudyHero({ title, imageSrc, hideTitle = false, fullImage = false, hideImage = false }: CaseStudyHeroProps) {
     return (
         <section className="w-full pt-10 pb-6 bg-white">
-            <div className="max-w-[1000px] mx-auto px-4 md:px-8">
+            <div className="max-w-[62.5rem] mx-auto px-4 md:px-8">
                 {!hideImage && (
                     <div className="w-full h-auto rounded-3xl overflow-hidden mb-12 shadow-md">
                         <Image

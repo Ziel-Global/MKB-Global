@@ -319,6 +319,28 @@ export default function WhyMBKSection() {
         };
     }, []);
 
+    const handleCardClick = (role: "Operator" | "Partner") => {
+        window.dispatchEvent(new CustomEvent("set-contact-role", { detail: { role } }));
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+            setTimeout(() => {
+                const element = document.getElementById("contact-form");
+                if (element) {
+                    const snapParent = element.closest('[class*="snap-start"]');
+                    if (snapParent) {
+                        snapParent.scrollIntoView({ behavior: "smooth", block: "start" });
+                    } else {
+                        element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }, 100);
+        } else {
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent("scroll-to-contact"));
+            }, 50);
+        }
+    };
+
     return (
         <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white max-md:h-auto max-md:overflow-visible max-md:contents">
             {/* Isometric video — hidden on mobile to avoid overlap */}
@@ -339,7 +361,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 1: Left content panel — "With MBK, customers achieve" ===== */}
             <div
                 ref={leftPanelRef}
-                className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[520px] z-10 max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:px-6"
+                className="absolute top-[11%] left-4 md:left-16 w-[90%] md:w-[42%] max-w-[32.5rem] z-10 max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:px-6"
                 style={{ touchAction: 'pan-y' }}
             >
                 {/* Mobile-only subtle background video */}
@@ -378,7 +400,7 @@ export default function WhyMBKSection() {
                                 {/* Description – collapses when next card appears */}
                                 <div
                                     ref={(el) => { descRefs.current[i] = el; }}
-                                    className="overflow-hidden transition-all duration-300 group-hover:!max-h-[120px] group-hover:!opacity-100"
+                                    className="overflow-hidden transition-all duration-300 group-hover:!max-h-[7.5rem] group-hover:!opacity-100"
                                     style={{ maxHeight: activeAchievement === i ? 120 : 0, opacity: activeAchievement === i ? 1 : 0 }}
                                 >
                                     <p className={`text-[0.75rem] md:text-[0.82rem] text-gray-500 mt-1.5 md:mt-2 leading-relaxed group-hover:text-gray-800 transition-colors duration-300 ${activeAchievement === i ? 'text-gray-800' : ''}`}>
@@ -402,11 +424,11 @@ export default function WhyMBKSection() {
             {/* ===== Phase 2: Right content panel — "Why Partners Accelerate..." ===== */}
             <div
                 ref={rightPanelRef}
-                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[580px] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%] max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
+                className="absolute top-[12%] right-4 md:right-16 w-[90%] md:w-[45%] max-w-[36.25rem] z-10 opacity-0 pointer-events-none flex flex-col justify-start h-[70%] max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-center max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
                 style={{ opacity: 0, touchAction: 'pan-y' }}
             >
 
-                <div className="bg-[#F5F2FC] rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-sm pointer-events-auto relative z-20">
+                <div className="bg-[#F5F2FC] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-8 shadow-sm pointer-events-auto relative z-20">
                     <h2 className="text-[1.6rem] md:text-[2.6rem] font-semibold text-[#3D1E85] mb-3 md:mb-5 leading-[1.15]">
                         Why Partners Accelerate Further With MBK Global
                     </h2>
@@ -422,7 +444,7 @@ export default function WhyMBKSection() {
                 <div className="hidden max-md:flex mt-12 -mx-6 w-[calc(100%+3rem)] justify-center items-center pointer-events-none">
                     <video
                         src="/icons/Final - Scene 0.mp4"
-                        className="w-full h-auto object-contain scale-[1.3] min-[400px]:scale-[1.4]"
+                        className="w-full h-auto object-contain scale-[1.3] min-[25rem]:scale-[1.4]"
                         autoPlay
                         loop
                         muted
@@ -434,7 +456,7 @@ export default function WhyMBKSection() {
             {/* ===== Phase 3: Right content panel — "We amplify partners by" ===== */}
             <div
                 ref={phase3Ref}
-                className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[460px] z-10 opacity-0 pointer-events-none flex flex-col justify-center max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
+                className="absolute top-[16%] md:top-[20%] right-4 md:right-[4%] lg:right-[8%] w-[90%] md:w-[41%] max-w-[28.75rem] z-10 opacity-0 pointer-events-none flex flex-col justify-center max-md:relative max-md:opacity-100 max-md:[transform:none] max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:flex max-md:flex-col max-md:justify-start max-md:pt-[12vh] max-md:shrink-0 max-md:overflow-hidden max-md:pointer-events-auto max-md:w-full max-md:max-w-full max-md:inset-auto max-md:!opacity-100 max-md:px-6"
                 style={{ opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Mobile-only subtle background video */}
@@ -470,7 +492,7 @@ export default function WhyMBKSection() {
                                 </h3>
                                 <div
                                     ref={(el) => { partnerDescRefs.current[i] = el; }}
-                                    className="overflow-hidden transition-all duration-300 group-hover:!max-h-[120px] group-hover:!opacity-100"
+                                    className="overflow-hidden transition-all duration-300 group-hover:!max-h-[7.5rem] group-hover:!opacity-100"
                                     style={{ maxHeight: activePartner === i ? 120 : 0, opacity: activePartner === i ? 1 : 0 }}
                                 >
                                     <p className={`text-[0.72rem] md:text-[0.78rem] text-gray-600 mt-1 md:mt-1.5 leading-relaxed group-hover:text-gray-900 transition-colors duration-300 pr-2 ${activePartner === i ? 'text-gray-900' : ''}`}>
@@ -503,7 +525,7 @@ export default function WhyMBKSection() {
                 style={{ transform: "translateY(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Left: text */}
-                <div className="w-full md:w-[46%] max-w-[520px] flex flex-col justify-center pt-16 md:pt-0 pb-6 md:pb-0">
+                <div className="w-full md:w-[46%] max-w-[32.5rem] flex flex-col justify-center pt-16 md:pt-0 pb-6 md:pb-0">
                     <h2 className="text-[1.6rem] md:text-[2.5rem] font-bold text-[#2D1469] leading-tight mb-2 md:mb-3">
                         The MBK Advantage:
                     </h2>
@@ -525,7 +547,7 @@ export default function WhyMBKSection() {
                 </div>
 
                 {/* Right: MBK logo with orbiting partner logos */}
-                <div className="w-full md:w-[48%] flex items-center justify-center relative h-[280px] md:h-full mt-4 md:mt-0">
+                <div className="w-full md:w-[48%] flex items-center justify-center relative h-[17.5rem] md:h-full mt-4 md:mt-0">
                     {/* Central MBK logo (actual PNG) */}
                     <div className="flex flex-col items-center z-10 relative">
                         <Image
@@ -533,18 +555,18 @@ export default function WhyMBKSection() {
                             alt="MBK Global"
                             width={220}
                             height={220}
-                            className="object-contain mb-3 w-[120px] md:w-[220px] h-auto"
+                            className="object-contain mb-3 w-[7.5rem] md:w-[13.75rem] h-auto"
                         />
                         <span className="font-black text-[1.3rem] md:text-[2rem] tracking-widest text-[#1a1a1a]">MBK <span className="font-light">GLOBAL</span></span>
                     </div>
 
                     {/* Orbiting partner logos — evenly spaced 72° apart, same speed */}
                     {[
-                        { logo: "/logos/logo-1.png", size: 64, delay: "0s" },
-                        { logo: "/logos/logo-2.png", size: 64, delay: "-3.2s" },
-                        { logo: "/logos/logo-3.png", size: 64, delay: "-6.4s" },
-                        { logo: "/logos/logo-4.png", size: 64, delay: "-9.6s" },
-                        { logo: "/logos/logo-5.png", size: 64, delay: "-12.8s" },
+                        { logo: "/logos/logo-1.png", size: "4.5rem", mt: "-2.25rem", delay: "0s" },
+                        { logo: "/logos/logo-2.png", size: "4.5rem", mt: "-2.25rem", delay: "-3.2s" },
+                        { logo: "/logos/logo-3.png", size: "4.5rem", mt: "-2.25rem", delay: "-6.4s" },
+                        { logo: "/logos/logo-4.png", size: "4.5rem", mt: "-2.25rem", delay: "-9.6s" },
+                        { logo: "/logos/logo-5.png", size: "4.5rem", mt: "-2.25rem", delay: "-12.8s" },
                     ].map((orb, idx) => (
                         <div
                             key={idx}
@@ -554,8 +576,8 @@ export default function WhyMBKSection() {
                                 left: "50%",
                                 width: orb.size,
                                 height: orb.size,
-                                marginTop: -orb.size / 2,
-                                marginLeft: -orb.size / 2,
+                                marginTop: orb.mt,
+                                marginLeft: orb.mt,
                                 animation: `orbit 16s linear ${orb.delay} infinite`,
                             }}
                         >
@@ -572,22 +594,22 @@ export default function WhyMBKSection() {
                 style={{ transform: "translateY(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Top section: headline + cards */}
-                <div ref={phase5TopRef} className="flex flex-col md:flex-row flex-1 items-start md:items-center px-5 md:px-16 lg:px-24 pt-16 max-[400px]:pt-[8vh] max-[400px]:pb-2 pb-4 md:pb-6 gap-6 max-[400px]:gap-2 md:gap-12">
+                <div ref={phase5TopRef} className="flex flex-col md:flex-row flex-1 items-start md:items-center px-5 md:px-16 lg:px-24 pt-16 max-[25rem]:pt-[8vh] max-[25rem]:pb-2 pb-4 md:pb-6 gap-6 max-[25rem]:gap-2 md:gap-12">
                     {/* Left: headline */}
                     <div className="w-full md:w-[38%] flex flex-col justify-center">
-                        <h2 className="text-[1.8rem] max-[400px]:text-[1.5rem] md:text-[3.5rem] font-extrabold text-[#2D1469] leading-[1.1] mb-4 max-[400px]:mb-1 md:mb-6">
+                        <h2 className="text-[1.8rem] max-[25rem]:text-[1.5rem] md:text-[3.5rem] font-extrabold text-[#2D1469] leading-[1.1] mb-4 max-[25rem]:mb-1 md:mb-6">
                             Go Further.<br />
                             Go Faster.<br />
                             Go Together.
                         </h2>
-                        <p className="text-gray-600 text-[0.82rem] max-[400px]:text-[0.7rem] max-[400px]:leading-snug md:text-[0.95rem] leading-relaxed max-w-[420px]">
+                        <p className="text-gray-600 text-[0.82rem] max-[25rem]:text-[0.7rem] max-[25rem]:leading-snug md:text-[0.95rem] leading-relaxed max-w-[26.25rem]">
                             Whether you operate assets or build technologies, MBK Global helps you achieve more with less complexity, less risk, and significantly more impact.
                         </p>
                     </div>
 
                     {/* Right: Customers + Partners cards */}
-                    <div className="flex flex-col sm:flex-row gap-4 max-[400px]:gap-2 md:gap-5 w-full md:w-[58%]">
-                        <a href="https://sumud.mbk.global/" target="_blank" rel="noopener noreferrer" className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                    <div className="flex flex-col sm:flex-row gap-4 max-[25rem]:gap-2 md:gap-5 w-full md:w-[58%]">
+                        <button type="button" onClick={() => handleCardClick("Operator")} className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[0.75rem] p-5 max-[25rem]:p-3 md:p-7 flex flex-col justify-between min-h-[8.75rem] max-[25rem]:min-h-[5.625rem] md:min-h-[11.25rem] relative overflow-hidden cursor-pointer transition-colors duration-300 text-left">
                             {/* Watermark logo */}
                             <img
                                 src="/logos/transparent-logo.png"
@@ -601,11 +623,11 @@ export default function WhyMBKSection() {
                                 </svg>
                             </div>
                             <div className="relative z-10 flex flex-col mt-auto h-full justify-end">
-                                <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Customers</h3>
-                                <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Unlock the full potential of digitalisation.</p>
+                                <h3 className="text-[1.1rem] max-[25rem]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[25rem]:mb-0.5 md:mb-3 transition-colors duration-300">Customers</h3>
+                                <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[25rem]:text-[0.75rem] max-[25rem]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Unlock the full potential of digitalisation.</p>
                             </div>
-                        </a>
-                        <a href="https://sumud.mbk.global/" target="_blank" rel="noopener noreferrer" className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[12px] p-5 max-[400px]:p-3 md:p-7 flex flex-col justify-between min-h-[140px] max-[400px]:min-h-[90px] md:min-h-[180px] relative overflow-hidden cursor-pointer transition-colors duration-300">
+                        </button>
+                        <button type="button" onClick={() => handleCardClick("Partner")} className="block group flex-1 bg-[#EEE9F9] hover:bg-[#E4DDF7] rounded-[0.75rem] p-5 max-[25rem]:p-3 md:p-7 flex flex-col justify-between min-h-[8.75rem] max-[25rem]:min-h-[5.625rem] md:min-h-[11.25rem] relative overflow-hidden cursor-pointer transition-colors duration-300 text-left">
                             {/* Watermark logo */}
                             <img
                                 src="/logos/transparent-logo.png"
@@ -619,10 +641,10 @@ export default function WhyMBKSection() {
                                 </svg>
                             </div>
                             <div className="relative z-10 flex flex-col mt-auto h-full justify-end">
-                                <h3 className="text-[1.1rem] max-[400px]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[400px]:mb-0.5 md:mb-3 transition-colors duration-300">Partners</h3>
-                                <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[400px]:text-[0.75rem] max-[400px]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
+                                <h3 className="text-[1.1rem] max-[25rem]:text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] group-hover:text-[#2D1469] mb-2 max-[25rem]:mb-0.5 md:mb-3 transition-colors duration-300">Partners</h3>
+                                <p className="text-[#2D1469] group-hover:text-[#2D1469] text-[0.82rem] max-[25rem]:text-[0.75rem] max-[25rem]:leading-tight md:text-[0.95rem] leading-snug font-normal transition-colors duration-300">Scale solutions with amplified speed and certainty.</p>
                             </div>
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -648,9 +670,9 @@ export default function WhyMBKSection() {
                                 { src: "/images/Midstream&Transport/e049a16bacb76dc0e8c514229ad3a0b8c3786796.png", label: "Network Optimization" },
                                 { src: "/images/Processing&refining/5c36104456dbd212f3d210fe7017f1efff27f8a6.png", label: "AI-Driven Plant Monitoring" },
                             ].map((item, i) => (
-                                <div key={i} className="group flex-shrink-0 w-[200px] md:w-[280px] flex flex-col">
+                                <div key={i} className="group flex-shrink-0 w-[12.5rem] md:w-[17.5rem] flex flex-col">
                                     {/* Image card */}
-                                    <div className="relative w-full h-[120px] md:h-[170px] rounded-2xl overflow-hidden bg-gray-100">
+                                    <div className="relative w-full h-[7.5rem] md:h-[10.625rem] rounded-2xl overflow-hidden bg-gray-100">
                                         <Image
                                             src={item.src}
                                             alt={item.label}
@@ -685,14 +707,14 @@ export default function WhyMBKSection() {
                 style={{ transform: "translateX(100%)", opacity: 0, touchAction: 'pan-y' }}
             >
                 {/* Left: text + prospectus cards */}
-                <div className="flex flex-col w-full flex-1 md:flex-none md:w-[38%] md:max-w-[420px] md:self-stretch pt-0 md:pt-2 mb-1 md:mb-0">
-                    <h2 className="text-[1.2rem] min-[400px]:text-[1.4rem] md:text-[2.7rem] font-extrabold text-[#2D1469] leading-[1.15] mb-2 md:mb-4 pr-2 md:pr-4">
+                <div className="flex flex-col w-full flex-1 md:flex-none md:w-[38%] md:max-w-[26.25rem] md:self-stretch pt-0 md:pt-2 mb-1 md:mb-0">
+                    <h2 className="text-[1.2rem] min-[25rem]:text-[1.4rem] md:text-[2.7rem] font-extrabold text-[#2D1469] leading-[1.15] mb-2 md:mb-4 pr-2 md:pr-4">
                         Let&apos;s Build the Future of Operations
                     </h2>
                     <p className="hidden md:block text-gray-500 text-[0.8rem] md:text-[0.88rem] leading-relaxed mb-4 md:mb-6">
                         Whether you&apos;re exploring digitalisation, scaling solutions, or seeking impact MBK Global helps you move forward safely, confidently, and fully.
                     </p>
-                    <div className="flex gap-2 md:gap-3 flex-1 min-h-[85px] sm:min-h-[120px] md:min-h-0">
+                    <div className="flex gap-2 md:gap-3 flex-1 min-h-[5.3125rem] sm:min-h-[7.5rem] md:min-h-0">
                         <div className="relative flex-1 rounded-2xl overflow-hidden cursor-pointer group h-full">
                             <Image src="/work-with-us/839afe1e339b32e95f94af548b116ed1813f57b0.png" alt="Operator Prospectus" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-[rgba(10,12,30,0.55)]" />
@@ -726,7 +748,7 @@ export default function WhyMBKSection() {
                 <form
                     id="contact-form"
                     onSubmit={handleSubmit}
-                    className="max-w-full shrink-0 md:max-w-[620px] md:flex-1 bg-[#EEE9F9] rounded-3xl p-4 sm:p-5 md:p-7 flex flex-col gap-2 md:gap-3 md:self-stretch lg:h-full"
+                    className="max-w-full shrink-0 md:max-w-[38.75rem] md:flex-1 bg-[#EEE9F9] rounded-3xl p-4 sm:p-5 md:p-7 flex flex-col gap-2 md:gap-3 md:self-stretch lg:h-full"
                 >
                     <h3 className="text-[1rem] md:text-[1.6rem] font-bold text-[#2D1469] mb-0 md:mb-1">Work With Us</h3>
 
@@ -826,7 +848,7 @@ export default function WhyMBKSection() {
                                 placeholder="Type here..."
                                 value={formData.challenge}
                                 onChange={handleFieldChange}
-                                className="w-full bg-white rounded-xl px-3 py-1.5 md:py-2.5 text-[0.75rem] md:text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none min-h-[50px] md:min-h-0 lg:min-h-[96px] placeholder:text-gray-400"
+                                className="w-full bg-white rounded-xl px-3 py-1.5 md:py-2.5 text-[0.75rem] md:text-[0.85rem] text-gray-700 outline-none border border-transparent focus:border-[#7C3AED] transition-colors resize-none min-h-[3.125rem] md:min-h-0 lg:min-h-[6rem] placeholder:text-gray-400"
                             />
                         </div>
 
@@ -846,16 +868,16 @@ export default function WhyMBKSection() {
             </div>
 
             {/* Marquee layer - positioned at the very bottom spanning the entire width */}
-            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-2 md:pt-3 pb-2 overflow-hidden max-md:relative max-md:bottom-auto max-md:snap-start h-[110px] md:h-[140px]">
-                <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[130px] rounded-full pointer-events-none" />
-                <p className="relative z-10 text-center text-gray-600 text-[11px] md:text-[13px] font-medium mb-1 md:mb-2">Our Partners</p>
-                <div className="relative z-10 w-full overflow-hidden h-[75px] md:h-[100px]">
+            <div ref={marqueeRef} className="absolute bottom-0 left-0 w-full z-20 pt-2 md:pt-3 pb-2 overflow-hidden max-md:relative max-md:bottom-auto max-md:snap-start h-[6.875rem] md:h-[8.75rem]">
+                <div className="absolute top-1/2 left-[-20%] -translate-y-1/2 w-[150%] h-[280%] bg-white/62 blur-[8.125rem] rounded-full pointer-events-none" />
+                <p className="relative z-10 text-center text-gray-600 text-[0.6875rem] md:text-[0.8125rem] font-medium mb-1 md:mb-2">Our Partners</p>
+                <div className="relative z-10 w-full overflow-hidden h-[4.6875rem] md:h-[6.25rem]">
                     <div className="flex w-max items-center gap-5 md:gap-10 animate-marquee" style={{ animationDuration: "175s" }}>
                         {/* First set of logos */}
                         <div className="flex shrink-0 items-center gap-5 md:gap-10">
                             {multipliedLogos.map((logo, index) => (
-                                <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-8px] md:mx-[-12px]' : logo.match(/Untitled-19\.png/) ? 'mx-[-20px] md:mx-[-40px]' : logo.match(/Untitled-20\.png/) ? 'mx-[-40px] md:mx-[-65px]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-10px] md:mx-[-15px]' : logo.match(/Untitled-18\.png/) ? 'mx-[-18px] md:mx-[-30px]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[150px] md:min-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[180px] md:min-w-[220px]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[150px] md:min-w-[190px]' : 'min-w-[130px] md:min-w-[170px]'}`}>
-                                    <div className={`relative w-full h-full ${logo.match(/image003\.png/) ? 'min-h-[50px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-h-[60px] md:min-h-[80px] max-w-[170px] md:max-w-[210px]' : logo.includes('Untitled-10.png') ? 'min-h-[70px] md:min-h-[90px] max-w-[170px] md:max-w-[210px]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'min-h-[56px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : 'min-h-[40px] md:min-h-[50px] max-w-[110px] md:max-w-[140px]'}`}>
+                                <div key={`logo-1-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-0.5rem] md:mx-[-0.75rem]' : logo.match(/Untitled-19\.png/) ? 'mx-[-1.25rem] md:mx-[-2.5rem]' : logo.match(/Untitled-20\.png/) ? 'mx-[-2.5rem] md:mx-[-4.0625rem]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-0.625rem] md:mx-[-0.9375rem]' : logo.match(/Untitled-18\.png/) ? 'mx-[-1.125rem] md:mx-[-1.875rem]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[9.375rem] md:min-w-[11.25rem]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[11.25rem] md:min-w-[13.75rem]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[9.375rem] md:min-w-[11.875rem]' : 'min-w-[8.125rem] md:min-w-[10.625rem]'}`}>
+                                    <div className={`relative w-full h-full ${logo.match(/image003\.png/) ? 'min-h-[3.125rem] md:min-h-[4.375rem] max-w-[8.75rem] md:max-w-[11.25rem]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-h-[3.75rem] md:min-h-[5rem] max-w-[10.625rem] md:max-w-[13.125rem]' : logo.includes('Untitled-10.png') ? 'min-h-[4.375rem] md:min-h-[5.625rem] max-w-[10.625rem] md:max-w-[13.125rem]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'min-h-[3.5rem] md:min-h-[4.375rem] max-w-[8.75rem] md:max-w-[11.25rem]' : 'min-h-[2.5rem] md:min-h-[3.125rem] max-w-[6.875rem] md:max-w-[8.75rem]'}`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}
@@ -869,8 +891,8 @@ export default function WhyMBKSection() {
                         {/* Second set of logos for seamless loop */}
                         <div className="flex shrink-0 items-center gap-5 md:gap-10" aria-hidden="true">
                             {multipliedLogos.map((logo, index) => (
-                                <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-8px] md:mx-[-12px]' : logo.match(/Untitled-19\.png/) ? 'mx-[-20px] md:mx-[-40px]' : logo.match(/Untitled-20\.png/) ? 'mx-[-40px] md:mx-[-65px]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-10px] md:mx-[-15px]' : logo.match(/Untitled-18\.png/) ? 'mx-[-18px] md:mx-[-30px]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[150px] md:min-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[180px] md:min-w-[220px]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[150px] md:min-w-[190px]' : 'min-w-[130px] md:min-w-[170px]'}`}>
-                                    <div className={`relative w-full h-full ${logo.match(/image003\.png/) ? 'min-h-[50px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-h-[60px] md:min-h-[80px] max-w-[170px] md:max-w-[210px]' : logo.includes('Untitled-10.png') ? 'min-h-[70px] md:min-h-[90px] max-w-[170px] md:max-w-[210px]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'min-h-[56px] md:min-h-[70px] max-w-[140px] md:max-w-[180px]' : 'min-h-[40px] md:min-h-[50px] max-w-[110px] md:max-w-[140px]'}`}>
+                                <div key={`logo-2-${index}`} className={`flex shrink-0 items-center justify-center ${logo.match(/image003\.png|Untitled-21\.png/) ? 'mx-[-0.5rem] md:mx-[-0.75rem]' : logo.match(/Untitled-19\.png/) ? 'mx-[-1.25rem] md:mx-[-2.5rem]' : logo.match(/Untitled-20\.png/) ? 'mx-[-2.5rem] md:mx-[-4.0625rem]' : logo.match(/Untitled-(9|10|11)\.png/) ? 'mx-[-0.625rem] md:mx-[-0.9375rem]' : logo.match(/Untitled-18\.png/) ? 'mx-[-1.125rem] md:mx-[-1.875rem]' : ''} ${logo.match(/image003\.png/) ? 'min-w-[9.375rem] md:min-w-[11.25rem]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-w-[11.25rem] md:min-w-[13.75rem]' : logo.match(/Untitled-(1|6|10|11)\.png/) ? 'min-w-[9.375rem] md:min-w-[11.875rem]' : 'min-w-[8.125rem] md:min-w-[10.625rem]'}`}>
+                                    <div className={`relative w-full h-full ${logo.match(/image003\.png/) ? 'min-h-[3.125rem] md:min-h-[4.375rem] max-w-[8.75rem] md:max-w-[11.25rem]' : logo.match(/Untitled-(18|19)\.png/) ? 'min-h-[3.75rem] md:min-h-[5rem] max-w-[10.625rem] md:max-w-[13.125rem]' : logo.includes('Untitled-10.png') ? 'min-h-[4.375rem] md:min-h-[5.625rem] max-w-[10.625rem] md:max-w-[13.125rem]' : logo.match(/Untitled-(1|5|6|11)\.png/) ? 'min-h-[3.5rem] md:min-h-[4.375rem] max-w-[8.75rem] md:max-w-[11.25rem]' : 'min-h-[2.5rem] md:min-h-[3.125rem] max-w-[6.875rem] md:max-w-[8.75rem]'}`}>
                                         <Image
                                             src={logo}
                                             alt={`Partner logo ${index + 1}`}

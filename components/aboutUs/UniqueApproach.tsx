@@ -73,7 +73,7 @@ export default function UniqueApproach() {
       ref={sectionRef}
       className="w-full py-16 px-6 md:px-16 lg:px-24 bg-white"
     >
-      <div className="w-full max-w-[1100px] mx-auto flex flex-col items-center">
+      <div className="w-full max-w-[68.75rem] mx-auto flex flex-col items-center">
         {/* Heading */}
         <div ref={headingRef} className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-extrabold text-[#2E0E68] leading-tight">

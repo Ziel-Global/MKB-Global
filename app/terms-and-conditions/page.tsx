@@ -3,12 +3,12 @@ import Header from "@/components/Header";
 export default function TermsAndConditionsPage() {
     return (
         <div className="flex min-h-[100dvh] flex-col w-full bg-white relative font-sans text-gray-900 selection:bg-[#8B3DFF] selection:text-white">
-            <div className="w-full max-w-[1440px] mx-auto flex flex-col relative items-center">
+            <div className="w-full max-w-[90rem] mx-auto flex flex-col relative items-center">
                 <Header />
             </div>
 
             <main className="w-full flex-1 mt-32 mb-24 px-6 md:px-16 lg:px-24">
-                <div className="max-w-[800px] mx-auto">
+                <div className="max-w-[50rem] mx-auto">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-[#2E0E68] mb-8">Terms & Conditions</h1>
                     <div className="space-y-6 text-gray-600 leading-relaxed text-sm md:text-base">
                         <p><strong>Effective Date:</strong> March 2026</p>

@@ -171,7 +171,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="w-full h-screen flex flex-col items-center overflow-hidden bg-white pt-16 md:pt-[100px] max-md:h-auto max-md:overflow-visible max-md:contents">
+        <section ref={sectionRef} className="w-full h-screen flex flex-col items-center overflow-hidden bg-white pt-16 md:pt-[6.25rem] max-md:h-auto max-md:overflow-visible max-md:contents">
 
             <div className="w-full h-full flex flex-col items-center max-md:h-[100dvh] max-md:snap-start max-md:snap-always max-md:overflow-hidden max-md:pt-24 max-md:pb-4">
                 <div ref={contentToHideRef} className="w-full flex flex-col items-center relative z-20">
@@ -193,7 +193,7 @@ export default function Hero() {
 
                 {/* Video section */}
                 <div className="w-full px-2 md:px-8 flex flex-col justify-start items-center flex-1 min-h-0 pb-2 md:pb-6 relative z-10 mt-2 md:mt-4 origin-center">
-                    <div ref={videoContainerRef} className="relative w-[130%] md:w-full max-w-none md:max-w-[1200px] bg-transparent rounded-xl flex justify-center items-center h-full origin-bottom -mt-2 md:mt-0">
+                    <div ref={videoContainerRef} className="relative w-[130%] md:w-full max-w-none md:max-w-[75rem] bg-transparent rounded-xl flex justify-center items-center h-full origin-bottom -mt-2 md:mt-0">
                         <video
                             src="/icons/Final - Scene 0.mp4"
                             className="w-full h-full object-contain object-center rounded-xl"
@@ -206,10 +206,10 @@ export default function Hero() {
                         {/* Overlay Card that appears on scroll */}
                         <div
                             ref={overlayRef}
-                            className="absolute -bottom-2 max-[400px]:bottom-0 md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[94vw] md:w-auto max-w-[440px] md:max-w-[480px] bg-[#2E0E68] text-white rounded-[1.2rem] p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
+                            className="absolute -bottom-2 max-[25rem]:bottom-0 md:bottom-[-8%] left-1/2 -translate-x-1/2 w-[94vw] md:w-auto max-w-[27.5rem] md:max-w-[30rem] bg-[#2E0E68] text-white rounded-[1.2rem] p-3 md:p-4 md:px-6 text-center shadow-2xl z-20"
                         >
-                            <h2 className="text-[13px] max-[400px]:text-[12px] md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
-                            <p className="text-[9.5px] max-[400px]:text-[9px] max-[400px]:leading-[1.4] md:text-[10px] text-gray-300 font-light leading-relaxed mx-auto max-md:px-1">
+                            <h2 className="text-[0.8125rem] max-[25rem]:text-[0.75rem] md:text-base font-semibold mb-1">Built for Qatar&apos;s Oil & Gas Leaders</h2>
+                            <p className="text-[0.5938rem] max-[25rem]:text-[0.5625rem] max-[25rem]:leading-[1.4] md:text-[0.625rem] text-gray-300 font-light leading-relaxed mx-auto max-md:px-1">
                                 We help Qatar&apos;s energy ecosystem transition from reactive operations to intelligent, autonomous, integrated value chains safely, reliably, and at speed.
                             </p>
                         </div>
