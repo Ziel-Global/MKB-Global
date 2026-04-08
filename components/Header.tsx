@@ -66,6 +66,7 @@ export default function Header() {
             <header className={`relative bg-[#EBE9FFF2] backdrop-blur-xl px-6 py-2 flex items-center justify-between ${menuOpen ? "rounded-t-[1.75rem] rounded-b-none" : "rounded-full"}`}>
                 {/* Left Navigation — hidden on mobile (below 849px) */}
                 <nav className="hidden min-[53.0625rem]:flex items-center gap-6 text-sm font-medium text-gray-700">
+                    <Link href="/" className="hover:text-black transition-colors">Home</Link>
                     <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
                     {/* <Link href="/services" className="hover:text-black transition-colors">Services</Link> */}
                     <Link href="/our-partners" className="hover:text-black transition-colors">Our Partners</Link>
@@ -121,6 +122,9 @@ export default function Header() {
                 <div className="bg-[#EBE9FFF2] backdrop-blur-xl rounded-[0_0_28px_28px] overflow-hidden -mt-[2px]">
                     <div className="px-6 pt-7 pb-6">
                         <nav className="flex flex-col items-center gap-8">
+                            <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
+                                Home
+                            </Link>
                             <Link href="/about" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-[#2D1469] hover:text-[#6D28D9] transition-colors">
                                 About Us
                             </Link>
