@@ -40,7 +40,7 @@ export default function CaseStudiesLogoSelector({
                                 type="button"
                                 onClick={() => onSelectPartner(logo.partnerKey)}
                                 aria-pressed={isActive}
-                                className={`rounded-2xl px-5 py-4 transition-all duration-200 ${isActive
+                                className={`rounded-2xl px-5 h-12 md:h-14 overflow-visible flex items-center justify-center transition-all duration-200 ${isActive
                                     ? "bg-[#8B3DFF]/10"
                                     : "bg-transparent hover:bg-gray-50"
                                     }`}
