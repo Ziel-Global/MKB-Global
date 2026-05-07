@@ -4,9 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 const tabs = [
     "Subsurface & Drilling",
@@ -211,14 +210,9 @@ export default function FeaturesSection() {
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const sectionRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const curtainRef = useRef<HTMLDivElement>(null);   // outer clip
+    const curtainRef = useRef<HTMLDivElement>(null);   // outer clip + pin target
     const innerRef = useRef<HTMLDivElement>(null);     // inner slide
-    const isTransitioningRef = useRef(false);
-    const requireSecondBackScrollRef = useRef(false);
-    const backScrollCooldownUntilRef = useRef(0);
-    const blockedBackAttemptsRef = useRef(0);
-    const requiredBackAttempts = 2;
-    const recenterFrameRef = useRef<number | null>(null);
+    const featureTriggerRef = useRef<ScrollTrigger | null>(null);
     const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
     const currentCards = tabData[activeTab] || [];
@@ -240,155 +234,64 @@ export default function FeaturesSection() {
         });
     }, [currentVideo]);
 
-    const smoothRecenterToFeatures = () => {
-        const sectionTop = sectionRef.current?.offsetTop ?? window.scrollY;
-        const start = window.scrollY;
-        const target = sectionTop + 2;
-        const distance = target - start;
-
-        if (Math.abs(distance) < 2) {
-            window.scrollTo({ top: target, behavior: "auto" });
-            return;
-        }
-
-        if (recenterFrameRef.current) {
-            cancelAnimationFrame(recenterFrameRef.current);
-            recenterFrameRef.current = null;
-        }
-
-        const duration = 260;
-        const startedAt = performance.now();
-        const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
-
-        const animate = (now: number) => {
-            const progress = Math.min((now - startedAt) / duration, 1);
-            const eased = easeOut(progress);
-            window.scrollTo({ top: start + distance * eased, behavior: "auto" });
-
-            if (progress < 1) {
-                recenterFrameRef.current = requestAnimationFrame(animate);
-            } else {
-                recenterFrameRef.current = null;
-            }
-        };
-
-        recenterFrameRef.current = requestAnimationFrame(animate);
-    };
-
 
     useEffect(() => {
         const mm = gsap.matchMedia();
         mm.add("(min-width: 768px)", () => {
-            // Inner div starts fully translated down (hidden inside clip, no DOM gap)
-            gsap.set(innerRef.current, { yPercent: 100 });
+            // No curtain reveal: the section is visible the moment its pin
+            // engages. This eliminates the blank white frame at the
+            // Hero→Features handoff (curtain hidden = nothing on screen).
+            // Content gets a subtle rise/fade so the transition still feels
+            // intentional, but the section's dark video background covers
+            // the viewport from frame 0.
+            gsap.set(contentRef.current, { y: 30, opacity: 0 });
 
-            const handleHeroExit = () => {
-                if (isTransitioningRef.current) return;
-                isTransitioningRef.current = true;
-
-                // Lock scroll so user can't linger between sections
-                document.body.style.overflow = "hidden";
-
-                // Snap into view immediately
-                const el = curtainRef.current;
-                if (el) {
-                    setTimeout(() => {
-                        el.scrollIntoView({ behavior: "instant" });
-                    }, 20);
-                }
-
-                // Curtain inner slides up — cinematic reveal
-                gsap.to(innerRef.current, {
-                    yPercent: 0,
-                    duration: 1.0,
-                    ease: "power3.out",
-                    delay: 0.04,
-                    onComplete: () => {
-                        // Unlock scroll once fully revealed
-                        isTransitioningRef.current = false;
-                        document.body.style.overflow = "";
-                        ScrollTrigger.refresh();
-                    },
-                });
-
-                // Content rises inside as section appears
-                gsap.fromTo(contentRef.current,
-                    { y: 100, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out", delay: 0.35 }
+            const dispatchFeatureSteps = () => {
+                const trigger = featureTriggerRef.current;
+                if (!trigger || typeof window === "undefined") return;
+                const steps = [Math.max(0, trigger.end - 2)];
+                window.dispatchEvent(
+                    new CustomEvent("mbk-scroll-steps", {
+                        detail: { source: "features", steps },
+                    })
                 );
             };
 
-            window.addEventListener("hero-exit", handleHeroExit);
-
             const ctx = gsap.context(() => {
-                gsap.timeline({
+                const tl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: sectionRef.current,
+                        trigger: curtainRef.current,
                         start: "top top",
-                        end: "+=180%",
-                        pin: true,
-                        scrub: 1,
-                        onEnterBack: () => {
-                            // Coming back from WhyMBK: first upward overscroll should stop here.
-                            requireSecondBackScrollRef.current = true;
-                            backScrollCooldownUntilRef.current = 0;
-                            blockedBackAttemptsRef.current = 0;
-                        },
-                        onLeaveBack: () => {
-                            const now = performance.now();
-
-                            if (now < backScrollCooldownUntilRef.current) {
-                                smoothRecenterToFeatures();
-                                return;
-                            }
-
-                            if (requireSecondBackScrollRef.current) {
-                                requireSecondBackScrollRef.current = false;
-                                backScrollCooldownUntilRef.current = now + 550;
-                                blockedBackAttemptsRef.current = 1;
-                                smoothRecenterToFeatures();
-                                return;
-                            }
-
-                            if (blockedBackAttemptsRef.current < requiredBackAttempts) {
-                                blockedBackAttemptsRef.current += 1;
-                                backScrollCooldownUntilRef.current = now + 500;
-                                smoothRecenterToFeatures();
-                                return;
-                            }
-
-                            if (isTransitioningRef.current) return;
-                            isTransitioningRef.current = true;
-
-                            // User scrolled back up — jump straight to Hero with no in-between gap
-                            document.body.style.overflow = "hidden";
-
-                            requestAnimationFrame(() => {
-                                window.dispatchEvent(new CustomEvent("features-exit-back"));
-                                gsap.set(contentRef.current, { y: 100, opacity: 0 });
-                                gsap.set(innerRef.current, { yPercent: 100 });
-                                blockedBackAttemptsRef.current = 0;
-                                backScrollCooldownUntilRef.current = 0;
-                                isTransitioningRef.current = false;
-                            });
-                        },
+                        end: "+=80%",
+                        pin: curtainRef.current,
+                        scrub: true,
+                        invalidateOnRefresh: true,
                     }
                 });
 
+                // Content rises and fades in over the first portion of the pin.
+                tl.to(contentRef.current, {
+                    y: 0,
+                    opacity: 1,
+                    ease: "power2.out",
+                    duration: 0.5,
+                }, 0);
+
+                // Hold final state for the rest of the pin.
+                tl.to({}, { duration: 0.5 });
+
+                featureTriggerRef.current = tl.scrollTrigger ?? null;
+                dispatchFeatureSteps();
+
             }, sectionRef);
+
+            const handleRefresh = () => dispatchFeatureSteps();
+            ScrollTrigger.addEventListener("refresh", handleRefresh);
 
             return () => {
                 ctx.revert();
-                isTransitioningRef.current = false;
-                requireSecondBackScrollRef.current = false;
-                backScrollCooldownUntilRef.current = 0;
-                blockedBackAttemptsRef.current = 0;
-                if (recenterFrameRef.current) {
-                    cancelAnimationFrame(recenterFrameRef.current);
-                    recenterFrameRef.current = null;
-                }
-                document.body.style.overflow = "";
-                window.removeEventListener("hero-exit", handleHeroExit);
+                featureTriggerRef.current = null;
+                ScrollTrigger.removeEventListener("refresh", handleRefresh);
             };
         });
 

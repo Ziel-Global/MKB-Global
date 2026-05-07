@@ -89,6 +89,7 @@ export default function WhyMBKSection() {
 
     // Phase 6 ref
     const phase6Ref = useRef<HTMLDivElement>(null);
+    const stepProgressesRef = useRef<number[] | null>(null);
 
     // Drag-scroll refs for Phase 5 image strip
     const dragScrollRef = useRef<HTMLDivElement>(null);
@@ -157,16 +158,29 @@ export default function WhyMBKSection() {
 
         const mm = gsap.matchMedia();
         mm.add("(min-width: 768px)", () => {
+            const dispatchWhySteps = () => {
+                const trigger = stRef.current;
+                const progresses = stepProgressesRef.current;
+                if (!trigger || !progresses || typeof window === "undefined") return;
+
+                const span = trigger.end - trigger.start;
+                const steps = progresses.map((progress) =>
+                    Math.max(0, trigger.start + span * progress)
+                );
+
+                window.dispatchEvent(
+                    new CustomEvent("mbk-scroll-steps", {
+                        detail: { source: "why-mbk", steps },
+                    })
+                );
+            };
+
             const ctx = gsap.context(() => {
                 // Tighter durations for snappier transitions (shorter because staggered animations are removed)
                 const totalDuration = 18.0;
 
-                // Collect snap points (normalized 0–1) for each phase boundary
-                const snapPoints: number[] = [];
-
                 const isMobile = window.innerWidth < 768;
                 const scrollMultiplier = isMobile ? 30 : 55;
-                const scrubValue = isMobile ? 1.2 : 0.6;
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -174,7 +188,11 @@ export default function WhyMBKSection() {
                         start: "top top",
                         end: `+=${totalDuration * scrollMultiplier}%`,
                         pin: true,
-                        scrub: scrubValue,
+                        // scrub: true → timeline tracks scroll exactly with no
+                        // lag. Combined with the controller's smooth snap, the
+                        // whole transition plays in lockstep with the scroll
+                        // motion, no trailing animation after snap settles.
+                        scrub: isMobile ? 1.2 : true,
                         anticipatePin: 1,
                         invalidateOnRefresh: true,
                     },
@@ -188,7 +206,6 @@ export default function WhyMBKSection() {
                 // --- Transition to "Why Partners" Section ---
                 // Phase 1 just stays pinned for reading
                 const transitionStart = 2.5;
-                snapPoints.push(transitionStart / totalDuration);
 
                 tl.to(leftPanelRef.current, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, transitionStart);
 
@@ -198,19 +215,22 @@ export default function WhyMBKSection() {
                     transitionStart
                 );
 
+                // rightPanel enters mid-exit (overlap by 0.5s) so the screen
+                // is never empty during the cross-fade.
                 tl.fromTo(
                     rightPanelRef.current,
                     { opacity: 0, x: 50 },
                     { opacity: 1, x: 0, duration: 1.0, ease: "power2.out" },
-                    transitionStart + 0.8
+                    transitionStart + 0.3
                 );
 
                 // --- Phase 3: "We amplify partners by" ---
                 const phase3Start = transitionStart + 2.5;
-                snapPoints.push(phase3Start / totalDuration);
 
-                tl.to(rightPanelRef.current, { opacity: 0, y: -20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
-                tl.to(marqueeRef.current, { opacity: 0, y: 20, duration: 0.8, ease: "power2.inOut" }, phase3Start);
+                // Phase 2 exits: rightPanel slides UP off-screen, marquee slides DOWN,
+                // video repositions. Same strong directional pattern as phases 4 and 5.
+                tl.to(rightPanelRef.current, { y: "-110%", opacity: 0, duration: 0.8, ease: "power2.inOut" }, phase3Start);
+                tl.to(marqueeRef.current, { y: "110%", opacity: 0, duration: 0.8, ease: "power2.inOut" }, phase3Start);
 
                 tl.to(
                     videoContainerRef.current,
@@ -218,16 +238,16 @@ export default function WhyMBKSection() {
                     phase3Start
                 );
 
+                // Phase 3 rises from below mid-exit — consistent with phases 4 → 5 slide.
                 tl.fromTo(
                     phase3Ref.current,
-                    { opacity: 0, y: 50 },
-                    { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" },
-                    phase3Start + 0.6
+                    { y: "100%", opacity: 0 },
+                    { y: "0%", opacity: 1, duration: 1.0, ease: "power2.out" },
+                    phase3Start + 0.3
                 );
 
                 // --- Phase 4: "The MBK Advantage" ---
                 const phase4Start = phase3Start + 3.0;
-                snapPoints.push(phase4Start / totalDuration);
 
                 // Exit: video LEFT, phase3 RIGHT
                 tl.to(
@@ -241,21 +261,18 @@ export default function WhyMBKSection() {
                     phase4Start
                 );
 
-                // Entrance: Phase 4 rises
+                // Entrance: Phase 4 rises — starts mid-exit (overlap by 0.5s)
+                // so it covers the gap that previously showed as blank white.
                 tl.fromTo(
                     phase4Ref.current,
                     { y: "100%", opacity: 0 },
                     { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
-                    phase4Start + 1.0
+                    phase4Start + 0.3
                 );
 
-                // Snap point when Phase 4 is fully visible
-                const phase4VisibleAt = (phase4Start + 2.0) / totalDuration;
-                snapPoints.push(phase4VisibleAt);
 
                 // --- Phase 5: "Go Further. Go Faster. Go Together." ---
                 const phase5Start = phase4Start + 3.0;
-                snapPoints.push(phase5Start / totalDuration);
 
                 // Exit Phase 4
                 tl.to(
@@ -264,21 +281,17 @@ export default function WhyMBKSection() {
                     phase5Start
                 );
 
-                // Entrance Phase 5
+                // Entrance Phase 5 — overlaps with Phase 4 exit (slides up
+                // while Phase 4 slides up) so the screen is always covered.
                 tl.fromTo(
                     phase5Ref.current,
                     { y: "100%", opacity: 0 },
                     { y: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
-                    phase5Start + 0.8
+                    phase5Start + 0.3
                 );
-
-                // Snap point when Phase 5 is fully visible
-                const phase5VisibleAt = (phase5Start + 1.8) / totalDuration;
-                snapPoints.push(phase5VisibleAt);
 
                 // --- Phase 6: "Let's Build the Future" ---
                 const phase5ExitStart = phase5Start + 3.5;
-                snapPoints.push(phase5ExitStart / totalDuration);
 
                 tl.to(
                     phase5TopRef.current,
@@ -291,25 +304,47 @@ export default function WhyMBKSection() {
                     phase5ExitStart
                 );
 
-                // Phase 6 slides in from the RIGHT
+                // Phase 6 slides in from the RIGHT — overlaps with Phase 5
+                // exit so the contact form is sliding in while the cards are
+                // still leaving (no blank middle frame).
                 tl.fromTo(
                     phase6Ref.current,
                     { x: "100%", opacity: 0 },
                     { x: "0%", opacity: 1, ease: "power2.out", duration: 1.0 },
-                    phase5ExitStart + 0.8
+                    phase5ExitStart + 0.3
                 );
 
-                // Final snap point (end)
-                snapPoints.push(1);
+                // Use tl.duration() — the REAL GSAP timeline length — as the
+                // denominator. totalDuration (18) is only for the scroll range;
+                // the scrub maps [scrollStart, scrollEnd] → [0, tl.duration()].
+                // Using totalDuration (18) here caused every snap to land
+                // mid-animation because 18 ≠ actual timeline length (~15.8).
+                const d = tl.duration();
+
+                // Each "+ 1.3" = entrance offset (0.3) + entrance duration (1.0):
+                // the exact moment the incoming phase is fully on-screen.
+                stepProgressesRef.current = [
+                    0,                                    // Phase 1 — "With MBK, customers achieve"
+                    (transitionStart + 1.3) / d,          // Phase 2 — "Why Partners Accelerate…"
+                    (phase3Start      + 1.3) / d,         // Phase 3 — "We amplify partners by"
+                    (phase4Start      + 1.3) / d,         // Phase 4 — "The MBK Advantage"
+                    (phase5Start      + 1.3) / d,         // Phase 5 — "Go Further. Faster. Together."
+                    1,                                    // Phase 6 — Contact form (end of timeline)
+                ];
+
+                dispatchWhySteps();
 
             }, sectionRef);
 
             // Recalculate all ScrollTrigger positions after both sections have mounted.
             const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 300);
+            const handleRefresh = () => dispatchWhySteps();
+            ScrollTrigger.addEventListener("refresh", handleRefresh);
 
             return () => {
                 clearTimeout(refreshTimer);
                 ctx.revert();
+                ScrollTrigger.removeEventListener("refresh", handleRefresh);
             };
         });
 

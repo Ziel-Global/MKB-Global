@@ -13,83 +13,36 @@ export default function Hero() {
     const videoContainerRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
     const heroTriggerRef = useRef<ScrollTrigger | null>(null);
-    const isReturningRef = useRef(false);
-    const scrollFrameRef = useRef<number | null>(null);
-    const preventTopUntilRef = useRef(0);
-    const unlockTimerRef = useRef<number | null>(null);
-
-    const smoothScrollTo = (target: number, duration = 650, onComplete?: () => void) => {
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const start = window.scrollY;
-        const distance = target - start;
-
-        if (prefersReducedMotion || Math.abs(distance) < 2) {
-            window.scrollTo({ top: target, behavior: "auto" });
-            onComplete?.();
-            return;
-        }
-
-        if (scrollFrameRef.current) {
-            cancelAnimationFrame(scrollFrameRef.current);
-            scrollFrameRef.current = null;
-        }
-
-        const startTime = performance.now();
-        const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-
-        const animate = (now: number) => {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = easeOutCubic(progress);
-            window.scrollTo({ top: start + distance * eased, behavior: "auto" });
-
-            if (progress < 1) {
-                scrollFrameRef.current = requestAnimationFrame(animate);
-            } else {
-                scrollFrameRef.current = null;
-                onComplete?.();
-            }
-        };
-
-        scrollFrameRef.current = requestAnimationFrame(animate);
-    };
+    // Fraction [0-1] within the pin range where the overlay card is fully visible.
+    // Computed once from tl.duration() so it stays accurate after any tween changes.
+    const overlayFracRef = useRef(0.625);
 
     useEffect(() => {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 868px)", () => {
-            const isMobile = false;
-
-            // When FeaturesSection reverse-transitions back, smoothly bring Hero card into view
-            const handleFeaturesBack = () => {
-                if (isReturningRef.current) return;
-                isReturningRef.current = true;
-
+            const dispatchHeroSteps = () => {
                 const trigger = heroTriggerRef.current;
-                const fallbackTop = sectionRef.current?.offsetTop ?? 0;
-                const targetScrollRaw = trigger
-                    ? trigger.start + (trigger.end - trigger.start) * 0.76
-                    : fallbackTop + window.innerHeight * 1.2;
-                const targetScroll = Math.max(0, targetScrollRaw);
+                if (!trigger || typeof window === "undefined") return;
 
-                document.body.style.overflow = "hidden";
+                const span = trigger.end - trigger.start;
 
-                smoothScrollTo(targetScroll, 700, () => {
-                    preventTopUntilRef.current = performance.now() + 900;
-                    if (unlockTimerRef.current) {
-                        window.clearTimeout(unlockTimerRef.current);
-                    }
-                    unlockTimerRef.current = window.setTimeout(() => {
-                        document.body.style.overflow = "";
-                        unlockTimerRef.current = null;
-                    }, 180);
+                // Desktop snap points:
+                //  1. Hero start (full previous section when scrolling back up).
+                //  2. Overlay card fully revealed (purple-card checkpoint).
+                // No Hero-end snap: the very next swipe after this checkpoint
+                // lands on the Features section.
+                const steps = [
+                    Math.max(0, trigger.start + 2),
+                    Math.max(0, trigger.start + span * overlayFracRef.current),
+                ];
 
-                    ScrollTrigger.refresh();
-                    isReturningRef.current = false;
-                });
+                window.dispatchEvent(
+                    new CustomEvent("mbk-scroll-steps", {
+                        detail: { source: "hero", steps },
+                    })
+                );
             };
-
-            window.addEventListener("features-exit-back", handleFeaturesBack);
 
             const ctx = gsap.context(() => {
                 const tl = gsap.timeline({
@@ -98,15 +51,8 @@ export default function Hero() {
                         start: "top top",
                         end: "+=200%",
                         pin: true,
-                        scrub: 1,
-                        onLeave: () => {
-                            window.dispatchEvent(new CustomEvent("hero-exit"));
-                        },
-                        onLeaveBack: (self) => {
-                            if (performance.now() < preventTopUntilRef.current) {
-                                window.scrollTo({ top: self.start + 2, behavior: "auto" });
-                            }
-                        },
+                        scrub: true,
+                        invalidateOnRefresh: true,
                     }
                 });
 
@@ -120,15 +66,15 @@ export default function Hero() {
                     ease: "power2.inOut"
                 }, 0);
 
-                // Step 2: Scale up the video — less on mobile to prevent overflow
+                // Step 2: Scale up the video
                 tl.to(videoContainerRef.current, {
-                    scale: isMobile ? 1.3 : 1.6,
-                    y: isMobile ? -40 : -80,
+                    scale: 1.6,
+                    y: -80,
                     duration: 0.5,
                     ease: "power2.inOut"
                 }, 0.3);
 
-                // Step 3: Fade in and slide up the overlay card last
+                // Step 3: Overlay card rises into view
                 tl.fromTo(overlayRef.current, {
                     opacity: 0,
                     y: 40,
@@ -139,7 +85,11 @@ export default function Hero() {
                     ease: "power2.out"
                 }, 0.6);
 
-                // Step 4: Card drops — cinematic exit before next section magically appears
+                // Gap: overlay card stays fully visible. The controller snaps
+                // here (step 1) so the user can read the card before scrolling on.
+                // Nothing animates between t=1.0 and t=1.1.
+
+                // Step 4: Card drops — cinematic exit before Features slides in
                 tl.to(overlayRef.current, {
                     y: "240%",
                     opacity: 0,
@@ -147,23 +97,22 @@ export default function Hero() {
                     ease: "power3.in"
                 }, 1.1);
 
+                // Compute overlay-visible fraction using the real timeline duration
+                // so the snap always lands on the finished card state, not mid-fade.
+                // Overlay finishes entering at t=1.0; tl.duration() ≈ 1.6.
+                overlayFracRef.current = 1.0 / tl.duration();
+
+                dispatchHeroSteps();
+
             }, sectionRef);
+
+            const handleRefresh = () => dispatchHeroSteps();
+            ScrollTrigger.addEventListener("refresh", handleRefresh);
 
             return () => {
                 ctx.revert();
                 heroTriggerRef.current = null;
-                if (scrollFrameRef.current) {
-                    cancelAnimationFrame(scrollFrameRef.current);
-                    scrollFrameRef.current = null;
-                }
-                if (unlockTimerRef.current) {
-                    window.clearTimeout(unlockTimerRef.current);
-                    unlockTimerRef.current = null;
-                }
-                preventTopUntilRef.current = 0;
-                isReturningRef.current = false;
-                document.body.style.overflow = "";
-                window.removeEventListener("features-exit-back", handleFeaturesBack);
+                ScrollTrigger.removeEventListener("refresh", handleRefresh);
             };
         });
 
@@ -221,4 +170,3 @@ export default function Hero() {
         </section>
     );
 }
-

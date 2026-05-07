@@ -3,10 +3,12 @@ import Hero from "@/components/Hero";
 import FeaturesSection from "@/components/FeaturesSection";
 import WhyMBKSection from "@/components/WhyMBKSection";
 import Footer from "@/components/Footer";
+import DesktopScrollController from "@/components/DesktopScrollController";
 
 export default function Home() {
   return (
     <div className="flex min-h-[100dvh] flex-col w-full bg-white relative">
+      <DesktopScrollController />
       <style>{`
         @media (max-width: 767px) {
           /* Hide the global layout footer on the homepage mobile view */
