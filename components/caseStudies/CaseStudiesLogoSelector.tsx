@@ -8,7 +8,6 @@ export const caseStudyPartnerLogos = [
     { src: "/slider-images/39bdd707115fdf82d1d94abcc32f13bfaf0b9231.png", alt: "Kongsberg", partnerKey: "kongsberg" },
     { src: "/slider-images/SP3D-logo1-3-300x157-removebg-preview.png", alt: "SP3D", partnerKey: "sp3d" },
     { src: "/slider-images/Frame 10.png", alt: "Optvance AI", partnerKey: "optvance" },
-    { src: "/slider-images/applied-computing-new.png", alt: "Applied Computing", partnerKey: "applied.computing" },
 
 ] as const;
 
@@ -30,7 +29,6 @@ export default function CaseStudiesLogoSelector({
                         const isActive = activePartner === logo.partnerKey;
                         const isInnowise = logo.partnerKey === "innowise";
                         const isKongsberg = logo.partnerKey === "kongsberg";
-                        const isAppliedComputing = logo.partnerKey === "applied.computing";
                         const isOptvance = logo.partnerKey === "optvance";
                         const isDigitalEnterprises = logo.partnerKey === "digital.enterprises";
 
@@ -51,7 +49,7 @@ export default function CaseStudiesLogoSelector({
                                     width={220}
                                     height={60}
                                     className={`w-auto object-contain transition-all duration-200 ${isActive ? "grayscale-0" : "grayscale"
-                                        } ${isInnowise ? "h-5 md:h-6" : isKongsberg ? "h-12 md:h-14" : isAppliedComputing ? "h-7 md:h-9" : isOptvance ? "h-6 md:h-8" : isDigitalEnterprises ? "h-16 md:h-20" : "h-8 md:h-10"}`}
+                                        } ${isInnowise ? "h-5 md:h-6" : isKongsberg ? "h-12 md:h-14" : isOptvance ? "h-6 md:h-8" : isDigitalEnterprises ? "h-16 md:h-20" : "h-8 md:h-10"}`}
                                 />
                             </button>
                         );

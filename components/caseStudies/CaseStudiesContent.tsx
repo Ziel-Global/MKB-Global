@@ -56,13 +56,6 @@ export default function CaseStudiesContent() {
                 </div>
             )}
 
-            {activePartner === "applied.computing" && (
-                <div className="w-full max-w-[62.5rem] mx-auto px-6 md:px-8 py-8 text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
-                    <p className="text-[#4b5563] text-[0.95rem] md:text-[1.05rem] leading-relaxed font-medium">
-                        Applied Computing is an industrial AI company delivering real-time operational intelligence for the energy sector. The company develops advanced AI and physics-based models that utilize 100% of real-time operational data to optimize performance, reduce false alarms, and improve predictive accuracy in complex industrial environments such as refineries, LNG facilities, and petrochemical plants. Its flagship platform enables faster, safer, and more reliable operational decision-making.
-                    </p>
-                </div>
-            )}
 
             <CaseStudiesGrid partnerFilter={activePartner} />
         </>
