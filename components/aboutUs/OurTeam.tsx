@@ -72,7 +72,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Muhammad Ibrahim",
-    role: "CTO Upstream",
+    role: "Upstream Director",
     image: "/our-team-images/Dr. Muhammad Ibrahim.jpg",
     bio: [
       "Muhammad Ibrahim is an upstream technology specialist with nearly 30 years of experience spanning field development planning, reservoir management, asset optimization, and digital oilfield implementation. His career bridges subsurface engineering, technology integration, and operational performance across producing and late life assets including of being the middle east Upstream Technology Transformation Director at SLB.",
@@ -83,12 +83,12 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Calum Johnson",
-    role: "Team Member",
+    role: "Manager, Digital Twins",
     image: "/our-team-images/Calum Johnson.jpg",
   },
   {
     name: "James Mbuvi",
-    role: "Team Member",
+    role: "Office Manager",
     image: "/our-team-images/James Mbuvi.jpg",
   },
 ];
