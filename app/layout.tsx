@@ -1,5 +1,6 @@
 import "./globals.css";
 import Footer from "@/components/Footer";
+import RebrandBanner from "@/components/RebrandBanner";
 // import EmergencyPopup from "@/components/EmergencyPopup";
 // import FloatingSupportButton from "@/components/FloatingSupportButton";
 import { Poppins } from "next/font/google";
@@ -69,6 +70,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} font-sans flex flex-col min-h-screen bg-white`}>
         {children}
         <Footer />
+        <RebrandBanner />
         {/* <EmergencyPopup /> */}
         {/* <FloatingSupportButton /> */}
       </body>

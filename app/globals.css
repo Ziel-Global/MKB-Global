@@ -189,3 +189,26 @@
 .animate-fadeIn {
   animation: fadeIn 0.25s ease-out;
 }
+/* Rebrand announcement banner */
+@keyframes rb-float-a {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-24px, 18px); }
+}
+
+@keyframes rb-float-b {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(26px, -16px); }
+}
+
+@keyframes rb-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.rb-float-a { animation: rb-float-a 9s ease-in-out infinite; }
+.rb-float-b { animation: rb-float-b 11s ease-in-out infinite; }
+.rb-shimmer { animation: rb-shimmer 4s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-float-a, .rb-float-b, .rb-shimmer { animation: none; }
+}
